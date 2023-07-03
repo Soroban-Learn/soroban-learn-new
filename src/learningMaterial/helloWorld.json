@@ -1,0 +1,77 @@
+{
+  "title": "Hello World",
+  "steps": [
+    {
+      "stepTitle": "",
+      "sectionContent": "This is exercise will help you in creating your first \"Hello World!\" contract.\n #### Create New Project\n To the right and bottom of this application you should see a tab for the console. To create your project type the following and press “enter”\n ```\ncargo new --lib hello-world\n```",
+      "stepType": "terminal",
+      "instructions": [
+        {
+          "type": "terminal",
+          "input": "cargo new --lib hello-world",
+          "output": "Something Created"
+        }
+      ]
+    },
+    {
+      "stepTitle": "Configure the Library Type",
+      "sectionContent": "We have opened the `Cargo.toml` file. This file is used to define characteristics about your project.\n We need to define our package name and version. To do this, add the following code below the existing code.\n ```\n[package]\nname = \"project-name\"\nversion = \"0.1.0\"\nedition = \"2021\"\n```",
+      "stepType": "code",
+      "instructions": [
+        {
+          "type": "code",
+          "input": "[package]name=\"project-name\"version=\"0.1.0\"edition=\"2021\"",
+          "output": "Nice"
+        }
+      ]
+    },
+    {
+      "stepTitle": "Configure the Library Type",
+      "sectionContent": "Next, we need to define our `create-type`.\n This is required when we build our contract.\n ```\n[lib]\n crate-type = [\"cdylib\"]\n```",
+      "stepType": "code",
+      "instructions": [
+        {
+          "type": "code",
+          "input": "[lib]crate-type=[\"cdylib\"]",
+          "output": "Nice"
+        }
+      ]
+    },
+    {
+      "stepTitle": "Import the SDK and Features",
+      "sectionContent": "Add the following sections to the Cargo.toml that will import the soroban-sdk, and configure a set of features explained below.\n ```\n [dependencies]\n soroban-sdk = \"0.8.4\"\n\n [dev_dependencies]\n soroban-sdk = { version = \"0.8.4\", features = [\"testutils\"] }\n\n [features]\n testutils = [\"soroban-sdk/testutils\"]\n ```\n The `features` list includes a `testutils` feature, which will cause additional test utilities to be generated for calling the contract in tests.",
+      "stepType": "code",
+      "instructions": [
+        {
+          "type": "code",
+          "input": "[dependencies]soroban-sdk=\"0.8.4\"[dev_dependencies]soroban-sdk={version=\"0.8.4\",features=[\"testutils\"]}[features]testutils=[\"soroban-sdk/testutils\"]",
+          "output": "Nice"
+        }
+      ]
+    },
+    {
+      "stepTitle": "Configure the Release Profile",
+      "sectionContent": "Configuring the `release` profile to optimize the contract build is critical. Soroban contracts have a maximum size of 256KB. Rust programs, even small ones, without these configurations almost always exceed this size.\n\n Add the following to your `Cargo.toml` and use the release profile when building.\n\n ```\n [profile.release]\n opt-level = \"z\"\n overflow-checks = true\n debug = 0\n strip = \"symbols\"\n debug-assertions = false\n panic = \"abort\"\n codegen-units = 1\n lto = true\n ```",
+      "stepType": "code",
+      "instructions": [
+        {
+          "type": "code",
+          "input": "[profile.release]opt-level=\"z\"overflow-checks=truedebug=0strip=\"symbols\"debug-assertions=falsepanic=\"abort\"codegen-units=1lto=true",
+          "output": "Nice"
+        }
+      ]
+    },
+    {
+      "stepTitle": "Configure the release-with-logs Profile",
+      "sectionContent": "Configuring a `release-with-logs` profile can be useful for if you need to build a `.wasm` that has logs enabled for printing debug logs when using the soroban-cli. Note that this is not necessary to access debug logs in tests or to use a step-through-debugger.\n\n Add the following to your `Cargo.toml` and use the `release-with-logs` profile when you need logs.\n\n ```\n [profile.release-with-logs]\n inherits = \"release\"\n debug-assertions = true\n ```",
+      "stepType": "code",
+      "instructions": [
+        {
+          "type": "code",
+          "input": "[profile.release-with-logs]inherits=\"release\"debug-assertions=true",
+          "output": "Nice"
+        }
+      ]
+    }
+  ]
+}
