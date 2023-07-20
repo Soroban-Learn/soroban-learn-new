@@ -1,4 +1,4 @@
-import { type FC, useCallback } from "react";
+import { type FC, type MouseEvent, useCallback } from "react";
 import Image from "next/image";
 import cx from "classnames";
 
@@ -20,7 +20,8 @@ export interface TabsProps {
 const Tabs: FC<TabsProps> = ({ tabs, activeTabKey, setActiveTabKey, onTabClose }) => {
   const changeKey = useCallback((key: string) => setActiveTabKey(key), [setActiveTabKey]);
 
-  const close = useCallback((key: string) => {
+  const close = useCallback((key: string, e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     if (onTabClose) {
       onTabClose(key);
     }
@@ -56,7 +57,7 @@ const Tabs: FC<TabsProps> = ({ tabs, activeTabKey, setActiveTabKey, onTabClose }
           </span>
           {!!onTabClose && (
             <button
-              onClick={() => close(tab.key)}
+              onClick={(e: MouseEvent<HTMLButtonElement>) => close(tab.key, e)}
               className="pl-4 opacity-50 hover:opacity-100 relative z-20"
             >
               <Image src={Times} alt="close" />
