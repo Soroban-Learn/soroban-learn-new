@@ -1,103 +1,77 @@
-import React, { useRef, useState, useEffect } from "react";
-import { useRecoilState } from "recoil";
+import React, { useCallback, useState, useEffect, useMemo } from "react";
 
-import CodeMirror, { ReactCodeMirrorRef } from "@uiw/react-codemirror";
-import { EditorState } from "@codemirror/state";
-import { rust } from "@codemirror/lang-rust";
-import { ViewPlugin, Decoration, EditorView } from "@codemirror/view";
-import { Extension } from "@codemirror/state";
-import { RangeSet } from "@codemirror/rangeset";
-import { useCodeMirror } from "@uiw/react-codemirror";
+// Components
+import Tabs, { type Tab } from '@/components/common/Tabs';
+import Editor from "./Editor";
 
-import {
-  ideCodeState,
-  ideEditRulesState,
-  LineNumbersState,
-  BlockedRangesState,
-} from "@/utils/recoilState";
-
-let editor = null;
+interface IDEFile {
+  title: string;
+  key: string;
+  code?: string;
+}
 
 interface IDEProps {
   isDisabled: boolean;
+  defaultFiles: IDEFile[];
 }
 
-function IDE({ isDisabled }: IDEProps) {
-  const [ideCode, setIdeCode] = useRecoilState(ideCodeState);
-  const [editRules, setEditRules] = useRecoilState(ideEditRulesState);
-  const [lineNumbers, setLineNumbers] = useRecoilState(LineNumbersState);
+function IDE({ isDisabled, defaultFiles }: IDEProps) {
+  const [files, setFiles] = useState<IDEFile[]>([]);
+  const [activeTabKey, setActiveTabKey] = useState('');
+  const [activeEditorCode, setActiveEditorCode] = useState<string>('');
 
-  const [blockedRanges, setBlockedRanges] = useRecoilState(BlockedRangesState);
+  const removeTab = useCallback((key: string) => {
+    const newFiles = files.filter((file: Tab) => file.key !== key);
+    setActiveEditorCode('');
+    setFiles(newFiles);
+    setActiveTabKey(newFiles[0]?.key);
+    setActiveEditorCode(newFiles[0]?.code || '');
+  }, [files]);
 
-  const FontSizeTheme = EditorView.theme({
-    "&": {
-      fontSize: "12pt",
-    },
-  });
+  const changeTab = useCallback((key: string) => {
+    if (key === activeTabKey) return;
+    const file = files.find((file) => file.key === key);
+    const newFiles = files.map((file) => {
+      if (file.key === activeTabKey) {
+        return {
+          ...file,
+          code: activeEditorCode,
+        }
+      }
+      return file;
+    }, []);
 
-  const FontSizeThemeExtension = [FontSizeTheme];
+    setFiles(newFiles);
+    setActiveEditorCode(file?.code || '');
+    setActiveTabKey(key);
+  }, [activeTabKey, activeEditorCode, files]);
 
-  const onChange = React.useCallback(
-    (value: string | ((currVal: string) => string), viewUpdate: any) => {
-      setIdeCode(value);
-    },
-    []
-  );
+  useEffect(() => {
+    if (defaultFiles?.length) {
+      setActiveTabKey(defaultFiles[0]?.key);
+    }
+  }, [defaultFiles]);
 
-  const getReadOnlyRanges = (targetState: {
-    doc: {
-      line: (arg0: number) => { (): any; new (): any; from: any; to: any };
-    };
-  }) => {
-    const ranges: { from: any; to: any }[] = [];
-
-    lineNumbers.forEach((line) => {
-      ranges.push({
-        from: targetState.doc.line(line + 1).from,
-        to: targetState.doc.line(line + 1).to,
-      });
-    });
-
-    return ranges;
-  };
-
-  const [editorState, setEditorState] = useState();
-  const [editorView, setEditorView] = useState();
-
-  const readOnlyTransactionFilter = () => {
-    return EditorState.transactionFilter.of((tr) => {
-      return [];
-    });
-  };
-
-  readOnlyTransactionFilter();
-
-  const onCreateEditor = (view: any, state: any) => {
-    setEditorState(state);
-    setEditorView(view);
-  };
+  useEffect(() => {
+    setFiles(defaultFiles);
+    setActiveEditorCode('');
+  }, [defaultFiles]);
 
   return (
-    <div className="bg-[#232323] rounded-tl-lg rounded-bl-lg p-6 h-full max-h-[60vh]">
-      <CodeMirror
-        value={ideCode}
-        className="rounded-tl-lg rounded-bl-lg h-full"
-        height="100%"
-        maxHeight="100%"
-        theme="dark"
-        extensions={[
-          EditorView.lineWrapping,
-          FontSizeThemeExtension,
-          rust(),
-          EditorState.changeFilter.of((tr) => {
-            const ranges = blockedRanges;
-            return ranges;
-          }),
-        ]}
-        onChange={onChange}
-        onCreateEditor={onCreateEditor}
-        editable={isDisabled}
+    <div className="h-full flex flex-col">
+      <Tabs
+        tabs={files}
+        activeTabKey={activeTabKey}
+        setActiveTabKey={changeTab}
+        onTabClose={removeTab}
       />
+      <div className="bg-[#232323] h-full max-h-[60vh] p-6">
+        <Editor
+          isDisabled={isDisabled}
+          code={activeEditorCode}
+          setCode={setActiveEditorCode}
+        />
+      </div>
     </div>
   );
 }
