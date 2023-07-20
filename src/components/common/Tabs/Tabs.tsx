@@ -17,15 +17,15 @@ export interface TabsProps {
   onTabClose?: (key: string) => void;
 }
 
-const Tabs: FC<TabsProps> = ({ tabs, activeTabKey, setActiveTabKey, onTabClose }) => {
+const Tabs: FC<TabsProps> = ({ tabs, activeTabKey, setActiveTabKey }) => {
   const changeKey = useCallback((key: string) => setActiveTabKey(key), [setActiveTabKey]);
 
-  const close = useCallback((key: string, e: MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    if (onTabClose) {
-      onTabClose(key);
-    }
-  }, [onTabClose]);
+  // const close = useCallback((key: string, e: MouseEvent<HTMLButtonElement>) => {
+  //   e.stopPropagation();
+  //   if (onTabClose) {
+  //     onTabClose(key);
+  //   }
+  // }, [onTabClose]);
 
   return (
     <div className="flex">
@@ -55,14 +55,14 @@ const Tabs: FC<TabsProps> = ({ tabs, activeTabKey, setActiveTabKey, onTabClose }
           )}>
             {tab.title}
           </span>
-          {!!onTabClose && (
+          {/* {!!onTabClose && (
             <button
               onClick={(e: MouseEvent<HTMLButtonElement>) => close(tab.key, e)}
               className="pl-4 opacity-50 hover:opacity-100 relative z-20"
             >
               <Image src={Times} alt="close" />
             </button>
-          )}
+          )} */}
           {tab.title.length > 20 && (
             <div
               className={cx(
