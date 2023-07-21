@@ -1,12 +1,17 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import type { FileStructureNode } from "@/types";
+import React, {
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 
 import Image from "next/image";
 import Link from "next/link";
 
 // Packages
 import ReactMarkdown from "react-markdown";
-import { useRecoilState, RecoilRoot } from "recoil";
+import { useRecoilState } from "recoil";
 
 // Assets
 import Logo from "@/assets/images/logo.svg";
@@ -14,7 +19,7 @@ import Logo from "@/assets/images/logo.svg";
 // Components
 import IDE from "@/components/IDE";
 import Terminal from "@/components/terminal";
-// import FileExplorer from "../../Components/FileExplorer";
+import FileExplorer from "@/components/FileExplorer";
 
 // Utils
 import { H2, H3, H4, P, Code, A } from "@/utils/markdownFunctions";
@@ -24,10 +29,48 @@ import { useStepValidation } from "@/utils/stepValidation";
 // Learn Content
 import helloWorld from "@/learningMaterial/helloWorld.json";
 
+const fileStructure: FileStructureNode[] = [
+  {
+    id: '1',
+    title: 'main',
+    type: 'folder',
+    children: [
+      {
+        id: '1_1',
+        title: "Lib.rs",
+        type: "file",
+      },
+      {
+        id: '1_2',
+        title: "Test.rs",
+        type: "file",
+      },
+      {
+        id: '1_3',
+        title: "Another.rs",
+        type: "file",
+      },
+      {
+        id: '1_4',
+        title: "This title is too long.rs",
+        type: "file",
+      },
+    ],
+  },
+  {
+    id: '2',
+    title: "another folder",
+    type: "folder",
+  }
+];
+
 export default function Home() {
   const [currentStep, setCurrentContentStep] = useRecoilState(currentStepState);
   const [lessonContent, setLessonContent] = useRecoilState(currentLessonState);
   const [stepType, setStepType] = useState("");
+  const [selectedFileId, setSelectedFileId] = useState("");
+  const [files, setFiles] = useState<FileStructureNode[]>([]);
+
   const { validateStep } = useStepValidation(
     currentStep,
     setCurrentContentStep,
@@ -37,24 +80,25 @@ export default function Home() {
   );
   useEffect(() => {
     setLessonContent(helloWorld);
-  }, []);
-
-  const fileStructure = [
-    {
-      title: "Main",
-      type: "folder",
-      children: [
-        {
-          title: "src.rs",
-          type: "file",
-        },
-      ],
-    },
-  ];
+  }, [setLessonContent]);
 
   const handleStepProgression = () => {
     validateStep && validateStep();
   };
+
+  const getFiles = useCallback((node: FileStructureNode): FileStructureNode[] => {
+    const files: FileStructureNode[] = [];
+    if (node.children?.length) {
+      node.children.forEach((node) => {
+        if (node.type === 'file') {
+          files.push(node);
+        } else if (node.type === 'folder' && node.children?.length) {
+          files.push(...getFiles(node));
+        }
+      });
+    }
+    return files;
+  }, []);
 
   useEffect(() => {
     setStepType(
@@ -64,6 +108,18 @@ export default function Home() {
         ""
     );
   }, [currentStep, lessonContent]);
+
+  useEffect(() => {
+    const allFiles: FileStructureNode[] = [];
+    fileStructure.forEach((node) => {
+      if (node.type === 'file') {
+        allFiles.push(node);
+      } else if (node.type === 'folder' && node.children?.length) {
+        allFiles.push(...getFiles(node));
+      }
+    });
+    setFiles(allFiles);
+  }, [getFiles]);
 
   return (
     <div className="flex flex-col h-screen">
@@ -96,7 +152,7 @@ export default function Home() {
       >
         <div className="w-2/5 flex flex-col gap-4">
           {/* Exercise */}
-          <div className="px-12 h-full overflow-scroll">
+          <div className="px-12 h-full overflow-auto">
             {lessonContent.steps &&
               currentStep < lessonContent.steps.length && (
                 <>
@@ -160,18 +216,19 @@ export default function Home() {
               )}
           </div>
 
-          {/* <FileExplorer fileStructure={fileStructure} /> */}
+          <FileExplorer
+            nodes={fileStructure}
+            selectedFileId={selectedFileId}
+            setSelectedFileId={setSelectedFileId}
+          />
         </div>
 
         <div className="w-full flex flex-col gap-4">
           <IDE
             isDisabled={stepType === "terminal"}
-            defaultFiles={[
-              { title: 'Lib.rs', key: 'lib' },
-              { title: 'Test.rs', key: 'test' },
-              { title: 'Another.rs', key: 'another' },
-              { title: 'This title is too long', key: 'long_title' },
-            ]}
+            activeFileId={selectedFileId}
+            defaultFiles={files}
+            setActiveFileId={setSelectedFileId}
           />
           <Terminal />
         </div>

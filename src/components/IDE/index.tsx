@@ -1,67 +1,88 @@
-import React, { useCallback, useState, useEffect, useMemo } from "react";
+import type { FileStructureNode } from "@/types";
+import React, { useCallback, useMemo, useState, useEffect } from "react";
 
 // Components
-import Tabs, { type Tab } from '@/components/common/Tabs';
+import Tabs from '@/components/common/Tabs';
 import Editor from "./Editor";
 
-interface IDEFile {
-  title: string;
-  key: string;
+// Hooks
+import { usePrevious } from "@/hooks";
+
+interface FileNode extends FileStructureNode {
   code?: string;
 }
 
 interface IDEProps {
   isDisabled: boolean;
-  defaultFiles: IDEFile[];
+  defaultFiles: FileStructureNode[];
+  activeFileId: string;
+  setActiveFileId: (id: string) => void;
 }
 
-function IDE({ isDisabled, defaultFiles }: IDEProps) {
-  const [files, setFiles] = useState<IDEFile[]>([]);
-  const [activeTabKey, setActiveTabKey] = useState('');
+function IDE({
+  isDisabled,
+  defaultFiles,
+  activeFileId,
+  setActiveFileId,
+}: IDEProps) {
+  const [files, setFiles] = useState<FileNode[]>([]);
   const [activeEditorCode, setActiveEditorCode] = useState<string>('');
 
+  const previousFileId = usePrevious(activeFileId);
+
   const removeTab = useCallback((key: string) => {
-    const newFiles = files.filter((file: Tab) => file.key !== key);
+    const newFiles = files.filter((file: FileNode) => file.id !== key);
     setActiveEditorCode('');
     setFiles(newFiles);
-    setActiveTabKey(newFiles[0]?.key);
-    setActiveEditorCode(newFiles[0]?.code || '');
-  }, [files]);
+    setActiveFileId(newFiles[0]?.id);
+  }, [files, setActiveFileId]);
 
   const changeTab = useCallback((key: string) => {
-    if (key === activeTabKey) return;
-    const file = files.find((file) => file.key === key);
-    const newFiles = files.map((file) => {
-      if (file.key === activeTabKey) {
-        return {
-          ...file,
-          code: activeEditorCode,
-        }
-      }
-      return file;
-    }, []);
+    if (key === activeFileId) return;
+    setActiveFileId(key);
+  }, [activeFileId, setActiveFileId]);
 
-    setFiles(newFiles);
-    setActiveEditorCode(file?.code || '');
-    setActiveTabKey(key);
-  }, [activeTabKey, activeEditorCode, files]);
+  const tabs = useMemo(() => {
+    return files.map((file) => ({
+      ...file,
+      key: file.id,
+    }))
+  }, [files]);
 
   useEffect(() => {
     if (defaultFiles?.length) {
-      setActiveTabKey(defaultFiles[0]?.key);
+      setActiveFileId(defaultFiles[0]?.id);
     }
-  }, [defaultFiles]);
+  }, [defaultFiles, setActiveFileId]);
 
   useEffect(() => {
     setFiles(defaultFiles);
     setActiveEditorCode('');
   }, [defaultFiles]);
 
+  useEffect(() => {
+    // Save current code state and load new on selected file change
+    if (previousFileId && previousFileId !== activeFileId) {
+      const file = files.find((file) => file.id === activeFileId);
+      const newFiles = files.map((file) => {
+        if (file.id === previousFileId) {
+          return {
+            ...file,
+            code: activeEditorCode,
+          }
+        }
+        return file;
+      }, []);
+      setFiles(newFiles);
+      setActiveEditorCode(file?.code || '');
+    }
+  }, [activeFileId, previousFileId, files, activeEditorCode]);
+
   return (
     <div className="h-full flex flex-col">
       <Tabs
-        tabs={files}
-        activeTabKey={activeTabKey}
+        tabs={tabs}
+        activeTabKey={activeFileId}
         setActiveTabKey={changeTab}
         onTabClose={removeTab}
       />
