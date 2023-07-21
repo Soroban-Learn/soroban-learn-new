@@ -35,3 +35,10 @@ yarn-error.log*
 next-env.d.ts
 
 yarn.lock
+
+# env variables
+.npmrc
+.env
+.env.local
+.env.development
+.env.production
