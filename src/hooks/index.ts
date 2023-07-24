@@ -1,1 +1,2 @@
-export { usePrevious } from './usePrevious';
+export * from './usePrevious';
+export * from './useClickOutside';
