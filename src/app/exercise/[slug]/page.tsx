@@ -5,6 +5,10 @@ import React, {
   useEffect,
   useState,
 } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-regular-svg-icons";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightFromBracket } from "@fortawesome/pro-regular-svg-icons";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -20,6 +24,8 @@ import Logo from "@/assets/images/logo.svg";
 import IDE from "@/components/IDE";
 import Terminal from "@/components/terminal";
 import FileExplorer from "@/components/FileExplorer";
+import Avatar from "@/components/common/Avatar";
+import Dropdown from "@/components/common/Dropdown";
 
 // Utils
 import { H2, H3, H4, P, Code, A } from "@/utils/markdownFunctions";
@@ -141,6 +147,19 @@ export default function Home() {
         </div>
         <div className="flex justify-center">
           <Image src={Logo} alt="SorobanLearn" />
+        </div>
+        <div className="flex justify-end items-center pr-5">
+          <Avatar className="mr-4" />
+          <Dropdown
+            options={[
+              { icon: <FontAwesomeIcon icon={faUser} />, label: 'Profile' },
+              { icon: <FontAwesomeIcon icon={faArrowRightFromBracket} />, label: 'Sign out' },
+            ]}
+            className="flex justify-end items-center"
+          >
+            <span className="mr-3.5">Hi, Jonathon</span>
+            <FontAwesomeIcon icon={faAngleDown} />
+          </Dropdown>
         </div>
       </div>
       {/* CORE */}
