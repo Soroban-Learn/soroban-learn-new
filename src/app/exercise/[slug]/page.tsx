@@ -26,6 +26,7 @@ import Terminal from "@/components/terminal";
 import FileExplorer from "@/components/FileExplorer";
 import Avatar from "@/components/common/Avatar";
 import Dropdown from "@/components/common/Dropdown";
+import Progress from "@/components/common/Progress";
 
 // Utils
 import { H2, H3, H4, P, Code, A } from "@/utils/markdownFunctions";
@@ -235,11 +236,14 @@ export default function Home() {
               )}
           </div>
 
-          <FileExplorer
-            nodes={fileStructure}
-            selectedFileId={selectedFileId}
-            setSelectedFileId={setSelectedFileId}
-          />
+          <div>
+            <Progress percentComplete={30} label="Completed" />
+            <FileExplorer
+              nodes={fileStructure}
+              selectedFileId={selectedFileId}
+              setSelectedFileId={setSelectedFileId}
+            />
+          </div>
         </div>
 
         <div className="w-full flex flex-col gap-4">
