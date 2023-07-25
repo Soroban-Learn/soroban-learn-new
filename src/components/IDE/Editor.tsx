@@ -10,7 +10,7 @@ import { EditorView } from "@codemirror/view";
 import {
   LineNumbersState,
   BlockedRangesState,
-} from "@/utils/recoilState";
+} from "@/store";
 
 const theme = githubDarkInit({
   settings: {
@@ -18,7 +18,6 @@ const theme = githubDarkInit({
     gutterForeground: '#232323',
     gutterBorder: '#232323',
     background: '#232323',
-    foreground: '#232323',
     lineHighlight: '#232323',
   },
 });
@@ -33,8 +32,8 @@ const Editor: FC<EditorProps> = ({ isDisabled, code, setCode }) => {
   const [blockedRanges] = useRecoilState(BlockedRangesState);
   const [lineNumbers] = useRecoilState(LineNumbersState);
 
-  const [editorState, setEditorState] = useState();
-  const [editorView, setEditorView] = useState();
+  const [, setEditorState] = useState();
+  const [, setEditorView] = useState();
 
   const FontSizeTheme = EditorView.theme({
     "&": {
@@ -99,7 +98,7 @@ const Editor: FC<EditorProps> = ({ isDisabled, code, setCode }) => {
       ]}
       onChange={onChange}
       onCreateEditor={onCreateEditor}
-      editable={isDisabled}
+      editable={!isDisabled}
     />
   )
 }
