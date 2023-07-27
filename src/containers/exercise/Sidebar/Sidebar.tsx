@@ -51,7 +51,7 @@ const Sidebar = () => {
 
   return (
     <div className="w-2/5 flex flex-col gap-4">
-      <div className="h-full px-12 overflow-auto">
+      <div className="h-full px-10 overflow-auto">
         {showDescription && (
           <>
             <h3 className="text-lg leading-loose">Current Exercise</h3>
@@ -68,7 +68,7 @@ const Sidebar = () => {
         </div>
         {stepType !== "terminal" && showDescription && (
           <button
-            className="bg-indigo-600 py-2 px-4 rounded-md mt-5 float-right"
+            className="bg-primary py-2 px-4 rounded-md mt-5 float-right"
             onClick={handleStepProgression}
           >
             Next Step
