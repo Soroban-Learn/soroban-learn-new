@@ -70,12 +70,7 @@ export default function Home() {
   return (
     <div className="flex flex-col h-screen">
       <Header />
-      <div
-        className="flex gap-4"
-        style={{
-          height: "calc(100vh - 80px)",
-        }}
-      >
+      <div className="flex gap-4 h-main">
         <Sidebar />
         <div className="w-full flex flex-col gap-4">
           <IDE

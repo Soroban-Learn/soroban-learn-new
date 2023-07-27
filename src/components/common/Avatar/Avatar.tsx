@@ -26,7 +26,7 @@ const Avatar: FC<AvatarProps> = ({ src, className, ...otherProps }) => (
     {!src && (
       <div
         className={cx(
-          'w-10 h-10 bg-[#232323] rounded-full flex justify-center items-center',
+          'w-10 h-10 bg-dark-gray rounded-full flex justify-center items-center',
           className,
         )}
         {...otherProps}

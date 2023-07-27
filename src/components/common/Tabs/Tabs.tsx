@@ -40,9 +40,9 @@ const Tabs: FC<TabsProps> = ({ tabs, activeTabKey, setActiveTabKey }) => {
             'ease-linear duration-50',
             {
               'rounded-tl-[0.625rem]': index !== 0,
-              'bg-[#232323]': activeTabKey === tab.key,
-              'bg-[#23232380]': activeTabKey !== tab.key,
-              'border border-solid border-[#232323] border-b-0': activeTabKey !== tab.key,
+              'bg-dark-gray': activeTabKey === tab.key,
+              'bg-dark-gray/50': activeTabKey !== tab.key,
+              'border border-solid border-dark-gray border-b-0': activeTabKey !== tab.key,
             }
           )}
           onClick={() => changeKey(tab.key)}
