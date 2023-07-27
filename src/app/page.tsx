@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,7 +14,16 @@ import HomeCode from "@/assets/images/homecode.png";
 
 import "@/assets/css/animations.scss";
 
+// Hooks
+import { useModal } from "@/hooks/useModal";
+
+// Components
+import Button from "@/components/common/Button";
+import AuthModal from "@/components/AuthModal";
+
 export default function Home() {
+  const { showModal, toggle } = useModal();
+
   return (
     <div id="top">
       <header className="py-[35px]">
@@ -59,12 +69,9 @@ export default function Home() {
                 It will walk you through creating your first “Hello World”
                 contract and finish up with a token swap contract.
               </p>
-              <Link
-                href="/exercise/hello-world"
-                className="bg-indigo-700 px-10 py-3 inline-block"
-              >
+              <Button onClick={toggle}>
                 Get Started
-              </Link>
+              </Button>
             </div>
 
             <div>
@@ -121,6 +128,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <AuthModal showModal={showModal} toggle={toggle} />
     </div>
   );
 }
