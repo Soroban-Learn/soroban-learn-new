@@ -1,7 +1,11 @@
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useRef, useMemo } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
+import cx from "classnames";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 // Components
+import Scrollbar from "@/components/common/Scrollbar";
 import FileExplorer from "@/components/FileExplorer";
 import Progress from "@/components/common/Progress";
 import { Description, JoinDiscord } from "@/components/exercise";
@@ -19,6 +23,8 @@ import {
 import { useStepValidation } from "@/hooks";
 
 const Sidebar = () => {
+  const scrollerRef = useRef<HTMLDivElement | null>();
+
   const [currentStep, setCurrentContentStep] = useRecoilState(currentStepState);
   const [selectedFileId, setSelectedFileId] = useRecoilState(selectedFileIdState);
   const [stepType, setStepType] = useRecoilState(stepTypeState);
@@ -36,6 +42,10 @@ const Sidebar = () => {
     return lessonContent.steps && currentStep < lessonContent.steps.length;
   }, [lessonContent, currentStep]);
 
+  const onScrollerInit = useCallback((element: HTMLDivElement | null) => {
+    scrollerRef.current = element;
+  }, []);
+
   const handleStepProgression = useCallback(() => {
     validateStep && validateStep();
   }, [validateStep]);
@@ -49,30 +59,46 @@ const Sidebar = () => {
     );
   }, [currentStep, lessonContent, setStepType]);
 
+  useEffect(() => {
+    if (scrollerRef.current) {
+      scrollerRef.current.scrollTo(0, 0);
+    }
+  }, [currentStep]);
+
   return (
     <div className="w-2/5 flex flex-col gap-4">
-      <div className="h-full px-10 overflow-auto">
-        {showDescription && (
-          <>
-            <h3 className="text-lg leading-loose">Current Exercise</h3>
-            <h2 className="text-5xl font-semibold mb-6">
-              {lessonContent.title}
-            </h2>
-          </>
-        )}
-        <div>
-          {showDescription && (
-            <Description lessonContent={lessonContent} currentStep={currentStep}  />
-          )}
-          {!showDescription && <JoinDiscord />}
-        </div>
+      <div className="h-full pl-10 pr-2 relative">
+        <Scrollbar scrollerProps={{ elementRef: onScrollerInit }}>
+          <div className="pr-8 pb-20">
+            {showDescription && (
+              <>
+                <h3 className="text-lg leading-loose">Current Exercise</h3>
+                <h2 className="text-5xl font-semibold mb-6">
+                  {lessonContent.title}
+                </h2>
+              </>
+            )}
+            <div>
+              {showDescription && (
+                <Description lessonContent={lessonContent} currentStep={currentStep}  />
+              )}
+              {!showDescription && <JoinDiscord />}
+            </div>
+          </div>
+        </Scrollbar>
         {stepType !== "terminal" && showDescription && (
-          <button
-            className="bg-primary py-2 px-4 rounded-md mt-5 float-right"
-            onClick={handleStepProgression}
-          >
-            Next Step
-          </button>
+          <div className={cx(
+            "absolute bottom-0 left-0 w-full flex justify-end items-end",
+            "bg-gradient-to-b from-transparent to-black h-28 pr-10 pb-2",
+          )}>
+            <button
+              className="bg-transparent text-light-gray flex justify-end items-center"
+              onClick={handleStepProgression}
+            >
+              <span className="mr-2">Next Exercise</span>
+              <FontAwesomeIcon icon={faArrowRight} className="text-sm" />
+            </button>
+          </div>
         )}
       </div>
       <div>
