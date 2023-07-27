@@ -1,9 +1,9 @@
 import type { FC } from "react";
 import type { FileStructureNode } from "@/types";
-import Scrollbar from "react-scrollbars-custom";
 import cx from "classnames";
 
 // Components
+import Scrollbar from "@/components/common/Scrollbar";
 import FileExplorerNode from "./FileExplorerNode";
 
 interface FileExplorerProps {
@@ -27,21 +27,7 @@ const FileExplorer: FC<FileExplorerProps> = ({
       </div>
       <div className="pt-4 pb-6 pr-3">
         <div className="h-52">
-          <Scrollbar
-            disableTracksWidthCompensation
-            trackYProps={{
-              renderer: (props) => {
-                const { elementRef, ...restProps } = props;
-                return <span {...restProps} ref={elementRef} className="!bg-black !rounded-md !w-1" />;
-              },
-            }}
-            thumbYProps={{
-              renderer: (props) => {
-                const { elementRef, ...restProps } = props;
-                return <span {...restProps} ref={elementRef} className="!bg-white !w-full !block !rounded-md" />;
-              },
-            }}
-          >
+          <Scrollbar>
             <div className="pr-4">
               {nodes.map((node) => (
                 <FileExplorerNode
