@@ -1,12 +1,9 @@
 import type { User } from "@/types";
 import { useCallback } from "react"
 import { useSetRecoilState } from "recoil";
-import Cookies from "js-cookie";
 
 // Store
 import { tokenState, userState } from "@/store/sessionStates";
-
-window.Cookies = Cookies;
 
 export const useAuth = () => {
   const setToken = useSetRecoilState(tokenState);
