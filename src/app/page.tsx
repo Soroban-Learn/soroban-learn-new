@@ -1,3 +1,5 @@
+"use client";
+import type { AxiosError, AxiosResponse } from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,7 +15,26 @@ import HomeCode from "@/assets/images/homecode.png";
 
 import "@/assets/css/animations.scss";
 
+// Hooks
+import { useModal } from "@/hooks/useModal";
+
+// Components
+import Button from "@/components/common/Button";
+import AuthModal from "@/components/AuthModal";
+import { apiClient } from "@/api/apiClient";
+
 export default function Home() {
+  const { showModal, toggle } = useModal();
+
+  const test = async () => {
+    try {
+      const res = await apiClient.get(`/user/course/969cbcf9-db5a-4069-a6d4-2699be3dd631e`);
+      console.log("RESULT ===>", res);
+    } catch(error) {
+      console.log("ERROR ===>", error);
+    }
+  }
+
   return (
     <div id="top">
       <header className="py-[35px]">
@@ -37,7 +58,6 @@ export default function Home() {
           </div>
         </div>
       </header>
-
       <section className="py-10 sm:py-20 overflow-hidden relative">
         <div className="container mx-auto">
           <h1 className="text-7xl sm:text-9xl text-white font-extralight mb-16 mt-16">
@@ -59,12 +79,10 @@ export default function Home() {
                 It will walk you through creating your first “Hello World”
                 contract and finish up with a token swap contract.
               </p>
-              <Link
-                href="/exercise/hello-world"
-                className="bg-indigo-700 px-10 py-3 inline-block"
-              >
+              <Button onClick={toggle}>
                 Get Started
-              </Link>
+              </Button>
+              <Button onClick={test} className="mt-5">TEST</Button>
             </div>
 
             <div>
@@ -121,6 +139,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <AuthModal showModal={showModal} toggle={toggle} />
     </div>
   );
 }
