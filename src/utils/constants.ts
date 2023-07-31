@@ -1,0 +1,14 @@
+export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+export const usernameRegex = /^\S+$/;
+export const emailRequiredError = "Email is required";
+export const emailRegexpError = "Invalid email format";
+export const usernameRequiredError = "Username is required";
+export const usernameRegexpError = "Invalid username format";
+export const passwordRequiredError = "Password is required";
+export const passwordLengthError = "Password must have at least 8 characters";
+export const passwordDigitError = "Your password must have at least 1 digit character";
+export const passwordLowercaseError = "Your password must have at least 1 lowercase character";
+export const passwordUppercaseError = "Your password must have at least 1 uppercase character";
+export const passwordNotMatchError = "Passwords do not match";
+export const firstNameRequiredError = "First Name is required";
+export const lastNameRequiredError = "Last Name is required";
