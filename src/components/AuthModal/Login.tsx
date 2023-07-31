@@ -1,19 +1,14 @@
 import { type FC, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Image from "next/image";
-import cx from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLink } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import { faLock } from "@fortawesome/pro-regular-svg-icons";
-
-// Assets
-import Logo from "@/assets/images/logo-purple.png";
 
 // Components
 import Button from "@/components/common/Button";
 import Input from "@/components/common/Input";
+import AuthLogo from "./AuthLogo";
 
 // Schemas
 import { type LoginSchema, loginSchema } from "@/utils/schemas";
@@ -54,14 +49,8 @@ export const Login = () => {
       className="w-full bg-white rounded-[10px] pt-12 pb-9 relative text-center px-12"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className={cx(
-        "w-[108px] h-[108px] absolute -top-16 left-0 right-0 bg-white rounded-full",
-        "flex justify-center items-center mx-auto",
-      )}>
-        <Image src={Logo} width={72} height={72} alt="Logo" />
-      </div>
-      <div className="text-[32px] text-dark-gray mb-8">Welcome back</div>
-      <Button className="w-full rounded-[50px] text-lg py-6 leading-5">
+      <AuthLogo />
+      {/* <Button className="w-full rounded-[50px] text-lg py-6 leading-5">
         <FontAwesomeIcon icon={faLink} />
         <span className="ml-3">Log in with Wallet</span>
       </Button>
@@ -72,7 +61,8 @@ export const Login = () => {
         )}>
           OR
         </div>
-      </div>
+      </div> */}
+      <div className="mb-9 text-[32px] text-gray">Welcome!</div>
       {isError && (
         <div className="text-error mb-2">{error?.response?.data.message}</div>
       )}

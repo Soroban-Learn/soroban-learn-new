@@ -2,7 +2,6 @@ import { type FC, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import { faLock } from "@fortawesome/pro-regular-svg-icons";
@@ -10,6 +9,7 @@ import { faLock } from "@fortawesome/pro-regular-svg-icons";
 // Components
 import Input from "@/components/common/Input";
 import Button from "@/components/common/Button";
+import AuthLogo from "./AuthLogo";
 
 // Schemas
 import {
@@ -19,19 +19,20 @@ import {
 
 // Mutations
 import { useUserRegistration } from "@/api/mutations/useUserRegistration";
-import { UserRegistrationRequestParams } from "@/types";
 
 interface RegistrationProps {
-  goBack: () => void;
+  goToLogin: () => void;
 }
 
-export const RegistrationHelper: FC<RegistrationProps> = ({ goBack }) => (
-  <div
-    className="flex justify-center items-center text-lg"
-    onClick={goBack}
-  >
-    <FontAwesomeIcon icon={faArrowLeft} />
-    <div className="ml-5 cursor-pointer">Go back</div>
+export const RegistrationHelper: FC<RegistrationProps> = ({ goToLogin }) => (
+  <div className="flex justify-center items-center text-lg">
+    Already have an account?
+    <span
+      className="underline font-bold cursor-pointer ml-2"
+      onClick={goToLogin}
+    >
+      Login
+    </span>
   </div>
 )
 
@@ -58,9 +59,10 @@ export const Registration = () => {
 
   return (
     <form
-      className="w-full bg-white rounded-[10px] pt-14 pb-12 relative text-center px-12"
+      className="w-full bg-white rounded-[10px] pt-20 pb-12 relative text-center px-12"
       onSubmit={handleSubmit(onSubmit)}
     >
+      <AuthLogo />
       <div className="text-2xl text-light-gray mb-12">
         Let’s get started!
       </div>
@@ -113,7 +115,7 @@ export const Registration = () => {
       />
       <Button
         type="submit"
-        className="w-5/6 mx-auto rounded-[50px] text-lg py-0 h-[70px] leading-5 mt-9"
+        className="w-5/6 mx-auto rounded-[50px] text-lg py-0 h-[70px] leading-5 mt-9 !bg-black"
         loading={isLoading}
       >
         Create Account
