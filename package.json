@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "pre-install": "source .env && npm install"
   },
   "dependencies": {
     "@codemirror/lang-rust": "^6.0.1",
