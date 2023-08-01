@@ -15,14 +15,14 @@ import HomeCode from "@/assets/images/homecode.png";
 import "@/assets/css/animations.scss";
 
 // Hooks
-import { useModal } from "@/hooks/useModal";
+import { useAuth } from "@/hooks";
 
 // Components
 import Button from "@/components/common/Button";
 import AuthModal from "@/components/AuthModal";
 
 export default function Home() {
-  const { showModal, toggle } = useModal();
+  const { showModal, toggle } = useAuth();
 
   return (
     <div id="top">
