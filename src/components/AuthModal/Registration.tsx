@@ -63,23 +63,24 @@ export const Registration = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <AuthLogo />
-      <div className="text-2xl text-light-gray mb-12">
-        Let’s get started!
-      </div>
-      <div className="grid grid-cols-2 gap-11">
+      <div className="text-2xl text-light-gray mb-12">Let’s get started!</div>
+      <div className="grid grid-cols-2 gap-8">
         <div>
           <Input
             placeholder="First"
             icon={<FontAwesomeIcon icon={faUser} />}
             error={errors.firstName?.message}
             {...register("firstName")}
+            className="w-full"
           />
         </div>
         <div>
           <Input
             placeholder="Last"
+            icon={<FontAwesomeIcon icon={faUser} />}
             error={errors.lastName?.message}
             {...register("lastName")}
+            className="w-full"
           />
         </div>
       </div>

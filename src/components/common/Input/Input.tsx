@@ -32,17 +32,16 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
             "grid-cols-input": icon,
             "grid-cols-1": !icon,
           },
-          wrapperClassName,
+          wrapperClassName
         )}
         {...wrapperProps}
       >
         {icon && (
-          <div className={cx(
-            "flex justify-start items-center",
-            {
+          <div
+            className={cx("flex justify-start items-center", {
               "text-error": !!error,
-            }
-          )}>
+            })}
+          >
             {icon}
           </div>
         )}
@@ -52,16 +51,15 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
             {
               "text-error": !!error,
             },
-            className,
+            className
           )}
           ref={ref}
+          autoComplete="off"
           {...otherProps}
         />
       </div>
       {error && (
-        <div className="text-error text-left pt-1 text-sm">
-          {error}
-        </div>
+        <div className="text-error text-left pt-1 text-sm">{error}</div>
       )}
     </>
   );

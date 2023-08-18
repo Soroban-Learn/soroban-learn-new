@@ -22,11 +22,12 @@ import {
 // Hooks
 import { useStepValidation } from "@/hooks";
 
-const Sidebar = () => {
+const Sidebar = ({ exerciseData }: { exerciseData: any }) => {
   const scrollerRef = useRef<HTMLDivElement | null>();
 
   const [currentStep, setCurrentContentStep] = useRecoilState(currentStepState);
-  const [selectedFileId, setSelectedFileId] = useRecoilState(selectedFileIdState);
+  const [selectedFileId, setSelectedFileId] =
+    useRecoilState(selectedFileIdState);
   const [stepType, setStepType] = useRecoilState(stepTypeState);
 
   const lessonContent = useRecoilValue(currentLessonState);
@@ -35,12 +36,12 @@ const Sidebar = () => {
   const { validateStep } = useStepValidation(
     currentStep,
     setCurrentContentStep,
-    "",
+    ""
   );
 
   const showDescription = useMemo(() => {
-    return lessonContent.steps && currentStep < lessonContent.steps.length;
-  }, [lessonContent, currentStep]);
+    return exerciseData && currentStep < exerciseData.length;
+  }, [exerciseData, currentStep]);
 
   const onScrollerInit = useCallback((element: HTMLDivElement | null) => {
     scrollerRef.current = element;
@@ -51,13 +52,8 @@ const Sidebar = () => {
   }, [validateStep]);
 
   useEffect(() => {
-    setStepType(
-      (lessonContent?.steps &&
-        lessonContent.steps.length &&
-        lessonContent.steps[currentStep]?.stepType) ||
-        ""
-    );
-  }, [currentStep, lessonContent, setStepType]);
+    setStepType((exerciseData && exerciseData[currentStep]?.stepType) || "");
+  }, [currentStep, exerciseData, setStepType]);
 
   useEffect(() => {
     if (scrollerRef.current) {
@@ -72,25 +68,30 @@ const Sidebar = () => {
           <div className="pr-8 pb-20">
             {showDescription && (
               <>
-                <h3 className="text-lg leading-loose">Current Exercise</h3>
+                <h3 className="text-lg leading-loose">Jonathon</h3>
                 <h2 className="text-5xl font-semibold mb-6">
-                  {lessonContent.title}
+                  {exerciseData && exerciseData[0]?.title}
                 </h2>
               </>
             )}
             <div>
               {showDescription && (
-                <Description lessonContent={lessonContent} currentStep={currentStep}  />
+                <Description
+                  lessonContent={exerciseData}
+                  currentStep={currentStep}
+                />
               )}
               {!showDescription && <JoinDiscord />}
             </div>
           </div>
         </Scrollbar>
         {stepType !== "terminal" && showDescription && (
-          <div className={cx(
-            "absolute bottom-0 left-0 w-full flex justify-end items-end",
-            "bg-gradient-to-b from-transparent to-black h-28 pr-10 pb-2",
-          )}>
+          <div
+            className={cx(
+              "absolute bottom-0 left-0 w-full flex justify-end items-end",
+              "bg-gradient-to-b from-transparent to-black h-28 pr-10 pb-2"
+            )}
+          >
             <button
               className="bg-transparent text-light-gray flex justify-end items-center"
               onClick={handleStepProgression}
@@ -111,6 +112,6 @@ const Sidebar = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Sidebar;

@@ -4,10 +4,6 @@ import {
   emailRequiredError,
   emailRegexpError,
   passwordRequiredError,
-  passwordLengthError,
-  passwordUppercaseError,
-  passwordLowercaseError,
-  passwordDigitError
 } from "@/utils/constants";
 
 export const loginSchema = Yup
@@ -21,10 +17,6 @@ export const loginSchema = Yup
     password:
       Yup
         .string()
-        .min(8, passwordLengthError)
-        .matches(/[0-9]/, passwordDigitError)
-        .matches(/[a-z]/, passwordLowercaseError)
-        .matches(/[A-Z]/, passwordUppercaseError)
         .required(passwordRequiredError),
   });
 

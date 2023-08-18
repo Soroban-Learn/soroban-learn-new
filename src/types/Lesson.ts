@@ -11,7 +11,21 @@ export interface Step {
   instructions: Instruction[];
 }
 
-export interface LessonContent {
+export type LessonContent = {
   title: string;
-  steps: Step[];
+  description: string;
+}[];
+
+type Exercise = {
+  id: number;
+  title: string;
+  completed: boolean;
+}
+export interface LessonItem {
+  index: number;
+  title: string;
+  totalExercises: number;
+  completedExercises: number;
+  isCompleted: boolean;
+  exercises: Exercise[];
 }

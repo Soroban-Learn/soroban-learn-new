@@ -13,7 +13,7 @@ export interface DescriptionProps {
 const Description: FC<DescriptionProps> = ({ lessonContent, currentStep }) => (
   <>
     <h3 className="text-lg leading-loose">
-      {lessonContent.steps[currentStep].stepTitle}
+      {lessonContent && lessonContent[currentStep].title}
     </h3>
     <ReactMarkdown
       components={{
@@ -25,7 +25,7 @@ const Description: FC<DescriptionProps> = ({ lessonContent, currentStep }) => (
         a: A,
       }}
     >
-      {lessonContent.steps[currentStep].stepContent}
+      {lessonContent && lessonContent[currentStep].description}
     </ReactMarkdown>
   </>
 );

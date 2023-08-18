@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDiscord } from "@fortawesome/free-brands-svg-icons";
 
@@ -22,7 +23,11 @@ import Button from "@/components/common/Button";
 import AuthModal from "@/components/AuthModal";
 
 export default function Home() {
-  const { showModal, toggle } = useAuth();
+  const router = useRouter();
+
+  const { showModal, toggle, isAuth } = useAuth();
+
+  const isLoggedIn = isAuth();
 
   return (
     <div id="top">
@@ -38,12 +43,14 @@ export default function Home() {
             >
               <FontAwesomeIcon icon={faDiscord} />
             </Link>
-            <Link
-              href="/exercise/hello-world"
-              className="border-2 border-white sm:flex justify-center items-center px-6 hover:bg-indigo-700 hover:text-white hover:border-indigo-700 transition-all duration-500 hidden"
+            <Button
+              onClick={() =>
+                isLoggedIn ? router.push("/dashboard") : toggle()
+              }
+              className="border-2 border-white sm:flex bg-transparent justify-center items-center !py-0 px-6 hover:bg-indigo-700 hover:text-white hover:border-indigo-700 transition-all duration-500 hidden"
             >
-              Try Now
-            </Link>
+              {isLoggedIn ? "Back to Dashboard" : "Try Now"}
+            </Button>
           </div>
         </div>
       </header>
@@ -68,8 +75,12 @@ export default function Home() {
                 It will walk you through creating your first “Hello World”
                 contract and finish up with a token swap contract.
               </p>
-              <Button onClick={toggle}>
-                Get Started
+              <Button
+                onClick={() =>
+                  isLoggedIn ? router.push("/dashboard") : toggle()
+                }
+              >
+                {isLoggedIn ? "Back to Dashboard" : "Get Started"}
               </Button>
             </div>
 
