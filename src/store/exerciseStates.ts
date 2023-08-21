@@ -63,21 +63,6 @@ export const fileStructureState = atom<FileStructureNode[]>({
           title: "Lib.rs",
           type: "file",
         },
-        {
-          id: '1_2',
-          title: "Test.rs",
-          type: "file",
-        },
-        {
-          id: '1_3',
-          title: "Another.rs",
-          type: "file",
-        },
-        {
-          id: '1_4',
-          title: "This title is too long.rs",
-          type: "file",
-        },
       ],
     },
     {

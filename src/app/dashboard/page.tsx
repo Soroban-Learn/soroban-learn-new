@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
 import LessonItem from "@/components/LessonItem";
 
@@ -55,6 +56,8 @@ function Dashboard() {
       },
     ],
   };
+
+  const router = useRouter();
 
   return (
     <div className="flex flex-col h-screen">
@@ -168,7 +171,12 @@ function Dashboard() {
             </div>
           </div>
 
-          <button className="bg-neutral-900 rounded-full text-center text-white text-base font-bold w-full h-11 min-w-0">
+          <button
+            className="bg-neutral-900 rounded-full text-center text-white text-base font-bold w-full h-11 min-w-0"
+            onClick={() =>
+              router.push("/lesson/3f03366f-098b-4718-8fd8-b27d3947b0a8")
+            }
+          >
             Continue Course
           </button>
         </div>
