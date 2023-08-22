@@ -17,15 +17,16 @@ export type LessonContent = {
 }[];
 
 type Exercise = {
-  id: number;
+  id: string;
   title: string;
   completed: boolean;
 }
 export interface LessonItem {
+  id: string;
   index: number;
   title: string;
   totalExercises: number;
-  completedExercises: number;
+  completed_exercises: number;
   isCompleted: boolean;
   exercises: Exercise[];
 }
