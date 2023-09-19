@@ -5,7 +5,7 @@ import { apiClient } from "../apiClient";
 const QUERY_KEY = ["Course"];
 
 export const getCourseProgress = async (id: string): Promise<AxiosResponse> => {
-  const { data } = await apiClient.get(`/user/course/${id}/info`);
+  const { data } = await apiClient.get(`/course/${id}/info`);
   return data;
 }
 

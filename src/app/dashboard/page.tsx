@@ -9,7 +9,7 @@ import { useGetCourseProgress } from "@/api/queries";
 
 function Dashboard() {
   const { data, error, isError, isLoading } = useGetCourseProgress(
-    "969cbcf9-db5a-4069-a6d4-2699be3dd631"
+    "74a9133d-75ba-4324-af00-1fa2e33f6176"
   );
 
   const router = useRouter();
