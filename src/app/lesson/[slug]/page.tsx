@@ -67,7 +67,7 @@ export default function Home() {
   }, [fileStructure, getFiles]);
 
   const { data, error, isError, isLoading } = useGetExercise(
-    "3f03366f-098b-4718-8fd8-b27d3947b0a8"
+    "29e87af7-8b96-4db5-8690-06e65dc6e782"
   );
 
   console.log("[[[EXERCISE]]]", data);
