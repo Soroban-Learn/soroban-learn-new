@@ -126,34 +126,40 @@ function Dashboard() {
             </div>
           </div>
 
-          <button
-            className="bg-neutral-900 rounded-full text-center text-white text-base font-bold w-full h-11 min-w-0"
-            onClick={() =>
-              router.push("/lesson/3f03366f-098b-4718-8fd8-b27d3947b0a8")
-            }
-          >
-            Continue Course
-          </button>
+          <div className="w-full flex justify-end">
+            <button
+              className="bg-neutral-900 rounded-full text-center text-white text-base font-bold w-full h-11 min-w-0 max-w-sm"
+              onClick={() =>
+                router.push("/lesson/3f03366f-098b-4718-8fd8-b27d3947b0a8")
+              }
+            >
+              Continue Course
+            </button>
+          </div>
         </div>
 
         <div className="mt-6">
-          {data && data.lessons.map((lesson: LessonItem, index: number) => {
-            // If lesson.exercises is a string, parse it into an array of Exercise objects
-            const exercises = typeof lesson.exercises === 'string' ? JSON.parse(lesson.exercises) : lesson.exercises;
+          {data &&
+            data.lessons.map((lesson: LessonItem, index: number) => {
+              // If lesson.exercises is a string, parse it into an array of Exercise objects
+              const exercises =
+                typeof lesson.exercises === "string"
+                  ? JSON.parse(lesson.exercises)
+                  : lesson.exercises;
 
-            return (
-              <LessonItem
-                id={lesson.id}
-                title={lesson.title}
-                index={index}
-                totalExercises={exercises.length}
-                exercises={exercises}
-                completed_exercises={lesson.completed_exercises}
-                key={lesson.id}
-                isCompleted={lesson.isCompleted}
-              />
-            );
-          })}
+              return (
+                <LessonItem
+                  id={lesson.id}
+                  title={lesson.title}
+                  index={index}
+                  totalExercises={exercises.length}
+                  exercises={exercises}
+                  completed_exercises={lesson.completed_exercises}
+                  key={lesson.id}
+                  isCompleted={lesson.isCompleted}
+                />
+              );
+            })}
         </div>
       </div>
     </div>
