@@ -14,6 +14,7 @@ export interface Step {
 export type LessonContent = {
   title: string;
   description: string;
+  steps?: Step[];
 }[];
 
 type Exercise = {
