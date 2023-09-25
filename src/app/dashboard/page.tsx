@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
 import LessonItem from "@/components/LessonItem";
@@ -13,6 +13,10 @@ function Dashboard() {
   );
 
   const router = useRouter();
+
+  useEffect(() => {
+    router.prefetch("/lesson/3f03366f-098b-4718-8fd8-b27d3947b0a8");
+  }, [router]);
 
   return (
     <div className="flex flex-col h-screen">
