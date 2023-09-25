@@ -1,10 +1,6 @@
 import { type FC, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-regular-svg-icons";
-import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
-import { faLock } from "@fortawesome/pro-regular-svg-icons";
 
 // Components
 import Input from "@/components/common/Input";
@@ -34,28 +30,31 @@ export const RegistrationHelper: FC<RegistrationProps> = ({ goToLogin }) => (
       Login
     </span>
   </div>
-)
+);
 
 export const Registration = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm<RegistrationSchema>({
     resolver: yupResolver(registrationSchema),
   });
 
   const { mutate, isLoading } = useUserRegistration();
 
-  const onSubmit = useCallback((data: RegistrationSchema) => {
-    mutate({
-      email: data.email,
-      first_name: data.firstName,
-      last_name: data.lastName,
-      password: data.password,
-      username: data.username,
-    });
-  }, [mutate]);
+  const onSubmit = useCallback(
+    (data: RegistrationSchema) => {
+      mutate({
+        email: data.email,
+        first_name: data.firstName,
+        last_name: data.lastName,
+        password: data.password,
+        username: data.username,
+      });
+    },
+    [mutate]
+  );
 
   return (
     <form
@@ -68,7 +67,7 @@ export const Registration = () => {
         <div>
           <Input
             placeholder="First"
-            icon={<FontAwesomeIcon icon={faUser} />}
+            icon={<i className="fa fa-user" />}
             error={errors.firstName?.message}
             {...register("firstName")}
             className="w-full"
@@ -77,7 +76,7 @@ export const Registration = () => {
         <div>
           <Input
             placeholder="Last"
-            icon={<FontAwesomeIcon icon={faUser} />}
+            icon={<i className="fa fa-user" />}
             error={errors.lastName?.message}
             {...register("lastName")}
             className="w-full"
@@ -85,21 +84,21 @@ export const Registration = () => {
         </div>
       </div>
       <Input
-        icon={<FontAwesomeIcon icon={faEnvelope} />}
+        icon={<i className="fa fa-envelope" />}
         placeholder="E-mail"
         wrapperClassName="mt-2.5"
         error={errors.email?.message}
         {...register("email")}
       />
       <Input
-        icon={<FontAwesomeIcon icon={faUser} />}
+        icon={<i className="fa fa-user" />}
         placeholder="Username"
         wrapperClassName="mt-2.5"
         error={errors.username?.message}
         {...register("username")}
       />
       <Input
-        icon={<FontAwesomeIcon icon={faLock} />}
+        icon={<i className="fa fa-lock" />}
         placeholder="Password"
         type="password"
         wrapperClassName="mt-2.5"
@@ -107,7 +106,7 @@ export const Registration = () => {
         {...register("password")}
       />
       <Input
-        icon={<FontAwesomeIcon icon={faLock} />}
+        icon={<i className="fa fa-lock" />}
         placeholder="Repeat Password"
         type="password"
         wrapperClassName="mt-2.5"
@@ -123,4 +122,4 @@ export const Registration = () => {
       </Button>
     </form>
   );
-}
+};

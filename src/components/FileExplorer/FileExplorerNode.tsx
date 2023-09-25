@@ -1,9 +1,6 @@
 import type { FileStructureNode, FileStructureNodeType } from "@/types";
 import { type FC, useState, useCallback } from "react";
 import cx from "classnames";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
-import { faFile } from "@fortawesome/pro-regular-svg-icons";
 
 export interface FileExplorerFolderProps {
   id: string;
@@ -27,7 +24,7 @@ const FileExplorerNode: FC<FileExplorerFolderProps> = ({
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = useCallback(() => {
-    if (type === 'folder') {
+    if (type === "folder") {
       setIsOpen(!isOpen);
     } else {
       setSelectedFileId(id);
@@ -35,19 +32,21 @@ const FileExplorerNode: FC<FileExplorerFolderProps> = ({
   }, [id, type, isOpen, setSelectedFileId]);
 
   return (
-    <div className={cx('cursor-pointer', {
-      'mt-2.5': type === 'file',
-      'mt-4': type === 'folder',
-    })}>
+    <div
+      className={cx("cursor-pointer", {
+        "mt-2.5": type === "file",
+        "mt-4": type === "folder",
+      })}
+    >
       <div
         className={cx(
-          'h-[25px] flex justify-start items-center text-xs',
-          'border-l-4 border-solid',
-          'transition-all duration-300 ease-linear',
-          'rounded-r-md',
+          "h-[25px] flex justify-start items-center text-xs",
+          "border-l-4 border-solid",
+          "transition-all duration-300 ease-linear",
+          "rounded-r-md",
           {
-            'border-transparent': selectedFileId !== id,
-            'bg-black border-primary': selectedFileId === id,
+            "border-transparent": selectedFileId !== id,
+            "bg-black border-primary": selectedFileId === id,
           }
         )}
         style={{
@@ -56,29 +55,26 @@ const FileExplorerNode: FC<FileExplorerFolderProps> = ({
         onClick={handleClick}
       >
         {type === "folder" && (
-          <FontAwesomeIcon
-            icon={faCaretDown}
+          <i
             className={cx(
-              'transition-all duration-200 ease-in-out',
+              "transition-all duration-200 ease-in-out fa fa-caret-down",
               {
-                'rotate-180': !isOpen,
-                'rotate-0': isOpen,
+                "rotate-180": !isOpen,
+                "rotate-0": isOpen,
               }
             )}
           />
         )}
-        {type === "file" && (
-          <FontAwesomeIcon icon={faFile} />
-        )}
+        {type === "file" && <i className="fa fa-file" />}
         <div className="ml-3">{title}</div>
       </div>
       {!!nodes?.length && (
         <div
           className={cx(
-            'grid grid-rows-[0fr] ease-in-out transition-all duration-500',
+            "grid grid-rows-[0fr] ease-in-out transition-all duration-500",
             {
-              'grid-rows-[1fr]': isOpen,
-            },
+              "grid-rows-[1fr]": isOpen,
+            }
           )}
         >
           <div className="overflow-hidden">
@@ -99,6 +95,6 @@ const FileExplorerNode: FC<FileExplorerFolderProps> = ({
       )}
     </div>
   );
-}
+};
 
 export default FileExplorerNode;
