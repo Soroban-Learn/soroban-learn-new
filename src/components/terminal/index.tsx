@@ -22,11 +22,13 @@ function Terminal() {
     let feedback = "";
     if (
       lessonContent &&
-      lessonContent.steps &&
-      lessonContent.steps.length > currentStep &&
-      lessonContent.steps[currentStep].instructions
+      lessonContent.length > 0 && // Check if lessonContent is an array
+      lessonContent[currentStep] && // Check if currentStep is a valid index
+      lessonContent[currentStep].steps &&
+      lessonContent[currentStep].steps.length > 0 &&
+      lessonContent[currentStep].steps[0].instructions
     ) {
-      const instructions = lessonContent.steps[currentStep].instructions;
+      const instructions = lessonContent[currentStep].steps[0].instructions; // Accessing steps as an array
 
       instructions.forEach((instruction: { type: string; input: string }) => {
         if (instruction.type === "terminal") {
