@@ -126,14 +126,16 @@ function Dashboard() {
             </div>
           </div>
 
-          <button
-            className="bg-neutral-900 rounded-full text-center text-white text-base font-bold w-full h-11 min-w-0"
-            onClick={() =>
-              router.push("/lesson/3f03366f-098b-4718-8fd8-b27d3947b0a8")
-            }
-          >
-            Continue Course
-          </button>
+          <div className="w-full flex justify-end">
+            <button
+              className="bg-neutral-900 rounded-full text-center text-white text-base font-bold w-full h-11 min-w-0 max-w-sm"
+              onClick={() =>
+                router.push("/lesson/3f03366f-098b-4718-8fd8-b27d3947b0a8")
+              }
+            >
+              Continue Course
+            </button>
+          </div>
         </div>
 
         <div className="mt-6">
