@@ -1,8 +1,4 @@
 import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-regular-svg-icons";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
-import { faArrowRightFromBracket } from "@fortawesome/pro-regular-svg-icons";
 
 // Assets
 import Logo from "@/assets/images/logo.svg";
@@ -46,9 +42,9 @@ const Header = () => {
         <Avatar className="mr-4" />
         <Dropdown
           options={[
-            { icon: <FontAwesomeIcon icon={faUser} />, label: "Profile" },
+            { icon: <i className="fa fa-user" />, label: "Profile" },
             {
-              icon: <FontAwesomeIcon icon={faArrowRightFromBracket} />,
+              icon: <i className="fa fa-arrow-right-from-bracket" />,
               label: "Sign out",
               onClick: () => mutate(),
             },
@@ -56,7 +52,7 @@ const Header = () => {
           className="flex justify-end items-center"
         >
           <span className="mr-3.5 hidden sm:block">Hi, {user.first_name}</span>
-          <FontAwesomeIcon icon={faAngleDown} />
+          <i className="fa fa-angle-down" />
         </Dropdown>
       </div>
     </div>

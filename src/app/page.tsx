@@ -2,8 +2,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDiscord } from "@fortawesome/free-brands-svg-icons";
 
 import Logo from "@/assets/images/logo.svg";
 import Glows from "@/assets/images/glows.svg";
@@ -41,7 +39,7 @@ export default function Home() {
               className="w-12 h-12 bg-white border-2 border-white hover:border-indigo-700 text-black flex justify-center items-center hover:bg-indigo-700 hover:text-white transition-all duration-500"
               rel="noreferrer"
             >
-              <FontAwesomeIcon icon={faDiscord} />
+              <i className="fab fa-discord" />
             </Link>
             <Button
               onClick={() =>

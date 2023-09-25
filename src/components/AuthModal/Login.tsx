@@ -1,9 +1,6 @@
 import { type FC, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
-import { faLock } from "@fortawesome/pro-regular-svg-icons";
 
 // Components
 import Button from "@/components/common/Button";
@@ -33,16 +30,19 @@ export const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm<LoginSchema>({
     resolver: yupResolver(loginSchema),
   });
 
   const { mutate, error, isError, isLoading } = useUserLogin();
 
-  const onSubmit = useCallback((data: LoginSchema) => {
-    mutate(data);
-  }, [mutate]);
+  const onSubmit = useCallback(
+    (data: LoginSchema) => {
+      mutate(data);
+    },
+    [mutate]
+  );
 
   return (
     <form
@@ -68,7 +68,7 @@ export const Login = () => {
       )}
       <Input
         placeholder="E-mail"
-        icon={<FontAwesomeIcon icon={faEnvelope} />}
+        icon={<i className="fa fa-envelope" />}
         error={errors.email?.message}
         {...register("email")}
       />
@@ -76,7 +76,7 @@ export const Login = () => {
         placeholder="Password"
         wrapperClassName="mt-7"
         type="password"
-        icon={<FontAwesomeIcon icon={faLock} />}
+        icon={<i className="fa fa-lock" />}
         error={errors.password?.message}
         {...register("password")}
       />
@@ -90,4 +90,4 @@ export const Login = () => {
       </Button>
     </form>
   );
-}
+};

@@ -3,10 +3,7 @@ import { atom } from "recoil";
 
 export const currentLessonState = atom<LessonContent>({
   key: "currentLessonState",
-  default: {
-    title: "",
-    steps: [],
-  },
+  default: [] as LessonContent, // Explicitly cast the default value to an empty array of LessonContent
 });
 
 export const ideCodeState = atom<string>({

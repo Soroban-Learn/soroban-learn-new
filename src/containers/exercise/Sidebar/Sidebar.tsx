@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useRef, useMemo } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import cx from "classnames";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 // Components
 import Scrollbar from "@/components/common/Scrollbar";
@@ -97,7 +95,7 @@ const Sidebar = ({ exerciseData }: { exerciseData: any }) => {
               onClick={handleStepProgression}
             >
               <span className="mr-2">Next Exercise</span>
-              <FontAwesomeIcon icon={faArrowRight} className="text-sm" />
+              <i className="fa fa-arrow-right text-sm" />
             </button>
           </div>
         )}
