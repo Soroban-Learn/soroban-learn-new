@@ -1,5 +1,5 @@
 import type { User } from "@/types";
-import { useCallback } from "react"
+import { useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useRecoilState, useSetRecoilState } from "recoil";
 
@@ -18,8 +18,8 @@ export const useAuth = () => {
     setShowModal(!showModal);
   }, [showModal, setShowModal]);
 
-  const token = localStorage.getItem("token");
-  const user = localStorage.getItem("user");
+  const token = typeof localStorage !== 'undefined' ? localStorage.getItem("token") : null;
+  const user = typeof localStorage !== 'undefined' ? localStorage.getItem("user") : null;
 
   const isAuth = useCallback(() => {
     return !!token;
@@ -29,17 +29,17 @@ export const useAuth = () => {
     return JSON.parse(user || "{}") as User;
   }, [user]);
 
-  const setupSession = useCallback((
-    accessToken: string,
-    user: User,
-  ) => {
-    localStorage.setItem("token", accessToken);
-    localStorage.setItem("user", JSON.stringify(user));
-    setToken(accessToken);
-    setUser(user);
-    setShowModal(false);
-    router.push("/dashboard")
-  }, [setShowModal, setToken, setUser]);
+  const setupSession = useCallback(
+    (accessToken: string, user: User) => {
+      localStorage.setItem("token", accessToken);
+      localStorage.setItem("user", JSON.stringify(user));
+      setToken(accessToken);
+      setUser(user);
+      setShowModal(false);
+      router.push("/dashboard");
+    },
+    [setShowModal, setToken, setUser, router]
+  );
 
   const logout = useCallback(() => {
     localStorage.removeItem("token");
@@ -47,7 +47,7 @@ export const useAuth = () => {
     setToken("");
     setUser(null);
     router.push("/"); // Optional: Redirect to login or another relevant page after logout
-}, [setToken, setUser, router]);
+  }, [setToken, setUser, router]);
 
   return {
     showModal,
@@ -56,5 +56,5 @@ export const useAuth = () => {
     logout,
     isAuth,
     getUser,
-  }
-}
+  };
+};
