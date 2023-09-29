@@ -1,4 +1,4 @@
 export interface ExerciseListItem {
   title: string;
-  isCompleted: boolean;
+  is_complete: boolean;
 }
