@@ -26,13 +26,13 @@ type Exercise = {
   id: string;
   title: string;
   completed: boolean;
-}
+};
 export interface LessonItem {
   id: string;
   index: number;
   title: string;
   totalExercises: number;
   completed_exercises: number;
-  isCompleted: boolean;
+  is_complete: boolean;
   exercises: Exercise[];
 }

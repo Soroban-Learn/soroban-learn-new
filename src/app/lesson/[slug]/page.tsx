@@ -23,6 +23,7 @@ import {
 
 // Learn Content
 import helloWorld from "@/learningMaterial/helloWorld.json";
+import { useParams } from "next/navigation";
 
 export default function Home() {
   const [selectedFileId, setSelectedFileId] =
@@ -66,11 +67,9 @@ export default function Home() {
     setFiles(allFiles);
   }, [fileStructure, getFiles]);
 
-  const { data, error, isError, isLoading } = useGetExercise(
-    "29e87af7-8b96-4db5-8690-06e65dc6e782"
-  );
+  const params = useParams();
 
-  console.log("[[[EXERCISE]]]", data);
+  const { data, error, isError, isLoading } = useGetExercise(params?.slug);
 
   return (
     <div className="flex flex-col h-screen">

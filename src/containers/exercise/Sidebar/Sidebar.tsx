@@ -19,6 +19,7 @@ import {
 
 // Hooks
 import { useStepValidation } from "@/hooks";
+import { ExerciseListItem } from "@/types";
 
 const Sidebar = ({ exerciseData }: { exerciseData: any }) => {
   const scrollerRef = useRef<HTMLDivElement | null>();
@@ -40,6 +41,10 @@ const Sidebar = ({ exerciseData }: { exerciseData: any }) => {
   const showDescription = useMemo(() => {
     return exerciseData && currentStep < exerciseData.length;
   }, [exerciseData, currentStep]);
+
+  const percentComplete =
+    exerciseData?.filter((e: ExerciseListItem) => e.is_complete).length /
+    exerciseData?.length;
 
   const onScrollerInit = useCallback((element: HTMLDivElement | null) => {
     scrollerRef.current = element;
@@ -101,7 +106,7 @@ const Sidebar = ({ exerciseData }: { exerciseData: any }) => {
         )}
       </div>
       <div>
-        <Progress percentComplete={30} label="Completed" />
+        <Progress percentComplete={percentComplete} label="Completed" />
         <FileExplorer
           nodes={fileStructure}
           selectedFileId={selectedFileId}
