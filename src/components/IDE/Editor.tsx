@@ -1,24 +1,21 @@
 import React, { type FC, useCallback, useState } from "react";
 import { useRecoilState } from "recoil";
-import { githubDarkInit } from '@uiw/codemirror-theme-github';
+import { githubDarkInit } from "@uiw/codemirror-theme-github";
 
 import CodeMirror from "@uiw/react-codemirror";
 import { EditorState } from "@codemirror/state";
 import { rust } from "@codemirror/lang-rust";
 import { EditorView } from "@codemirror/view";
 
-import {
-  LineNumbersState,
-  BlockedRangesState,
-} from "@/store";
+import { LineNumbersState, BlockedRangesState } from "@/store";
 
 const theme = githubDarkInit({
   settings: {
-    gutterBackground: '#232323',
-    gutterForeground: '#232323',
-    gutterBorder: '#232323',
-    background: '#232323',
-    lineHighlight: '#232323',
+    gutterBackground: "#232323",
+    gutterForeground: "#fff",
+    gutterBorder: "#232323",
+    background: "#232323",
+    lineHighlight: "#232323",
   },
 });
 
@@ -72,7 +69,7 @@ const Editor: FC<EditorProps> = ({ isDisabled, code, setCode }) => {
     (value: string) => {
       setCode(value);
     },
-    [setCode],
+    [setCode]
   );
 
   const onCreateEditor = (view: any, state: any) => {
@@ -100,7 +97,7 @@ const Editor: FC<EditorProps> = ({ isDisabled, code, setCode }) => {
       onCreateEditor={onCreateEditor}
       editable={!isDisabled}
     />
-  )
-}
+  );
+};
 
 export default Editor;
