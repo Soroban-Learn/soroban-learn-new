@@ -1,11 +1,11 @@
 import React from "react";
 import { ExerciseListItem } from "@/types";
 
-function ExerciseListItem({ title, is_complete }: ExerciseListItem) {
+function ExerciseListItem({ title, is_completed }: ExerciseListItem) {
   return (
     <div className="flex gap-4 items-center">
       <div>
-        {is_complete ? (
+        {is_completed ? (
           <svg
             width="19"
             height="19"

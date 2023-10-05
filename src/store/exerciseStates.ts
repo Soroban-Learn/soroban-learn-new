@@ -11,6 +11,13 @@ export const ideCodeState = atom<string>({
   default: "",
 });
 
+export const consoleCodeState = atom<
+  { successMessage: string; input: string }[]
+>({
+  key: "consoleCodeStateKey",
+  default: [],
+});
+
 export const LineNumbersState = atom<number[]>({
   key: "LineNumbersStateKey",
   default: [],
@@ -38,7 +45,7 @@ export const hasErrorState = atom<boolean>({
 
 export const stepTypeState = atom<string>({
   key: "stepTypeStateKey",
-  default: "terminal",
+  default: "ide",
 });
 
 export const selectedFileIdState = atom<string>({
@@ -51,21 +58,21 @@ export const fileStructureState = atom<FileStructureNode[]>({
   key: "fileStructureStateKey",
   default: [
     {
-      id: '1',
-      title: 'main',
-      type: 'folder',
+      id: "1",
+      title: "main",
+      type: "folder",
       children: [
         {
-          id: '1_1',
+          id: "1_1",
           title: "Lib.rs",
           type: "file",
         },
       ],
     },
     {
-      id: '2',
+      id: "2",
       title: "another folder",
       type: "folder",
-    }
+    },
   ],
 });
