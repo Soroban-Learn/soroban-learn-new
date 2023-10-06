@@ -75,7 +75,11 @@ const Sidebar = ({ exerciseData }: { exerciseData: ExerciseListItem[] }) => {
       return;
     }
 
-    validateExercise({ exerciseId: currentExercise.id, input, type: stepType });
+    validateExercise({
+      exerciseId: currentExercise.id || "",
+      input,
+      type: stepType,
+    });
   };
 
   useEffect(() => {
@@ -98,7 +102,7 @@ const Sidebar = ({ exerciseData }: { exerciseData: ExerciseListItem[] }) => {
       return;
     }
 
-    setStepType(currentExercise?.step_validation.type || "terminal");
+    setStepType(currentExercise?.step_validation?.type || "terminal");
   }, [currentExercise, setStepType]);
 
   useEffect(() => {
