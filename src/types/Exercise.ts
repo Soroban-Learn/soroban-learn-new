@@ -1,17 +1,17 @@
 export interface ExerciseListItem {
   title: string;
   is_completed: boolean;
-  id: string;
-  step_validation: {
+  id?: string;
+  step_validation?: {
     type: string;
   };
-  steps: {
+  steps?: {
     instructions: {
       type: string;
       input: string;
     }[];
   }[];
-  description: string;
+  description?: string;
 }
 
 export interface ValidateExerciseParams {
