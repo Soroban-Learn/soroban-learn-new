@@ -51,7 +51,9 @@ const Header = () => {
           ]}
           className="flex justify-end items-center"
         >
-          <span className="mr-3.5 hidden sm:block">Hi, {user.first_name}</span>
+          <span className="mr-3.5 hidden sm:block">
+            Hi, {user?.username ? user?.username : "User"}!
+          </span>
           <i className="fa fa-angle-down" />
         </Dropdown>
       </div>

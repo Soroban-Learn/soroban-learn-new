@@ -5,10 +5,13 @@ import {
   currentErrorState,
   currentLessonState,
   hasErrorState,
+  currentExerciseState,
 } from "@/store";
 import { useLessonContext } from "@/hooks/useLessonContext";
+import { ExerciseListItem } from "@/types";
+import { useValidateExercise } from "@/api/mutations/useValidateExercise";
 
-function Terminal() {
+function Terminal({ exerciseData }: { exerciseData: ExerciseListItem[] }) {
   const { consoleInputs, setConsoleInputs, stepType } = useLessonContext();
 
   const [consoleInput, setConsoleInput] = useState("");
@@ -16,37 +19,50 @@ function Terminal() {
   const [, setHasError] = useRecoilState(hasErrorState);
   const [, setCurrentError] = useRecoilState(currentErrorState);
   const [lessonContent] = useRecoilState(currentLessonState);
+  const [currentExercise, setCurrentExercise] =
+    useRecoilState<ExerciseListItem>(currentExerciseState);
 
-  console.log(stepType, "<<< stepType");
+  const { mutate: validateExercise } = useValidateExercise();
 
   const handleConsoleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     let feedback = "";
-    if (
-      lessonContent &&
-      lessonContent.length > 0 && // Check if lessonContent is an array
-      lessonContent[currentStep] && // Check if currentStep is a valid index
-      lessonContent[currentStep].steps &&
-      lessonContent[currentStep].steps.length > 0 &&
-      lessonContent[currentStep].steps[0].instructions
-    ) {
-      const instructions = lessonContent[currentStep].steps[0].instructions; // Accessing steps as an array
 
-      instructions.forEach((instruction: { type: string; input: string }) => {
-        if (instruction.type === "terminal") {
-          if (instruction.input === consoleInput) {
-            setHasError(false);
-            setCurrentError("Success");
-            feedback = "Success";
-            setCurrentContentStep(currentStep + 1);
-          } else {
-            setHasError(true);
-            setCurrentError("Invalid Command");
-            feedback = "Invalid Command";
-          }
-        }
-      });
-    }
+    console.log("[[[currentExercise.id]]]", currentExercise.id);
+
+    validateExercise({
+      exerciseId: currentExercise.id || "",
+      input: consoleInput,
+      type: stepType,
+    });
+
+    // validateExerciseHandler(consoleInput);
+
+    // if (
+    //   lessonContent &&
+    //   lessonContent.length > 0 && // Check if lessonContent is an array
+    //   lessonContent[currentStep] && // Check if currentStep is a valid index
+    //   lessonContent[currentStep].steps &&
+    //   lessonContent[currentStep].steps.length > 0 &&
+    //   lessonContent[currentStep].steps[0].instructions
+    // ) {
+    //   const instructions = lessonContent[currentStep].steps[0].instructions; // Accessing steps as an array
+
+    //   instructions.forEach((instruction: { type: string; input: string }) => {
+    //     if (instruction.type === "terminal") {
+    //       if (instruction.input === consoleInput) {
+    //         setHasError(false);
+    //         setCurrentError("Success");
+    //         feedback = "Success";
+    //         setCurrentContentStep(currentStep + 1);
+    //       } else {
+    //         setHasError(true);
+    //         setCurrentError("Invalid Command");
+    //         feedback = "Invalid Command";
+    //       }
+    //     }
+    //   });
+    // }
 
     setConsoleInputs((prev) => [
       ...prev,

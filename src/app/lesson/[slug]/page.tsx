@@ -85,7 +85,7 @@ export default function Home() {
             setActiveFileId={setSelectedFileId}
             setActiveEditorCode={setActiveEditorCode}
           />
-          <Terminal />
+          <Terminal exerciseData={data} />
         </div>
       </div>
     </div>

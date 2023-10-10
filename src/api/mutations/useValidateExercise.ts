@@ -6,6 +6,7 @@ import { QUERY_KEY as GET_EXERCISE_QUERY_KEY } from "../queries";
 
 const validateExercise = async (params: ValidateExerciseParams) => {
   await apiClient.put("/user/exercise/" + params.exerciseId + "/validate", {
+    exercise_id: params.exerciseId,
     input: params.input,
     type: params.type,
   });

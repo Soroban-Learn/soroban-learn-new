@@ -6,6 +6,9 @@ import type {
 } from "@/types";
 import { useMutation } from '@tanstack/react-query';
 import { useSetRecoilState } from "recoil";
+import { useAuth } from "@/hooks";
+
+import { useRouter } from "next/navigation";
 
 import { apiClient } from '../apiClient';
 import { queryClient } from "../queryClient";
@@ -25,6 +28,10 @@ export const useUserRegistration = () => {
   const setToken = useSetRecoilState(tokenState);
   const setUser = useSetRecoilState(userState);
 
+  const { setupSession } = useAuth();
+
+  const router = useRouter();
+
   return useMutation<
     UserRegistratioResponse,
     AxiosError<ErrorResponse>,
@@ -33,8 +40,7 @@ export const useUserRegistration = () => {
     onSuccess: (data: UserRegistratioResponse) => {
       if (data.success) {
         const { info: { access_token, ...user } } = data;
-        setToken(access_token);
-        setUser(user);
+        setupSession(access_token, user);
       }
       queryClient.invalidateQueries(USER_REGISTRATION_QUERY_KEY);
     },
