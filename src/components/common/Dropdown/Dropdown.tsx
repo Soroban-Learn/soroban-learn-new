@@ -57,11 +57,11 @@ const Dropdown: FC<PropsWithChildren<DropdownProps>> = ({
       <div
         className={cx(
           'w-48 bg-gradient-to-r from-[#5d5d5d] to-[#4d4d4d] rounded-xl',
-          'absolute -right-5 top-full mt-8 z-20',
+          'absolute -right-5 top-full mt-8 z-20 invisible',
           'transition-all duration-200 ease-out',
           {
-            'opacity-0 scale-90 -translate-y-5 invisible': !isOpen,
-            'opacity-100 scale-100 translate-y-0': isOpen,
+            'opacity-0 scale-90 -translate-y-5': !isOpen,
+            'opacity-100 scale-100 translate-y-0 !visible': isOpen,
           }
         )}
       >
