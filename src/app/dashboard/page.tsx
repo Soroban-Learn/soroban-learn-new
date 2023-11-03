@@ -38,8 +38,6 @@ function Dashboard() {
     router.push("/lesson/" + data?.current_lesson_id);
   }, [router, data]);
 
-  console.log("[[[data]]]", data);
-
   return (
     <div className="flex flex-col h-screen">
       <Header />

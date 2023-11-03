@@ -12,7 +12,6 @@ const QUERY_KEY = ["Forum"];
 export const getForum = async (
   params: IGetForum
 ): Promise<AxiosResponse> => {
-  console.log('[[NEV]]]', process.env)
   const { data } = await forumApiClient.get(
     `/?type=json&apikey=${process.env.FORUM_API_KEY}&user=${params.username}&email=${params.email}`
   );

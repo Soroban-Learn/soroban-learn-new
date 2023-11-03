@@ -20,7 +20,14 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 const FormLink = () => {
   const [user] = useLocalStorage("user", "");
 
-  const parsedUser = JSON.parse(user) as { username: string; email: string };
+  let parsedUser;
+  try {
+    parsedUser = JSON.parse(user);
+  } catch (error) {
+    console.error("Error parsing user data:", error);
+    // Default user object to prevent further issues in your code
+    parsedUser = { username: "", email: "" };
+  }
 
   const { data, error, isError, isLoading, refetch } = useGetForum({
     username: parsedUser.username,

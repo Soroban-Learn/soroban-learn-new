@@ -4,7 +4,7 @@ import cx from "classnames";
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 
 // Components
-import Portal from "@/components/common/Portal";
+// import Portal from "@/components/common/Portal";
 
 export interface ModalProps {
   className?: string;
@@ -48,7 +48,7 @@ const Modal: FC<PropsWithChildren<ModalProps>> = ({
   if (!open) return null;
 
   return (
-    <Portal selector="body">
+
       <div className="fixed top-0 left-0 z-30 w-full h-full overflow-auto">
         <div
           className={cx(
@@ -71,7 +71,7 @@ const Modal: FC<PropsWithChildren<ModalProps>> = ({
           {children}
         </div>
       </div>
-    </Portal>
+
   )
 }
 
