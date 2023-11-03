@@ -47,10 +47,8 @@ export const Registration = () => {
     (data: RegistrationSchema) => {
       mutate({
         email: data.email,
-        first_name: data.firstName,
-        last_name: data.lastName,
-        password: data.password,
         username: data.username,
+        password: data.password,
       });
     },
     [mutate]
@@ -63,26 +61,6 @@ export const Registration = () => {
     >
       <AuthLogo />
       <div className="text-2xl text-light-gray mb-12">Let’s get started!</div>
-      <div className="grid grid-cols-2 gap-8">
-        <div>
-          <Input
-            placeholder="First"
-            icon={<i className="fa fa-user" />}
-            error={errors.firstName?.message}
-            {...register("firstName")}
-            className="w-full"
-          />
-        </div>
-        <div>
-          <Input
-            placeholder="Last"
-            icon={<i className="fa fa-user" />}
-            error={errors.lastName?.message}
-            {...register("lastName")}
-            className="w-full"
-          />
-        </div>
-      </div>
       <Input
         icon={<i className="fa fa-envelope" />}
         placeholder="E-mail"
@@ -94,7 +72,6 @@ export const Registration = () => {
         icon={<i className="fa fa-user" />}
         placeholder="Username"
         wrapperClassName="mt-2.5"
-        error={errors.username?.message}
         {...register("username")}
       />
       <Input

@@ -1,10 +1,16 @@
-import type { FileStructureNode, LessonContent } from "@/types";
+import type { FileStructureNode, LessonContent, ExerciseListItem } from "@/types";
 import { atom } from "recoil";
 
 export const currentLessonState = atom<LessonContent>({
   key: "currentLessonState",
   default: [] as LessonContent, // Explicitly cast the default value to an empty array of LessonContent
 });
+
+export const currentExerciseState = atom<ExerciseListItem>({
+  key: "currentExerciseState",
+  default: {} as ExerciseListItem, 
+});
+
 
 export const ideCodeState = atom<string>({
   key: "ideCodeStateKey",

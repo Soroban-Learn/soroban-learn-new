@@ -11,9 +11,6 @@ export interface DescriptionProps {
 
 const Description: FC<DescriptionProps> = ({ lessonContent }) => (
   <>
-    <h3 className="text-lg leading-loose">
-      {lessonContent && lessonContent.title}
-    </h3>
     <ReactMarkdown
       components={{
         p: P,

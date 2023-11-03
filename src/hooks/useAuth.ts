@@ -31,13 +31,15 @@ export const useAuth = () => {
   }, [user]);
 
   const setupSession = useCallback(
-    (accessToken: string, user: User) => {
+    (accessToken: string, user: User, redirect?: boolean) => {
       localStorage.setItem("token", accessToken);
       localStorage.setItem("user", JSON.stringify(user));
       setToken(accessToken);
       setUser(user);
       setShowModal(false);
-      router.push("/dashboard");
+      if (redirect !== false) { 
+        router.push("/dashboard");
+      }
     },
     [setShowModal, setToken, setUser, router]
   );

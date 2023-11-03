@@ -13,6 +13,7 @@ import {
   currentLessonState,
   fileStructureState,
   selectedFileIdState,
+  currentExerciseState,
 } from "@/store";
 
 // Hooks
@@ -50,7 +51,8 @@ const Sidebar = ({ exerciseData }: { exerciseData: ExerciseListItem[] }) => {
       exerciseData?.length) *
     100;
 
-  const [currentExercise, setCurrentExercise] = useState<ExerciseListItem>();
+  const [currentExercise, setCurrentExercise] =
+    useRecoilState<ExerciseListItem>(currentExerciseState);
 
   const onScrollerInit = useCallback((element: HTMLDivElement | null) => {
     scrollerRef.current = element;
@@ -89,8 +91,6 @@ const Sidebar = ({ exerciseData }: { exerciseData: ExerciseListItem[] }) => {
 
     const exerciseIdx = exerciseData.findIndex((e) => !e.is_completed);
 
-    console.log(exerciseData, "<<< exerciseData", exerciseIdx);
-
     if (exerciseIdx > -1) {
       setCurrentExercise(exerciseData[exerciseIdx]);
       setCurrentContentStep(exerciseIdx);
@@ -118,7 +118,6 @@ const Sidebar = ({ exerciseData }: { exerciseData: ExerciseListItem[] }) => {
           <div className="pr-8 pb-20">
             {showDescription && (
               <>
-                <h3 className="text-lg leading-loose">Jonathon</h3>
                 <h2 className="text-5xl font-semibold mb-6">
                   {currentExercise && currentExercise?.title}
                 </h2>
@@ -132,29 +131,31 @@ const Sidebar = ({ exerciseData }: { exerciseData: ExerciseListItem[] }) => {
             </div>
           </div>
         </Scrollbar>
-        <div
-          className={cx(
-            "absolute bottom-0 left-0 w-full flex justify-end items-end",
-            "bg-gradient-to-b from-transparent to-black h-28 pr-10 pb-2"
-          )}
-        >
-          <button
-            className="bg-transparent text-light-gray flex justify-end items-center"
-            onClick={validateExerciseHandler}
-            disabled={percentComplete === 100}
+        {currentExercise?.step_validation?.type !== "terminal" ? (
+          <div
+            className={cx(
+              "absolute bottom-0 left-0 w-full flex justify-end items-end",
+              "bg-gradient-to-b from-transparent to-black h-28 pr-10 pb-2"
+            )}
           >
-            <span className="mr-2">Next Exercise</span>
-            <i className="fa fa-arrow-right text-sm" />
-          </button>
-        </div>
+            <button
+              className="bg-transparent text-light-gray flex justify-end items-center"
+              onClick={validateExerciseHandler}
+              disabled={percentComplete === 100}
+            >
+              <span className="mr-2">Next Exercise</span>
+              <i className="fa fa-arrow-right text-sm" />
+            </button>
+          </div>
+        ) : null}
       </div>
       <div>
         <Progress percentComplete={percentComplete} label="Completed" />
-        <FileExplorer
+        {/* <FileExplorer
           nodes={fileStructure}
           selectedFileId={selectedFileId}
           setSelectedFileId={setSelectedFileId}
-        />
+        /> */}
       </div>
     </div>
   );
