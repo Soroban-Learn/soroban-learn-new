@@ -17,10 +17,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://pro.fontawesome.com/releases/v5.15.4/css/all.css"
+          integrity="sha384-rqn26AG5Pj86AF4SO72RK5fyefcQ/x32DNQfChxWvbXIyXFePlEktwD18fEz+kQU"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className={inter.className}>
-        <LayoutProviders>
-          {children}
-        </LayoutProviders>
+        <LayoutProviders>{children}</LayoutProviders>
       </body>
     </html>
   );
