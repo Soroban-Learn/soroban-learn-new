@@ -1,5 +1,5 @@
-import type { ComponentPropsWithRef, FC, PropsWithChildren } from "react";
-import { useCallback, useEffect, useRef } from "react";
+import type { FC, PropsWithChildren } from "react";
+import { useCallback, useEffect, useState } from "react";
 import cx from "classnames";
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 
@@ -22,7 +22,7 @@ const Modal: FC<PropsWithChildren<ModalProps>> = ({
   children,
   onClose,
 }) => {
-  const modalRef = useRef<HTMLDivElement>(null);
+  const [modalElement, setModalElement] = useState<HTMLDivElement>();
 
   const handleClose = useCallback(() => {
     if (closeOnBackdropClick) {
@@ -30,25 +30,30 @@ const Modal: FC<PropsWithChildren<ModalProps>> = ({
     }
   }, [closeOnBackdropClick, onClose]);
 
+  const modalRef = useCallback((element: HTMLDivElement) => {
+    setModalElement(element);
+  }, []);
+
   useEffect(() => {
-    if (open && modalRef.current) {
-      disableBodyScroll(modalRef.current);
-    } else if (!open && modalRef.current) {
-      enableBodyScroll(modalRef.current);
+    if (open && modalElement) {
+      disableBodyScroll(modalElement);
+    } else if (!open && modalElement) {
+      enableBodyScroll(modalElement);
     }
     return () => {
       clearAllBodyScrollLocks();
     }
-  }, [open]);
+  }, [open, modalElement]);
 
   if (!open) return null;
 
   return (
     <Portal selector="body">
-      <div className="fixed top-0 left-0 z-30 w-full h-full">
+      <div className="fixed top-0 left-0 z-30 w-full h-full overflow-auto">
         <div
           className={cx(
             "w-full h-full bg-black/80",
+            "fixed top-0 left-0 z-10",
             backdropClassName,
           )}
           onClick={handleClose}
@@ -58,6 +63,7 @@ const Modal: FC<PropsWithChildren<ModalProps>> = ({
             "max-w-[500px] w-full bg-white rounded-[10px] py-8",
             "absolute left-1/2 -translate-x-1/2 -translate-y-1/2",
             "animate-pop-up",
+            "relative z-20",
             className,
           )}
           ref={modalRef}
