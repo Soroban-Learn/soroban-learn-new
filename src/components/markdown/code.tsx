@@ -1,52 +1,22 @@
-import React, { useState } from "react";
+import type { CodeProps } from 'react-markdown/lib/ast-to-react';
+import { type FC, useCallback, useState } from "react";
 
-export function H2(props: { children: any }) {
-  return <h2 className="text-5xl font-semibold mb-6">{props.children}</h2>;
-}
-
-export function H3(props: { children: any }) {
-  return <h3 className="text-lg leading-loose">{props.children}</h3>;
-}
-
-export function H4(props: { children: any }) {
-  return (
-    <h4 className="text-2xl font-bold leading-loose mt-4 mb-2">
-      {props.children}
-    </h4>
-  );
-}
-
-export function P(props: { children: any }) {
-  return <p className="text-base leading-snug my-2">{props.children}</p>;
-}
-
-export function A(props: { href?: string | undefined; children: any }) {
-  return (
-    <a href={props.href} className="underline" target="_blank" rel="noreferrer">
-      {props.children}
-    </a>
-  );
-}
-
-export function Code({
+export const Code: FC<CodeProps> = ({
+  inline,
   children,
-  inline = false,
-}: {
-  children: any;
-  inline?: boolean;
-}) {
+}) => {
   const [copied, setCopied] = useState(false);
 
-  const copyText = () => {
-    if (typeof children[0] === "string") {
-      navigator.clipboard.writeText(children);
+  const copyText = useCallback(() => {
+    if (children && typeof children[0] === "string") {
+      navigator.clipboard.writeText(children[0]);
       setCopied(true);
 
       setTimeout(() => {
         setCopied(false);
       }, 2000);
     }
-  };
+  }, [children]);
 
   if (inline === true) {
     return (
@@ -55,11 +25,6 @@ export function Code({
       </code>
     );
   } else {
-    interface Child {
-      child: string;
-      index: number;
-    }
-
     return (
       <div className="relative pb-2">
         <div className="bg-[#282828] rounded-md my-6 p-[10px] flex items-center justify-between">
@@ -86,3 +51,4 @@ export function Code({
     );
   }
 }
+
