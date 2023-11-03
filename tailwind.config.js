@@ -22,6 +22,7 @@ module.exports = {
         "light-gray": "#5F5F5F",
         "light-gray2": "#D9D9D9",
         black2: "#0A0A0A",
+        error: "#c94545",
       },
       height: {
         header: "80px",
