@@ -6,16 +6,18 @@ import {
   currentLessonState,
   hasErrorState,
 } from "@/store";
+import { useLessonContext } from "@/hooks/useLessonContext";
 
 function Terminal() {
-  const [pastConsoleInputs, setPastConsoleInputs] = useState<
-    { successMessage: string; input: string }[]
-  >([]);
+  const { consoleInputs, setConsoleInputs, stepType } = useLessonContext();
+
   const [consoleInput, setConsoleInput] = useState("");
   const [currentStep, setCurrentContentStep] = useRecoilState(currentStepState);
   const [, setHasError] = useRecoilState(hasErrorState);
   const [, setCurrentError] = useRecoilState(currentErrorState);
   const [lessonContent] = useRecoilState(currentLessonState);
+
+  console.log(stepType, "<<< stepType");
 
   const handleConsoleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -46,8 +48,8 @@ function Terminal() {
       });
     }
 
-    setPastConsoleInputs([
-      ...pastConsoleInputs,
+    setConsoleInputs((prev) => [
+      ...prev,
       { successMessage: feedback, input: consoleInput },
     ]);
 
@@ -72,12 +74,13 @@ function Terminal() {
                   className="bg-transparent ml-2 border-transparent focus:border-transparent focus:ring-0 !outline-none w-full"
                   onChange={(e) => setConsoleInput(e.target.value)}
                   value={consoleInput}
+                  disabled={stepType !== "terminal"}
                 />
               </div>
             </form>
           </div>
           <div className="flex flex-col-reverse">
-            {pastConsoleInputs?.map((input, index) => (
+            {consoleInputs?.map((input, index) => (
               <div key={index} className="flex flex-col">
                 <span className="text-indigo-600">
                   {">"} {input.input}

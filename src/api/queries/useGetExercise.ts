@@ -2,7 +2,7 @@ import type { AxiosError, AxiosResponse } from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { apiClient } from "../apiClient";
 
-const QUERY_KEY = ["Exercise"];
+export const QUERY_KEY = "useGetExercise";
 
 export const getExercise = async (id: string): Promise<AxiosResponse> => {
   const { data } = await apiClient.get(`/user/lesson/${id}/exercise`);
