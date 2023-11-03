@@ -12,51 +12,6 @@ function Dashboard() {
     "969cbcf9-db5a-4069-a6d4-2699be3dd631"
   );
 
-  const courseData = {
-    id: "123456789",
-    title: "Mastering Soroban",
-    description: "Learn how to",
-    completed_lessons: 1,
-    lessons: [
-      {
-        id: 1,
-        title: "Intro To Rust",
-        isCompleted: true,
-        completed_exercises: 2,
-        exercises: [
-          {
-            id: 1,
-            title: "Exercise 1",
-            completed: true,
-          },
-          {
-            id: 2,
-            title: "Exercise 2",
-            completed: true,
-          },
-        ],
-      },
-      {
-        id: 2,
-        title: "Advanced Rust Concepts",
-        isCompleted: false,
-        completed_exercises: 1,
-        exercises: [
-          {
-            id: 1,
-            title: "Exercise 1",
-            completed: true,
-          },
-          {
-            id: 2,
-            title: "Exercise 2",
-            completed: false,
-          },
-        ],
-      },
-    ],
-  };
-
   const router = useRouter();
 
   return (
@@ -154,9 +109,9 @@ function Dashboard() {
               <div className="text-zinc-500 text-xl font-normal leading-7">
                 <div>
                   <span className="text-white text-xl font-bold leading-7">
-                    {courseData.completed_lessons}
+                    {data?.completed_lessons}
                   </span>{" "}
-                  / {courseData.lessons.length}
+                  / {data?.lessons.length}
                 </div>
                 <div>Lessons</div>
               </div>
@@ -182,17 +137,23 @@ function Dashboard() {
         </div>
 
         <div className="mt-6">
-          {courseData.lessons.map((lesson, index) => (
-            <LessonItem
-              title={lesson.title}
-              index={index}
-              totalExercises={lesson.exercises.length}
-              exercises={lesson.exercises}
-              completedExercises={lesson.completed_exercises}
-              key={lesson.id}
-              isCompleted={lesson.isCompleted}
-            />
-          ))}
+          {data && data.lessons.map((lesson: LessonItem, index: number) => {
+            // If lesson.exercises is a string, parse it into an array of Exercise objects
+            const exercises = typeof lesson.exercises === 'string' ? JSON.parse(lesson.exercises) : lesson.exercises;
+
+            return (
+              <LessonItem
+                id={lesson.id}
+                title={lesson.title}
+                index={index}
+                totalExercises={exercises.length}
+                exercises={exercises}
+                completed_exercises={lesson.completed_exercises}
+                key={lesson.id}
+                isCompleted={lesson.isCompleted}
+              />
+            );
+          })}
         </div>
       </div>
     </div>

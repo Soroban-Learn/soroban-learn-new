@@ -5,7 +5,7 @@ import ExerciseListItem from "@/components/ExerciseListItem";
 function LessonItem({
   title,
   totalExercises,
-  completedExercises,
+  completed_exercises,
   exercises,
   index,
   isCompleted,
@@ -43,7 +43,7 @@ function LessonItem({
             </div>
 
             <div className="text-white text-2xl font-bold leading-loose ml-auto">
-              {completedExercises}/{totalExercises}
+              {completed_exercises}/{totalExercises}
             </div>
 
             <div
