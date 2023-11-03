@@ -21,13 +21,13 @@ const Progress: FC<ProgressProps> = ({ percentComplete , label, ...otherProps })
 
   return (
     <div
-      className="bg-[#0A0A0A] relative h-11 flex justify-end items-center overflow-hidden rounded-tr-[10px]"
+      className="bg-black2 relative h-11 flex justify-end items-center overflow-hidden rounded-tr-[10px]"
       {...otherProps}
     >
       <div
         className={cx(
           'absolute top-0 left-0 h-full',
-          'bg-[#5546FF] flex justify-end items-center font-bold',
+          'bg-primary flex justify-end items-center font-bold',
           'transition-all duration-500 ease-in-out',
         )}
         style={{ width: `${progressValue}%` }}
@@ -35,7 +35,7 @@ const Progress: FC<ProgressProps> = ({ percentComplete , label, ...otherProps })
         {progressValue > 10 && <span className="pr-3">{progressValue}%</span>}
       </div>
       {label && (
-        <div className="text-[#5F5F5F] pr-3.5">{label}</div>
+        <div className="text-light-gray pr-3.5">{label}</div>
       )}
     </div>
   );

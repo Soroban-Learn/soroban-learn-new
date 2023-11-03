@@ -42,11 +42,12 @@ const FileExplorerNode: FC<FileExplorerFolderProps> = ({
       <div
         className={cx(
           'h-[25px] flex justify-start items-center text-xs',
-          'border-l-4 border-transparent border-solid',
+          'border-l-4 border-solid',
           'transition-all duration-300 ease-linear',
           'rounded-r-md',
           {
-            'bg-black border-[#5546FF]': selectedFileId === id,
+            'border-transparent': selectedFileId !== id,
+            'bg-black border-primary': selectedFileId === id,
           }
         )}
         style={{

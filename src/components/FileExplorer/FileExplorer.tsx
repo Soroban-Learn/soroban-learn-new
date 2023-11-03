@@ -18,7 +18,7 @@ const FileExplorer: FC<FileExplorerProps> = ({
   setSelectedFileId,
 }) => {
   return (
-    <div className="h-[300px] pb-12 bg-[#232323]">
+    <div className="h-[300px] pb-12 bg-dark-gray">
       <div className={cx(
         'flex justify-start items-center h-[50px] px-5',
         'border-b border-solid border-black font-bold',

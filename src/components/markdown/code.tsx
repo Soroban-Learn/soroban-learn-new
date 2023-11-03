@@ -20,14 +20,14 @@ export const Code: FC<CodeProps> = ({
 
   if (inline === true) {
     return (
-      <code className="bg-[#282828] rounded-md px-2 py-1 text-sm">
+      <code className="bg-gray rounded-md px-2 py-1 text-sm">
         {children}
       </code>
     );
   } else {
     return (
       <div className="relative pb-2">
-        <div className="bg-[#282828] rounded-md my-6 p-[10px] flex items-center justify-between">
+        <div className="bg-gray rounded-md my-6 p-[10px] flex items-center justify-between">
           <code className="break-normal whitespace-pre-wrap">{children}</code>
           <div onClick={() => copyText()} className="cursor-pointer	">
             <svg
