@@ -20,11 +20,31 @@ module.exports = {
         "dark-gray": "#232323",
         "dark-gray/50": "#23232380",
         "light-gray": "#5F5F5F",
+        "light-gray2": "#D9D9D9",
         black2: "#0A0A0A",
+        error: "#c94545",
       },
       height: {
         header: "80px",
         main: "calc(100vh - 80px)",
+      },
+      gridTemplateColumns: {
+        "input": "60px 1fr",
+      },
+      keyframes: {
+        "pop-up": {
+          "0%": {
+            top: "48%",
+            opacity: "0",
+          },
+          "100%": {
+            top: "50%",
+            opacity: "1",
+          },
+        }
+      },
+      animation: {
+        "pop-up": "pop-up 500ms ease-out forwards",
       }
     },
     container: {
