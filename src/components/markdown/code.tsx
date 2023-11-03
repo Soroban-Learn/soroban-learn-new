@@ -21,7 +21,7 @@ export const Code: FC<CodeProps> = ({ inline, children }) => {
     );
   } else {
     return (
-      <div className="relative pb-2">
+      <div className="relative">
         <div className="bg-gray rounded-md my-6 p-[10px] flex items-center justify-between">
           <code className="break-normal whitespace-pre-wrap text-sm">
             {children}
