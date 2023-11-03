@@ -1,7 +1,7 @@
 ![sl-github](https://github.com/Soroban-Learn/soroban-learn-new/assets/3857428/80ccb120-c01d-43db-988b-aa52ec549da0)
 
 
-## Soroban Learn
+# Soroban Learn
 <a target="_blank" href="https://discord.gg/QBS4CPxMHS">
 <img src="https://img.shields.io/badge/-SorobanLearn-7289da?style=for-the-badge&logo=Discord&logoColor=white&link=https://discord.gg/QBS4CPxMHS" alt="Discord Badge">
 </a>
