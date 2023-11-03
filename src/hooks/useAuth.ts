@@ -1,13 +1,19 @@
 import type { User } from "@/types";
 import { useCallback } from "react"
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 
 // Store
-import { tokenState, userState } from "@/store/sessionStates";
+import { authModalState, tokenState, userState } from "@/store";
 
 export const useAuth = () => {
+  const [showModal, setShowModal] = useRecoilState(authModalState);
+
   const setToken = useSetRecoilState(tokenState);
   const setUser = useSetRecoilState(userState);
+
+  const toggle = useCallback(() => {
+    setShowModal(!showModal);
+  }, [showModal, setShowModal]);
 
   const setupSession = useCallback((
     accessToken: string,
@@ -15,17 +21,17 @@ export const useAuth = () => {
   ) => {
     setToken(accessToken);
     setUser(user);
-    // Cookies.set("access_token", accessToken);
-    // Cookies.remove("access_token");
-  }, [setToken, setUser]);
+    setShowModal(false);
+  }, [setShowModal, setToken, setUser]);
 
   const logout = useCallback(() => {
     setToken("");
     setUser(null);
-    // Cookies.remove("access_token");
   }, [setToken, setUser]);
 
   return {
+    showModal,
+    toggle,
     setupSession,
     logout,
   }
