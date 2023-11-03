@@ -1,27 +1,24 @@
+import type { LessonContent } from "@/types";
 import { useState, useEffect } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import toast from "react-simple-toasts";
+
+// Store
 import {
   currentLessonState,
   ideCodeState,
-  LineNumbersState,
-  BlockedRangesState,
-} from "@/utils/recoilState";
+} from "@/store";
 
 export function useStepValidation(
   currentStep: number,
-  setCurrentContentStep: (arg0: any) => void,
-  consoleInput: any,
-  setHasError: boolean,
-  setCurrentError: string
+  setCurrentContentStep: (arg0: number) => void,
+  consoleInput: string,
+  setHasError?: (bool: boolean) => void,
+  setCurrentError?: (err: string) => void,
 ) {
-  interface LessonContent {
-    steps: any[];
-  }
   const [lessonContent] = useRecoilState<LessonContent>(currentLessonState);
-  const [ideCode, setIdeCode] = useRecoilState(ideCodeState);
-  const [lineNumbers, setLineNumbers] = useRecoilState(LineNumbersState);
-  const [blockedRanges, setBlockedRanges] = useRecoilState(BlockedRangesState);
+
+  const ideCode = useRecoilValue(ideCodeState);
 
   const [error, setError] = useState("");
 
@@ -61,8 +58,8 @@ export function useStepValidation(
           if (instruction.input === consoleInput) {
             setCurrentContentStep(currentStep + 1);
           } else {
-            setHasError(true);
-            setCurrentError("Invalid Command");
+            setHasError?.(true);
+            setCurrentError?.("Invalid Command");
           }
         } else if (instruction.type === "code") {
           const ideCodeSingleLine = ideCode.replace(/\s+/g, "");
