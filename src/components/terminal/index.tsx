@@ -28,41 +28,11 @@ function Terminal({ exerciseData }: { exerciseData: ExerciseListItem[] }) {
     e.preventDefault();
     let feedback = "";
 
-    console.log("[[[currentExercise.id]]]", currentExercise.id);
-
     validateExercise({
       exerciseId: currentExercise.id || "",
       input: consoleInput,
       type: stepType,
     });
-
-    // validateExerciseHandler(consoleInput);
-
-    // if (
-    //   lessonContent &&
-    //   lessonContent.length > 0 && // Check if lessonContent is an array
-    //   lessonContent[currentStep] && // Check if currentStep is a valid index
-    //   lessonContent[currentStep].steps &&
-    //   lessonContent[currentStep].steps.length > 0 &&
-    //   lessonContent[currentStep].steps[0].instructions
-    // ) {
-    //   const instructions = lessonContent[currentStep].steps[0].instructions; // Accessing steps as an array
-
-    //   instructions.forEach((instruction: { type: string; input: string }) => {
-    //     if (instruction.type === "terminal") {
-    //       if (instruction.input === consoleInput) {
-    //         setHasError(false);
-    //         setCurrentError("Success");
-    //         feedback = "Success";
-    //         setCurrentContentStep(currentStep + 1);
-    //       } else {
-    //         setHasError(true);
-    //         setCurrentError("Invalid Command");
-    //         feedback = "Invalid Command";
-    //       }
-    //     }
-    //   });
-    // }
 
     setConsoleInputs((prev) => [
       ...prev,

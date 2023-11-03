@@ -118,7 +118,7 @@ const Sidebar = ({ exerciseData }: { exerciseData: ExerciseListItem[] }) => {
           <div className="pr-8 pb-20">
             {showDescription && (
               <>
-                <h2 className="text-5xl font-semibold mb-6">
+                <h2 className="text-4xl font-semibold mb-6">
                   {currentExercise && currentExercise?.title}
                 </h2>
               </>

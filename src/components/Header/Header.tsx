@@ -19,9 +19,11 @@ const Header = () => {
 
   const { mutate, error, isError, isLoading } = useUserLogout();
 
+  console.log("[[[user]]]", user);
+
   return (
     <div className="h-header flex py-6 px-6">
-      <div className="flex items-center gap-2">
+      {/* <div className="flex items-center gap-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -33,8 +35,7 @@ const Header = () => {
           <rect y="5.16174" width="16" height="2" fill="white" />
           <rect y="10.3235" width="16" height="2" fill="white" />
         </svg>
-        {/* <span className="mr-auto">Hello World!</span> */}
-      </div>
+      </div> */}
       <div className="flex justify-center ml-6">
         <Image src={Logo} alt="SorobanLearn" />
       </div>

@@ -2,6 +2,7 @@ import type { User } from "@/types";
 import { useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useRecoilState, useSetRecoilState } from "recoil";
+import { useCookies } from 'react-cookie';
 
 // Store
 import { authModalState, tokenState, userState } from "@/store";
@@ -44,9 +45,12 @@ export const useAuth = () => {
     [setShowModal, setToken, setUser, router]
   );
 
+  const [cookies, setCookie, removeCookie] = useCookies(['access_token']);
+
   const logout = useCallback(() => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    removeCookie('access_token');
     setToken("");
     setUser(null);
     router.push("/"); // Optional: Redirect to login or another relevant page after logout

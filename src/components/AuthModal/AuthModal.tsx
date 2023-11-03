@@ -55,9 +55,9 @@ const AuthModal: FC<AuthModalProps> = ({ showModal, toggle }) => {
         {authModalState === "REGISTRATION" && (
           <RegistrationHelper goToLogin={goToLogin} />
         )}
-        <button className="mt-9" onClick={toggle}>
+        {/* <button className="mt-9" onClick={toggle}>
           <i className="fas fa-times text-6xl" />
-        </button>
+        </button> */}
       </div>
     </Modal>
   );

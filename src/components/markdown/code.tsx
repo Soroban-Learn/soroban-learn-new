@@ -28,7 +28,9 @@ export const Code: FC<CodeProps> = ({
     return (
       <div className="relative pb-2">
         <div className="bg-gray rounded-md my-6 p-[10px] flex items-center justify-between">
-          <code className="break-normal whitespace-pre-wrap">{children}</code>
+          <code className="break-normal whitespace-pre-wrap text-sm">
+            {children}
+          </code>
           <div onClick={() => copyText()} className="cursor-pointer	">
             <svg
               xmlns="http://www.w3.org/2000/svg"
