@@ -20,19 +20,9 @@ import { useModal } from "@/hooks/useModal";
 // Components
 import Button from "@/components/common/Button";
 import AuthModal from "@/components/AuthModal";
-import { apiClient } from "@/api/apiClient";
 
 export default function Home() {
   const { showModal, toggle } = useModal();
-
-  const test = async () => {
-    try {
-      const res = await apiClient.get(`/user/course/969cbcf9-db5a-4069-a6d4-2699be3dd631e`);
-      console.log("RESULT ===>", res);
-    } catch(error) {
-      console.log("ERROR ===>", error);
-    }
-  }
 
   return (
     <div id="top">
@@ -81,7 +71,6 @@ export default function Home() {
               <Button onClick={toggle}>
                 Get Started
               </Button>
-              <Button onClick={test} className="mt-5">TEST</Button>
             </div>
 
             <div>
