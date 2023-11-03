@@ -23,13 +23,10 @@ function Dashboard() {
 
   useEffect(() => {
     const isLoggedIn = isAuth();
-    // if (!isLoggedIn) {
-    //   router.push("/");
-    // }
 
     if (!data?.current_lesson_id) {
       registerForCourse({
-        courseId: "db0759d7-3dc0-48fc-9e10-0239fadad978", // Replace with actual ID
+        courseId: "db0759d7-3dc0-48fc-9e10-0239fadad978", // TODO: find a better way
       });
 
       return;
