@@ -20,7 +20,7 @@ export const useAuth = () => {
     setShowModal(!showModal);
   }, [showModal, setShowModal]);
 
-  const [token] = useLocalStorage("token", "");
+  const [token] = useLocalStorage("token", "{}");
   const [user] = useLocalStorage<Partial<User>>("user", {});
 
   const isAuth = useCallback(() => {

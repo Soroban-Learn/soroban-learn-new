@@ -11,18 +11,23 @@ import { useRegisterForCourse } from "@/api/mutations";
 import { useAuth } from "@/hooks";
 
 function Dashboard() {
-  const { getUser } = useAuth();
+  const { getUser, isAuth } = useAuth();
+  const router = useRouter();
 
   const { data, error, isError, isLoading } = useGetCourseProgress({
     courseId: "db0759d7-3dc0-48fc-9e10-0239fadad978",
     userId: getUser().id,
   });
 
-  const router = useRouter();
-
   const { mutate: registerForCourse } = useRegisterForCourse();
 
   useEffect(() => {
+    const isLoggedIn = isAuth();
+    console.log("[[[isLoggedIn]]]", isLoggedIn);
+    if (!isLoggedIn) {
+      router.push("/");
+    }
+
     if (!data?.current_lesson_id) {
       registerForCourse({
         courseId: "db0759d7-3dc0-48fc-9e10-0239fadad978", // Replace with actual ID
@@ -32,7 +37,7 @@ function Dashboard() {
     }
 
     router.prefetch("/lesson/" + data.current_lesson_id);
-  }, [router, data]);
+  }, [router, data, isAuth, registerForCourse]);
 
   const redirectToLesson = useCallback(() => {
     router.push("/lesson/" + data?.current_lesson_id);

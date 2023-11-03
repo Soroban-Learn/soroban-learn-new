@@ -68,8 +68,9 @@ export function useLocalStorage<T>(
 
   useEffect(() => {
     window.addEventListener("storage", handleStorageChange);
-
-    return () => window.addEventListener("storage", handleStorageChange);
+  
+    // Return a function to remove the event listener
+    return () => window.removeEventListener("storage", handleStorageChange);
   }, [handleStorageChange]);
 
   return [storedValue, setValue];
