@@ -12,8 +12,6 @@ function LessonItem({
 }: LessonItem) {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  console.log(is_complete);
-
   return (
     <div>
       <div className="flex w-full justify-start items-center py-6">

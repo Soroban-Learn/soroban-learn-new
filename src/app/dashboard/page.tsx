@@ -23,7 +23,6 @@ function Dashboard() {
 
   useEffect(() => {
     const isLoggedIn = isAuth();
-    console.log("[[[isLoggedIn]]]", isLoggedIn);
     if (!isLoggedIn) {
       router.push("/");
     }
