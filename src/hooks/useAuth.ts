@@ -1,10 +1,11 @@
 import type { User } from "@/types";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useRecoilState, useSetRecoilState } from "recoil";
 
 // Store
 import { authModalState, tokenState, userState } from "@/store";
+import { useLocalStorage } from "./useLocalStorage";
 
 export const useAuth = () => {
   const [showModal, setShowModal] = useRecoilState(authModalState);
@@ -18,15 +19,15 @@ export const useAuth = () => {
     setShowModal(!showModal);
   }, [showModal, setShowModal]);
 
-  const token = typeof localStorage !== 'undefined' ? localStorage.getItem("token") : null;
-  const user = typeof localStorage !== 'undefined' ? localStorage.getItem("user") : null;
+  const [token] = useLocalStorage("token", "");
+  const [user] = useLocalStorage<Partial<User>>("user", {});
 
   const isAuth = useCallback(() => {
     return !!token;
   }, [token]);
 
   const getUser = useCallback(() => {
-    return JSON.parse(user || "{}") as User;
+    return user as User;
   }, [user]);
 
   const setupSession = useCallback(
