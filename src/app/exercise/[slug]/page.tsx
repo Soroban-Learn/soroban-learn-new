@@ -164,8 +164,15 @@ export default function Home() {
         </div>
 
         <div className="w-full flex flex-col gap-4">
-          <IDE isDisabled={stepType === "terminal"} />
-
+          <IDE
+            isDisabled={stepType === "terminal"}
+            defaultFiles={[
+              { title: 'Lib.rs', key: 'lib' },
+              { title: 'Test.rs', key: 'test' },
+              { title: 'Another.rs', key: 'another' },
+              { title: 'This title is too long', key: 'long_title' },
+            ]}
+          />
           <Terminal />
         </div>
       </div>
