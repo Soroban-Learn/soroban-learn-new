@@ -29,13 +29,13 @@ const AuthModal: FC<AuthModalProps> = ({
     setAuthModalState("REGISTRATION");
   }, []);
 
-  const goBack = useCallback(() => {
-    setAuthModalState("WALLET");
-  }, []);
+  // const goBack = useCallback(() => {
+  //   setAuthModalState("LOGIN");
+  // }, []);
 
   useEffect(() => {
     if (!showModal) {
-      setAuthModalState("WALLET");
+      setAuthModalState("LOGIN");
     }
   }, [showModal]);
 
@@ -46,18 +46,18 @@ const AuthModal: FC<AuthModalProps> = ({
       className="!bg-transparent py-0"
       closeOnBackdropClick
     >
-      {authModalState === "WALLET" && <Wallet />}
+      {/* {authModalState === "WALLET" && <Wallet />} */}
       {authModalState === "LOGIN" && <Login />}
       {authModalState === "REGISTRATION" && <Registration />}
       <div className="mt-10 text-center">
-        {authModalState === "WALLET" && (
+        {/* {authModalState === "WALLET" && (
           <WalletHelper goToLogin={goToLogin} />
-        )}
+        )} */}
         {authModalState === "LOGIN" && (
           <LoginHelper goToRegister={goToRegister} />
         )}
         {authModalState === "REGISTRATION" && (
-          <RegistrationHelper goBack={goBack} />
+          <RegistrationHelper goToLogin={goToLogin} />
         )}
         <button className="mt-9" onClick={toggle}>
           <FontAwesomeIcon className="text-6xl" icon={faCircleXmark} />
