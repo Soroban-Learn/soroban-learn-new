@@ -18,8 +18,8 @@ export const useAuth = () => {
     setShowModal(!showModal);
   }, [showModal, setShowModal]);
 
-  const token = localStorage.getItem("token");
-  const user = localStorage.getItem("user");
+  const token = typeof localStorage !== 'undefined' ? localStorage.getItem("token") : null;
+  const user = typeof localStorage !== 'undefined' ? localStorage.getItem("user") : null;
 
   const isAuth = useCallback(() => {
     return !!token;
