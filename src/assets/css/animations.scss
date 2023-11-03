@@ -1,0 +1,14 @@
+@keyframes moveSmoothly {
+  0% {
+    transform: translateX(0);
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: translateX(100px);
+    transform: rotate(20deg);
+  }
+}
+
+.moving-image {
+  animation: moveSmoothly 5s ease-in-out infinite alternate;
+}
