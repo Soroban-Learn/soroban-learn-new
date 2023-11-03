@@ -1,6 +1,4 @@
 import { type FC, useCallback, useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleXmark } from "@fortawesome/pro-light-svg-icons";
 
 // Components
 import Modal from "@/components/common/Modal";
@@ -15,11 +13,9 @@ interface AuthModalProps {
 
 type AuthModalState = "WALLET" | "LOGIN" | "REGISTRATION";
 
-const AuthModal: FC<AuthModalProps> = ({
-  showModal,
-  toggle,
-}) => {
-  const [authModalState, setAuthModalState] = useState<AuthModalState>("REGISTRATION");
+const AuthModal: FC<AuthModalProps> = ({ showModal, toggle }) => {
+  const [authModalState, setAuthModalState] =
+    useState<AuthModalState>("REGISTRATION");
 
   const goToLogin = useCallback(() => {
     setAuthModalState("LOGIN");
@@ -60,11 +56,11 @@ const AuthModal: FC<AuthModalProps> = ({
           <RegistrationHelper goToLogin={goToLogin} />
         )}
         <button className="mt-9" onClick={toggle}>
-          <FontAwesomeIcon className="text-6xl" icon={faCircleXmark} />
+          <i className="fas fa-times text-6xl" />
         </button>
       </div>
     </Modal>
   );
-}
+};
 
 export default AuthModal;

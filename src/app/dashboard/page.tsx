@@ -109,7 +109,7 @@ function Dashboard() {
               <div className="text-zinc-500 text-xl font-normal leading-7">
                 <div>
                   <span className="text-white text-xl font-bold leading-7">
-                    {data?.completed_lessons}
+                    {data?.completed_lessons ?? 0}
                   </span>{" "}
                   / {data?.lessons.length}
                 </div>
@@ -118,7 +118,7 @@ function Dashboard() {
               <div className="text-zinc-500 text-xl font-normal leading-7">
                 <div>
                   <span className="text-white text-xl font-bold leading-7">
-                    {data?.progress}%
+                    {data?.progress ?? 0}%
                   </span>
                 </div>
                 <div>Completed</div>
@@ -154,7 +154,7 @@ function Dashboard() {
                   index={index}
                   totalExercises={exercises.length}
                   exercises={exercises}
-                  completed_exercises={lesson.completed_exercises}
+                  completed_exercises={lesson.completed_exercises ?? 0}
                   key={lesson.id}
                   isCompleted={lesson.isCompleted}
                 />
