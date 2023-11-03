@@ -40,7 +40,7 @@ export const Code: FC<CodeProps> = ({ inline, children }) => {
           </div>
         </div>
         {copied && (
-          <span className="text-green-500 text-sm ml-2 absolute right-0 bottom-0">
+          <span className="text-green-500 text-sm ml-2 absolute right-0 -bottom-5">
             Copied to clipboard
           </span>
         )}

@@ -23,9 +23,9 @@ function Dashboard() {
 
   useEffect(() => {
     const isLoggedIn = isAuth();
-    if (!isLoggedIn) {
-      router.push("/");
-    }
+    // if (!isLoggedIn) {
+    //   router.push("/");
+    // }
 
     if (!data?.current_lesson_id) {
       registerForCourse({

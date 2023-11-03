@@ -8,10 +8,7 @@ import Avatar from "@/components/common/Avatar";
 import Dropdown from "@/components/common/Dropdown";
 
 // Mutations
-import { useUserLogout } from "@/api/mutations";
-
-// Queries
-import { useGetForum } from "@/api/queries";
+import { useUserLogout, useForumLogin } from "@/api/mutations";
 
 // Hooks
 import { useAuth } from "@/hooks";
@@ -25,38 +22,27 @@ type User = {
 const FormLink = () => {
   const [user] = useLocalStorage<User>("user", { username: "", email: "" });
 
-  const { data, error, isError, isLoading, refetch } = useGetForum({
-    username: user.username,
-    email: user.email,
-  });
-
-  const openInNewTab = (url: string) => {
-    const newWindow = window.open(url, "_blank", "noopener,noreferrer");
-    if (newWindow) newWindow.opener = null;
-  };
+  const { mutate: validateExercise, isLoading } = useForumLogin();
 
   const handleForumLogin = () => {
-    refetch();
-
-    if (data.authtoken) {
-      openInNewTab(
-        `https://forum.sorobanlearn.com/?authtoken=${data.authtoken}&remember=1`
-      );
-    }
+    validateExercise({
+      username: user.username,
+      email: user.email,
+    });
   };
 
   return (
     <div className="ml-auto flex gap-2 w-fit">
       Need help?{" "}
-      {!isLoading ? (
+      {isLoading ? (
+        <div>Redirecting...</div>
+      ) : (
         <div
           className="underline cursor-pointer"
           onClick={() => handleForumLogin()}
         >
-          Join our Forum
+          Visit our Forum
         </div>
-      ) : (
-        <p>Navigating...</p>
       )}
     </div>
   );

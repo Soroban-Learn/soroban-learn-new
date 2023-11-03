@@ -33,3 +33,8 @@ export interface UserLoginResponse {
   auth: boolean;
   info: UserLoginResponseInfo;
 }
+
+export interface ForumResponse {
+  userid: string;
+  authtoken: string;
+}

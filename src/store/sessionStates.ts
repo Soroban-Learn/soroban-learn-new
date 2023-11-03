@@ -12,3 +12,8 @@ export const userState = atom<User | null>({
   key: "userStateKey",
   default: null,
 });
+
+export const forumState = atom<string>({
+  key: "forumKey",
+  default: "",
+});

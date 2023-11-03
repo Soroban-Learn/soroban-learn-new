@@ -14,6 +14,8 @@ import {
   fileStructureState,
   selectedFileIdState,
   currentExerciseState,
+  LineNumbersState,
+  BlockedRangesState,
 } from "@/store";
 
 // Hooks
@@ -41,6 +43,8 @@ const Sidebar = ({ exerciseData }: { exerciseData: ExerciseListItem[] }) => {
 
   const lessonContent = useRecoilValue(currentLessonState);
   const fileStructure = useRecoilValue(fileStructureState);
+  const [blockedRanges] = useRecoilState(BlockedRangesState);
+  const [lineNumbers] = useRecoilState(LineNumbersState);
 
   const showDescription = useMemo(() => {
     return exerciseData?.some((e) => !e.is_completed);
@@ -59,6 +63,9 @@ const Sidebar = ({ exerciseData }: { exerciseData: ExerciseListItem[] }) => {
   }, []);
 
   const validateExerciseHandler = () => {
+    console.log("[[[blockedRanges]]]", blockedRanges);
+    console.log("[[[lineNumbers]]]", lineNumbers);
+
     if (!currentExercise) {
       return;
     }
@@ -71,6 +78,10 @@ const Sidebar = ({ exerciseData }: { exerciseData: ExerciseListItem[] }) => {
 
     if (stepType === "terminal") {
       input = consoleInputs?.at(consoleInputs.length - 1)?.input;
+    }
+
+    if (stepType === "info") {
+      input = "empty";
     }
 
     if (!input) {

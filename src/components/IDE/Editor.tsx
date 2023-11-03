@@ -1,12 +1,11 @@
 import React, { type FC, useCallback, useState } from "react";
 import { useRecoilState } from "recoil";
 import { githubDarkInit } from "@uiw/codemirror-theme-github";
-
+import readOnlyRangesExtension from "codemirror-readonly-ranges";
 import CodeMirror from "@uiw/react-codemirror";
 import { EditorState } from "@codemirror/state";
 import { rust } from "@codemirror/lang-rust";
 import { EditorView } from "@codemirror/view";
-
 import {
   LineNumbersState,
   BlockedRangesState,
@@ -45,21 +44,27 @@ const Editor: FC<EditorProps> = ({ isDisabled, code, setCode }) => {
 
   const FontSizeThemeExtension = [FontSizeTheme];
 
-  const getReadOnlyRanges = (targetState: {
-    doc: {
-      line: (arg0: number) => { (): any; new (): any; from: any; to: any };
-    };
-  }) => {
-    const ranges: { from: any; to: any }[] = [];
+  const getReadOnlyRanges = (targetState: EditorState) => {
+    // const ranges: { from: any; to: any }[] = [];
 
-    lineNumbers.forEach((line) => {
-      ranges.push({
-        from: targetState.doc.line(line + 1).from,
-        to: targetState.doc.line(line + 1).to,
-      });
-    });
+    // lineNumbers.forEach((line) => {
+    //   ranges.push({
+    //     from: targetState.doc.line(line + 1).from,
+    //     to: targetState.doc.line(line + 1).to,
+    //   });
+    // });
 
-    return ranges;
+    // return ranges;
+    return [
+      {
+        from: undefined, //same as targetState.doc.line(0).from or 0
+        to: targetState.doc.line(5).to,
+      },
+      {
+        from: targetState.doc.line(targetState.doc.lines).from,
+        to: undefined, // same as targetState.doc.line(targetState.doc.lines).to
+      },
+    ];
   };
 
   const readOnlyTransactionFilter = () => {
@@ -82,6 +87,10 @@ const Editor: FC<EditorProps> = ({ isDisabled, code, setCode }) => {
     setEditorView(view);
   };
 
+  const onBeforeInput = (input: any) => {
+    console.log("IT WORKS", input);
+  };
+
   return (
     <div className="relative h-full">
       <CodeMirror
@@ -94,11 +103,13 @@ const Editor: FC<EditorProps> = ({ isDisabled, code, setCode }) => {
           EditorView.lineWrapping,
           FontSizeThemeExtension,
           rust(),
-          EditorState.changeFilter.of((tr) => {
-            const ranges = blockedRanges;
-            return ranges;
-          }),
+          // EditorState.changeFilter.of((tr) => {
+          //   const ranges = [1, 2, 3];
+          //   return ranges;
+          // }),
+          // readOnlyRangesExtension(getReadOnlyRanges),
         ]}
+        onBeforeInput={onBeforeInput}
         onChange={onChange}
         onCreateEditor={onCreateEditor}
         editable={!isDisabled}
