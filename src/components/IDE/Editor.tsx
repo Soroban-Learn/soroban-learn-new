@@ -1,5 +1,6 @@
 import React, { type FC, useCallback, useState } from "react";
 import { useRecoilState } from "recoil";
+import { githubDarkInit } from '@uiw/codemirror-theme-github';
 
 import CodeMirror from "@uiw/react-codemirror";
 import { EditorState } from "@codemirror/state";
@@ -10,6 +11,17 @@ import {
   LineNumbersState,
   BlockedRangesState,
 } from "@/utils/recoilState";
+
+const theme = githubDarkInit({
+  settings: {
+    gutterBackground: '#232323',
+    gutterForeground: '#232323',
+    gutterBorder: '#232323',
+    background: '#232323',
+    foreground: '#232323',
+    lineHighlight: '#232323',
+  },
+});
 
 interface EditorProps {
   isDisabled: boolean;
@@ -72,10 +84,10 @@ const Editor: FC<EditorProps> = ({ isDisabled, code, setCode }) => {
   return (
     <CodeMirror
       value={code}
-      className="rounded-tl-lg rounded-bl-lg h-full"
+      className="rounded-tl-lg rounded-bl-lg h-full ide-editor"
       height="100%"
       maxHeight="100%"
-      theme="dark"
+      theme={theme}
       extensions={[
         EditorView.lineWrapping,
         FontSizeThemeExtension,
