@@ -17,21 +17,17 @@ import { useGetForum } from "@/api/queries";
 import { useAuth } from "@/hooks";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
-const FormLink = () => {
-  const [user] = useLocalStorage("user", "");
+type User = {
+  username: string;
+  email: string;
+};
 
-  let parsedUser;
-  try {
-    parsedUser = JSON.parse(user);
-  } catch (error) {
-    console.error("Error parsing user data:", error);
-    // Default user object to prevent further issues in your code
-    parsedUser = { username: "", email: "" };
-  }
+const FormLink = () => {
+  const [user] = useLocalStorage<User>("user", { username: "", email: "" });
 
   const { data, error, isError, isLoading, refetch } = useGetForum({
-    username: parsedUser.username,
-    email: parsedUser.email,
+    username: user.username,
+    email: user.email,
   });
 
   const handleForumLogin = () => {
