@@ -15,18 +15,21 @@ interface FileNode extends FileStructureNode {
 interface IDEProps {
   isDisabled: boolean;
   defaultFiles: FileStructureNode[];
+  activeEditorCode: string;
   activeFileId: string;
   setActiveFileId: (id: string) => void;
+  setActiveEditorCode: (value: string) => void;
 }
 
 function IDE({
   isDisabled,
   defaultFiles,
+  activeEditorCode,
   activeFileId,
   setActiveFileId,
+  setActiveEditorCode,
 }: IDEProps) {
   const [files, setFiles] = useState<FileNode[]>([]);
-  const [activeEditorCode, setActiveEditorCode] = useState<string>('');
 
   const previousFileId = usePrevious(activeFileId);
 
@@ -35,7 +38,7 @@ function IDE({
     setActiveEditorCode('');
     setFiles(newFiles);
     setActiveFileId(newFiles[0]?.id);
-  }, [files, setActiveFileId]);
+  }, [files, setActiveFileId, setActiveEditorCode]);
 
   const changeTab = useCallback((key: string) => {
     if (key === activeFileId) return;
@@ -58,7 +61,7 @@ function IDE({
   useEffect(() => {
     setFiles(defaultFiles);
     setActiveEditorCode('');
-  }, [defaultFiles]);
+  }, [defaultFiles, setActiveEditorCode]);
 
   useEffect(() => {
     // Save current code state and load new on selected file change
@@ -76,7 +79,13 @@ function IDE({
       setFiles(newFiles);
       setActiveEditorCode(file?.code || '');
     }
-  }, [activeFileId, previousFileId, files, activeEditorCode]);
+  }, [
+    files,
+    activeFileId,
+    previousFileId,
+    activeEditorCode,
+    setActiveEditorCode,
+  ]);
 
   return (
     <div className="h-full flex flex-col">

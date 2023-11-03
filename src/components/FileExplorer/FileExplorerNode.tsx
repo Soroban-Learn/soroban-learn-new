@@ -19,7 +19,7 @@ const FileExplorerNode: FC<FileExplorerFolderProps> = ({
   id,
   title,
   type,
-  nodes,
+  nodes = [],
   nestedIndex,
   selectedFileId,
   setSelectedFileId,
@@ -98,10 +98,6 @@ const FileExplorerNode: FC<FileExplorerFolderProps> = ({
       )}
     </div>
   );
-}
-
-FileExplorerNode.defaultProps = {
-  nodes: [],
 }
 
 export default FileExplorerNode;
