@@ -41,7 +41,7 @@ const Header = () => {
         <Avatar className="mr-4" />
         <Dropdown
           options={[
-            { icon: <i className="fa fa-user" />, label: "Profile" },
+            // { icon: <i className="fa fa-user" />, label: "Profile" },
             {
               icon: <i className="fa fa-arrow-right-from-bracket" />,
               label: "Sign out",
