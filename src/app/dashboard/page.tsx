@@ -38,11 +38,7 @@ function Dashboard() {
     router.push("/lesson/" + data?.current_lesson_id);
   }, [router, data]);
 
-  console.log(
-    "[[[data?.lessons.length / data?.completed_lessons]]]",
-    data?.lessons.length,
-    data?.completed_lessons
-  );
+  console.log("[[[data]]]", data);
 
   return (
     <div className="flex flex-col h-screen">
@@ -151,7 +147,7 @@ function Dashboard() {
                     <span className="text-white text-xl font-bold leading-7">
                       {data?.completed_lessons === 0
                         ? "0"
-                        : (data?.lessons.length / data?.completed_lessons) *
+                        : (data?.completed_lessons / data?.lessons.length) *
                           100}
                       %
                     </span>
@@ -166,7 +162,7 @@ function Dashboard() {
                 className="bg-neutral-900 rounded-full text-center text-white text-base font-bold w-full h-11 min-w-0 max-w-sm"
                 onClick={redirectToLesson}
               >
-                Continue Course
+                {data?.completed_lessons === 0 ? "Start" : "Continue"} Course
               </button>
             </div>
           </div>

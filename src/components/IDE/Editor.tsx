@@ -7,7 +7,11 @@ import { EditorState } from "@codemirror/state";
 import { rust } from "@codemirror/lang-rust";
 import { EditorView } from "@codemirror/view";
 
-import { LineNumbersState, BlockedRangesState } from "@/store";
+import {
+  LineNumbersState,
+  BlockedRangesState,
+  currentErrorState,
+} from "@/store";
 
 const theme = githubDarkInit({
   settings: {
@@ -28,6 +32,7 @@ interface EditorProps {
 const Editor: FC<EditorProps> = ({ isDisabled, code, setCode }) => {
   const [blockedRanges] = useRecoilState(BlockedRangesState);
   const [lineNumbers] = useRecoilState(LineNumbersState);
+  const [exerciseError] = useRecoilState(currentErrorState);
 
   const [, setEditorState] = useState();
   const [, setEditorView] = useState();
@@ -78,25 +83,38 @@ const Editor: FC<EditorProps> = ({ isDisabled, code, setCode }) => {
   };
 
   return (
-    <CodeMirror
-      value={code}
-      className="rounded-tl-lg rounded-bl-lg h-full ide-editor"
-      height="100%"
-      maxHeight="100%"
-      theme={theme}
-      extensions={[
-        EditorView.lineWrapping,
-        FontSizeThemeExtension,
-        rust(),
-        EditorState.changeFilter.of((tr) => {
-          const ranges = blockedRanges;
-          return ranges;
-        }),
-      ]}
-      onChange={onChange}
-      onCreateEditor={onCreateEditor}
-      editable={!isDisabled}
-    />
+    <div className="relative h-full">
+      <CodeMirror
+        value={code}
+        className="rounded-tl-lg rounded-bl-lg h-full ide-editor"
+        height="100%"
+        maxHeight="100%"
+        theme={theme}
+        extensions={[
+          EditorView.lineWrapping,
+          FontSizeThemeExtension,
+          rust(),
+          EditorState.changeFilter.of((tr) => {
+            const ranges = blockedRanges;
+            return ranges;
+          }),
+        ]}
+        onChange={onChange}
+        onCreateEditor={onCreateEditor}
+        editable={!isDisabled}
+      />
+
+      {exerciseError ? (
+        <div className="bg-black bg-opacity-70 rounded-lg absolute bottom-0 p-11">
+          <div className="text-center text-white text-4xl font-semibold">
+            Oops!
+          </div>
+          <div className="text-center text-white text-lg font-normal">
+            {exerciseError}
+          </div>
+        </div>
+      ) : null}
+    </div>
   );
 };
 

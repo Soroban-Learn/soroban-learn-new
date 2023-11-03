@@ -1,10 +1,7 @@
-import type { CodeProps } from 'react-markdown/lib/ast-to-react';
+import type { CodeProps } from "react-markdown/lib/ast-to-react";
 import { type FC, useCallback, useState } from "react";
 
-export const Code: FC<CodeProps> = ({
-  inline,
-  children,
-}) => {
+export const Code: FC<CodeProps> = ({ inline, children }) => {
   const [copied, setCopied] = useState(false);
 
   const copyText = useCallback(() => {
@@ -20,9 +17,7 @@ export const Code: FC<CodeProps> = ({
 
   if (inline === true) {
     return (
-      <code className="bg-gray rounded-md px-2 py-1 text-sm">
-        {children}
-      </code>
+      <code className="bg-gray rounded-md px-2 py-1 text-sm">{children}</code>
     );
   } else {
     return (
@@ -52,5 +47,4 @@ export const Code: FC<CodeProps> = ({
       </div>
     );
   }
-}
-
+};

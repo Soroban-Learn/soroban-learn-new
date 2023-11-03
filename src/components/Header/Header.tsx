@@ -19,8 +19,6 @@ const Header = () => {
 
   const { mutate, error, isError, isLoading } = useUserLogout();
 
-  console.log("[[[user]]]", user);
-
   return (
     <div className="h-header flex py-6 px-6">
       {/* <div className="flex items-center gap-2">

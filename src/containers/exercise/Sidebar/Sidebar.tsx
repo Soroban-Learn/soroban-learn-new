@@ -116,9 +116,13 @@ const Sidebar = ({ exerciseData }: { exerciseData: ExerciseListItem[] }) => {
       <div className="h-full pl-10 pr-2 relative">
         <Scrollbar scrollerProps={{ elementRef: onScrollerInit }}>
           <div className="pr-8 pb-20">
+            <h1 className="text-4xl font-semibold mb-6">
+              Welcome to SorobanLearn
+            </h1>
+            <hr className="mb-4 mt-2 bg-gray-200 border border-slate-900" />
             {showDescription && (
               <>
-                <h2 className="text-4xl font-semibold mb-6">
+                <h2 className="text-2xl font-semibold mb-6">
                   {currentExercise && currentExercise?.title}
                 </h2>
               </>
@@ -139,18 +143,21 @@ const Sidebar = ({ exerciseData }: { exerciseData: ExerciseListItem[] }) => {
             )}
           >
             <button
-              className="bg-transparent text-light-gray flex justify-end items-center"
+              className="bg-primary text-white flex justify-end items-center px-6 py-3 rounded-md"
               onClick={validateExerciseHandler}
               disabled={percentComplete === 100}
             >
-              <span className="mr-2">Next Exercise</span>
+              <span className="mr-2">Submit</span>
               <i className="fa fa-arrow-right text-sm" />
             </button>
           </div>
         ) : null}
       </div>
       <div>
-        <Progress percentComplete={percentComplete} label="Completed" />
+        <Progress
+          percentComplete={Math.round(percentComplete)}
+          label="Completed"
+        />
         {/* <FileExplorer
           nodes={fileStructure}
           selectedFileId={selectedFileId}

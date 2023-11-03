@@ -1,6 +1,7 @@
 import type { FC } from "react";
 import type { ExerciseListItem, LessonContent } from "@/types";
 import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
 
 // Components
 import { H2, H3, H4, P, Code, A } from "@/components/markdown";
@@ -12,6 +13,7 @@ export interface DescriptionProps {
 const Description: FC<DescriptionProps> = ({ lessonContent }) => (
   <>
     <ReactMarkdown
+      rehypePlugins={[rehypeRaw]}
       components={{
         p: P,
         h2: H2,
