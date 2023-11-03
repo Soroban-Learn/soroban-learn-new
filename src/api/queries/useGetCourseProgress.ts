@@ -15,6 +15,7 @@ export const getCourseProgress = async (
   const { data } = await apiClient.get(
     `/user/${params.userId}/course/${params.courseId}/info`
   );
+
   return data;
 };
 

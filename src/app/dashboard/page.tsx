@@ -7,20 +7,27 @@ import { LessonItem as ILessonItem } from "@/types/Lesson";
 
 // Queries
 import { useGetCourseProgress } from "@/api/queries";
+import { useRegisterForCourse } from "@/api/mutations";
 import { useAuth } from "@/hooks";
 
 function Dashboard() {
   const { getUser } = useAuth();
 
   const { data, error, isError, isLoading } = useGetCourseProgress({
-    courseId: "74a9133d-75ba-4324-af00-1fa2e33f6176",
+    courseId: "db0759d7-3dc0-48fc-9e10-0239fadad978",
     userId: getUser().id,
   });
 
   const router = useRouter();
 
+  const { mutate: registerForCourse } = useRegisterForCourse();
+
   useEffect(() => {
     if (!data?.current_lesson_id) {
+      registerForCourse({
+        courseId: "db0759d7-3dc0-48fc-9e10-0239fadad978", // Replace with actual ID
+      });
+
       return;
     }
 
@@ -161,8 +168,6 @@ function Dashboard() {
                 typeof lesson.exercises === "string"
                   ? JSON.parse(lesson.exercises)
                   : lesson.exercises;
-
-              console.log(lesson);
 
               return (
                 <LessonItem

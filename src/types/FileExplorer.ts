@@ -1,4 +1,4 @@
-export type FileStructureNodeType = 'folder' | 'file';
+export type FileStructureNodeType = "folder" | "file";
 
 export interface FileStructureNode {
   id: string;

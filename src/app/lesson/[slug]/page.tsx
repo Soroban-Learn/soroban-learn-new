@@ -16,21 +16,21 @@ import { useGetExercise } from "@/api/queries";
 import {
   currentLessonState,
   fileStructureState,
-  stepTypeState,
   selectedFileIdState,
-  ideCodeState,
 } from "@/store";
 
 // Learn Content
 import helloWorld from "@/learningMaterial/helloWorld.json";
 import { useParams } from "next/navigation";
+import { useLessonContext } from "@/hooks/useLessonContext";
 
 export default function Home() {
+  const { activeEditorCode, setActiveEditorCode, stepType } =
+    useLessonContext();
+
   const [selectedFileId, setSelectedFileId] =
     useRecoilState(selectedFileIdState);
-  const [activeEditorCode, setActiveEditorCode] = useRecoilState(ideCodeState);
 
-  const stepType = useRecoilValue(stepTypeState);
   const fileStructure = useRecoilValue(fileStructureState);
 
   const setLessonContent = useSetRecoilState(currentLessonState);
@@ -85,7 +85,7 @@ export default function Home() {
             setActiveFileId={setSelectedFileId}
             setActiveEditorCode={setActiveEditorCode}
           />
-          <Terminal />
+          <Terminal exerciseData={data} />
         </div>
       </div>
     </div>

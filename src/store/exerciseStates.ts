@@ -1,4 +1,4 @@
-import type { FileStructureNode, LessonContent } from "@/types";
+import type { FileStructureNode, LessonContent, ExerciseListItem } from "@/types";
 import { atom } from "recoil";
 
 export const currentLessonState = atom<LessonContent>({
@@ -6,9 +6,22 @@ export const currentLessonState = atom<LessonContent>({
   default: [] as LessonContent, // Explicitly cast the default value to an empty array of LessonContent
 });
 
+export const currentExerciseState = atom<ExerciseListItem>({
+  key: "currentExerciseState",
+  default: {} as ExerciseListItem, 
+});
+
+
 export const ideCodeState = atom<string>({
   key: "ideCodeStateKey",
   default: "",
+});
+
+export const consoleCodeState = atom<
+  { successMessage: string; input: string }[]
+>({
+  key: "consoleCodeStateKey",
+  default: [],
 });
 
 export const LineNumbersState = atom<number[]>({
@@ -38,7 +51,7 @@ export const hasErrorState = atom<boolean>({
 
 export const stepTypeState = atom<string>({
   key: "stepTypeStateKey",
-  default: "terminal",
+  default: "ide",
 });
 
 export const selectedFileIdState = atom<string>({
@@ -51,21 +64,21 @@ export const fileStructureState = atom<FileStructureNode[]>({
   key: "fileStructureStateKey",
   default: [
     {
-      id: '1',
-      title: 'main',
-      type: 'folder',
+      id: "1",
+      title: "main",
+      type: "folder",
       children: [
         {
-          id: '1_1',
+          id: "1_1",
           title: "Lib.rs",
           type: "file",
         },
       ],
     },
     {
-      id: '2',
+      id: "2",
       title: "another folder",
       type: "folder",
-    }
+    },
   ],
 });

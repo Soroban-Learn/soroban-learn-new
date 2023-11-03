@@ -74,7 +74,7 @@ function LessonItem({
               {exercises.map((exercise) => (
                 <ExerciseListItem
                   title={exercise.title}
-                  is_complete={exercise.completed}
+                  is_completed={exercise.completed}
                   key={exercise.id}
                 />
               ))}

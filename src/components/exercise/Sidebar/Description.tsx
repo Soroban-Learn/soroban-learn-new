@@ -1,20 +1,16 @@
 import type { FC } from "react";
-import type { LessonContent } from "@/types";
+import type { ExerciseListItem, LessonContent } from "@/types";
 import ReactMarkdown from "react-markdown";
 
 // Components
 import { H2, H3, H4, P, Code, A } from "@/components/markdown";
 
 export interface DescriptionProps {
-  lessonContent: LessonContent;
-  currentStep: number;
+  lessonContent: ExerciseListItem;
 }
 
-const Description: FC<DescriptionProps> = ({ lessonContent, currentStep }) => (
+const Description: FC<DescriptionProps> = ({ lessonContent }) => (
   <>
-    <h3 className="text-lg leading-loose">
-      {lessonContent && lessonContent[currentStep].title}
-    </h3>
     <ReactMarkdown
       components={{
         p: P,
@@ -25,7 +21,7 @@ const Description: FC<DescriptionProps> = ({ lessonContent, currentStep }) => (
         a: A,
       }}
     >
-      {lessonContent && lessonContent[currentStep].description}
+      {(lessonContent && lessonContent.description) || ""}
     </ReactMarkdown>
   </>
 );
