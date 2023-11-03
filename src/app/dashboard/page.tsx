@@ -147,8 +147,10 @@ function Dashboard() {
                     <span className="text-white text-xl font-bold leading-7">
                       {data?.completed_lessons === 0
                         ? "0"
-                        : (data?.completed_lessons / data?.lessons.length) *
-                          100}
+                        : Math.round(
+                            (data?.completed_lessons / data?.lessons.length) *
+                              100
+                          )}
                       %
                     </span>
                   </div>
