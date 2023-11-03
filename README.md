@@ -6,7 +6,7 @@
 <img src="https://img.shields.io/badge/-SorobanLearn-7289da?style=for-the-badge&logo=Discord&logoColor=white&link=https://discord.gg/QBS4CPxMHS" alt="Discord Badge">
 </a>
 <a target="_blank" href="https://twitter.com/sorobanlearn">
-<img src="https://img.shields.io/badge/sidbelbase-1ca0f1?style=for-the-badge&logo=twitter&logoColor=white&link=https://twitter.com/sorobanlearn" alt="Twitter Badge">
+<img src="https://img.shields.io/badge/SorobanLearn-1ca0f1?style=for-the-badge&logo=twitter&logoColor=white&link=https://twitter.com/sorobanlearn" alt="Twitter Badge">
 </a>
 
 ## Want to run the project locally?
