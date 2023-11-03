@@ -8,15 +8,17 @@ function LessonItem({
   completed_exercises,
   exercises,
   index,
-  isCompleted,
+  is_complete,
 }: LessonItem) {
   const [isExpanded, setIsExpanded] = useState(false);
+
+  console.log(is_complete);
 
   return (
     <div>
       <div className="flex w-full justify-start items-center py-6">
         <div className="w-16 h-16 rounded-full border border-zinc-500 flex items-center justify-center mr-6 mb-auto flex-none">
-          {isCompleted ? (
+          {is_complete ? (
             <svg
               width="22"
               height="16"

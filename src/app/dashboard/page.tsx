@@ -1,22 +1,35 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
 import LessonItem from "@/components/LessonItem";
+import { LessonItem as ILessonItem } from "@/types/Lesson";
 
 // Queries
 import { useGetCourseProgress } from "@/api/queries";
+import { useAuth } from "@/hooks";
 
 function Dashboard() {
-  const { data, error, isError, isLoading } = useGetCourseProgress(
-    "74a9133d-75ba-4324-af00-1fa2e33f6176"
-  );
+  const { getUser } = useAuth();
+
+  const { data, error, isError, isLoading } = useGetCourseProgress({
+    courseId: "74a9133d-75ba-4324-af00-1fa2e33f6176",
+    userId: getUser().id,
+  });
 
   const router = useRouter();
 
   useEffect(() => {
-    router.prefetch("/lesson/3f03366f-098b-4718-8fd8-b27d3947b0a8");
-  }, [router]);
+    if (!data?.current_lesson_id) {
+      return;
+    }
+
+    router.prefetch("/lesson/" + data.current_lesson_id);
+  }, [router, data]);
+
+  const redirectToLesson = useCallback(() => {
+    router.push("/lesson/" + data?.current_lesson_id);
+  }, [router, data]);
 
   return (
     <div className="flex flex-col h-screen">
@@ -133,9 +146,7 @@ function Dashboard() {
           <div className="w-full flex justify-end">
             <button
               className="bg-neutral-900 rounded-full text-center text-white text-base font-bold w-full h-11 min-w-0 max-w-sm"
-              onClick={() =>
-                router.push("/lesson/3f03366f-098b-4718-8fd8-b27d3947b0a8")
-              }
+              onClick={redirectToLesson}
             >
               Continue Course
             </button>
@@ -144,12 +155,14 @@ function Dashboard() {
 
         <div className="mt-6">
           {data &&
-            data.lessons.map((lesson: LessonItem, index: number) => {
+            data.lessons.map((lesson: ILessonItem, index: number) => {
               // If lesson.exercises is a string, parse it into an array of Exercise objects
               const exercises =
                 typeof lesson.exercises === "string"
                   ? JSON.parse(lesson.exercises)
                   : lesson.exercises;
+
+              console.log(lesson);
 
               return (
                 <LessonItem
@@ -160,7 +173,7 @@ function Dashboard() {
                   exercises={exercises}
                   completed_exercises={lesson.completed_exercises ?? 0}
                   key={lesson.id}
-                  isCompleted={lesson.isCompleted}
+                  is_complete={lesson.is_complete}
                 />
               );
             })}
