@@ -1,8 +1,6 @@
 import type { FC } from "react";
 import Image from "next/image";
 import cx from "classnames";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLink } from "@fortawesome/free-solid-svg-icons";
 
 // Assets
 import WalletImg from "@/assets/images/wallet.png";
@@ -34,26 +32,25 @@ export const Wallet = () => (
       alt=""
     />
     <div className="text-light-gray text-center text-[32px]">
-      You’ll need a
-      <span className="text-gray"> Stellar wallet </span>
+      You’ll need a<span className="text-gray"> Stellar wallet </span>
       to continue.
     </div>
     <Button className="w-full mt-11 rounded-[50px] text-lg py-6 leading-5">
-      <FontAwesomeIcon icon={faLink} />
+      <i className="fa fa-link" />
       <span className="ml-3">Link Wallet</span>
     </Button>
-    <div className={cx(
-      "border-b-2 border-solid border-primary text-primary",
-      "flex justify-center items-center pb-4 mt-[60px] cursor-pointer",
-    )}>
+    <div
+      className={cx(
+        "border-b-2 border-solid border-primary text-primary",
+        "flex justify-center items-center pb-4 mt-[60px] cursor-pointer"
+      )}
+    >
       <Image src={Keys} width={23} height={23} alt="" />
-      <span className="text-lg font-bold ml-6">
-        Download Freighter Wallet
-      </span>
+      <span className="text-lg font-bold ml-6">Download Freighter Wallet</span>
     </div>
     <div className="text-sm text-light-gray mt-7">
-      Freighter is a non-custodial wallet extension that
-      enables you to sign Stellar transactions via your browser.
+      Freighter is a non-custodial wallet extension that enables you to sign
+      Stellar transactions via your browser.
     </div>
   </div>
 );
