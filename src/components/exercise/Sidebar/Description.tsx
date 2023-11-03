@@ -24,7 +24,7 @@ const Description: FC<DescriptionProps> = ({ lessonContent }) => (
         a: A,
       }}
     >
-      {lessonContent && lessonContent.description}
+      {(lessonContent && lessonContent.description) || ""}
     </ReactMarkdown>
   </>
 );
