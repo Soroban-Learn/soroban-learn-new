@@ -15,9 +15,10 @@ import { useGetForum } from "@/api/queries";
 
 // Hooks
 import { useAuth } from "@/hooks";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 
 const FormLink = () => {
-  let user = localStorage.getItem("user") || "";
+  const [user] = useLocalStorage("user", "");
 
   const parsedUser = JSON.parse(user) as { username: string; email: string };
 
