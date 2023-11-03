@@ -1,10 +1,7 @@
-"use client";
-import { QueryClientProvider } from '@tanstack/react-query';
-import { RecoilRoot } from "recoil";
 import { Inter } from "next/font/google";
 
-import { queryClient } from "@/api/queryClient";
 import "./globals.css";
+import LayoutProviders from './layoutProviders';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,9 +18,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <QueryClientProvider client={queryClient}>
-          <RecoilRoot>{children}</RecoilRoot>
-        </QueryClientProvider>
+        <LayoutProviders>
+          {children}
+        </LayoutProviders>
       </body>
     </html>
   );
