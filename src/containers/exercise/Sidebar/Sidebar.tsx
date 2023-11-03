@@ -112,7 +112,7 @@ const Sidebar = ({ exerciseData }: { exerciseData: ExerciseListItem[] }) => {
   }, [currentStep]);
 
   return (
-    <div className="w-2/5 flex flex-col gap-4">
+    <div className="w-1/2 flex flex-col gap-4">
       <div className="h-full pl-10 pr-2 relative">
         <Scrollbar scrollerProps={{ elementRef: onScrollerInit }}>
           <div className="pr-8 pb-20">
