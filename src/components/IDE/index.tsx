@@ -95,7 +95,7 @@ function IDE({
         setActiveTabKey={changeTab}
         onTabClose={removeTab}
       />
-      <div className="bg-[#232323] h-full max-h-[60vh] p-6">
+      <div className="bg-dark-gray h-full max-h-[60vh] p-6">
         <Editor
           isDisabled={isDisabled}
           code={activeEditorCode}

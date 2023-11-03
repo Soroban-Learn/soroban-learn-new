@@ -55,11 +55,11 @@ function Terminal() {
   return (
     <div className="h-[400px] flex flex-col">
       <div>
-        <div className="bg-[#282828] w-fit px-11 py-3 rounded-tr-lg text-base font-bold">
+        <div className="bg-gray w-fit px-11 py-3 rounded-tr-lg text-base font-bold">
           Console
         </div>
       </div>
-      <div className="bg-[#282828] h-full p-6">
+      <div className="bg-gray h-full p-6">
         <div>
           <div className="flex flex-col-reverse">
             <form onSubmit={handleConsoleSubmit}>

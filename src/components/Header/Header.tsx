@@ -12,7 +12,7 @@ import Avatar from "@/components/common/Avatar";
 import Dropdown from "@/components/common/Dropdown";
 
 const Header = () => (
-  <div className="h-[80px] grid grid-cols-3 items-stretch py-6 px-6">
+  <div className="h-header grid grid-cols-3 items-stretch py-6 px-6">
     <div className="flex items-center gap-2">
       <svg
         xmlns="http://www.w3.org/2000/svg"
