@@ -5,7 +5,7 @@ import {
   currentErrorState,
   currentLessonState,
   hasErrorState,
-} from "@/utils/recoilState";
+} from "@/store";
 
 function Terminal() {
   const [pastConsoleInputs, setPastConsoleInputs] = useState<
