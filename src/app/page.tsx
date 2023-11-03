@@ -1,15 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import Logo from "../assets/images/logo.svg";
-import Glows from "../assets/images/glows.svg";
-import Arrows from "../assets/images/arrows.svg";
-import Rocket from "../assets/images/rocket.svg";
-import Steps from "../assets/images/steps.svg";
-import Resources from "../assets/images/resources.svg";
-import HomeCode from "../assets/images/homecode.png";
+import Logo from "@/assets/images/logo.svg";
+import Glows from "@/assets/images/glows.svg";
+import Arrows from "@/assets/images/arrows.svg";
+import Rocket from "@/assets/images/rocket.svg";
+import Steps from "@/assets/images/steps.svg";
+import Resources from "@/assets/images/resources.svg";
+import HomeCode from "@/assets/images/homecode.png";
 
-import "../assets/css/animations.scss";
+import "@/assets/css/animations.scss";
 
 export default function Home() {
   return (
