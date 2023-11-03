@@ -10,8 +10,38 @@ import Dropdown from "@/components/common/Dropdown";
 // Mutations
 import { useUserLogout } from "@/api/mutations";
 
+// Queries
+import { useGetForum } from "@/api/queries";
+
 // Hooks
 import { useAuth } from "@/hooks";
+
+const FormLink = () => {
+  let user = localStorage.getItem("user") || "";
+
+  const parsedUser = JSON.parse(user) as { username: string; email: string };
+
+  const { data, error, isError, isLoading, refetch } = useGetForum({
+    username: parsedUser.username,
+    email: parsedUser.email,
+  });
+
+  const handleForumLogin = () => {
+    refetch();
+  };
+
+  return (
+    <div className="ml-auto flex gap-2 w-fit">
+      Need help?{" "}
+      <div
+        className="underline cursor-pointer"
+        onClick={() => handleForumLogin()}
+      >
+        Join our Forum
+      </div>
+    </div>
+  );
+};
 
 const Header = () => {
   const { getUser } = useAuth();
@@ -19,49 +49,49 @@ const Header = () => {
 
   const { mutate, error, isError, isLoading } = useUserLogout();
 
-  const handleForumLogin = () => {
-    // Define your URL
-    const apiUrl = "http://localhost:3000/api/forum";
+  // const handleForumLogin = () => {
+  //   // Define your URL
+  //   const apiUrl = "http://localhost:3000/api/forum";
 
-    let user = localStorage.getItem("user");
+  //   let user = localStorage.getItem("user");
 
-    if (!user) return;
-    const parsedUser = JSON.parse(user) as { username: string; email: string };
-    if (!parsedUser) return;
+  //   if (!user) return;
+  //   const parsedUser = JSON.parse(user) as { username: string; email: string };
+  //   if (!parsedUser) return;
 
-    // Define the data you want to send
-    const postData = {
-      username: parsedUser.username,
-      email: parsedUser.email,
-    };
+  //   // Define the data you want to send
+  //   const postData = {
+  //     username: parsedUser.username,
+  //     email: parsedUser.email,
+  //   };
 
-    // Create an options object that includes custom headers, method, and body
-    const requestOptions = {
-      method: "POST", // Specify the request method
-      headers: {
-        "Content-Type": "application/json", // Specify any necessary headers
-      },
-      body: JSON.stringify(postData), // Convert your payload into a JSON string
-    };
+  //   // Create an options object that includes custom headers, method, and body
+  //   const requestOptions = {
+  //     method: "POST", // Specify the request method
+  //     headers: {
+  //       "Content-Type": "application/json", // Specify any necessary headers
+  //     },
+  //     body: JSON.stringify(postData), // Convert your payload into a JSON string
+  //   };
 
-    // Make a POST request with your specified options
-    fetch(apiUrl, requestOptions)
-      .then((response) => {
-        if (!response.ok) {
-          // If the response status code is not OK, throw an error to catch later
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json(); // Parse and return the JSON response body
-      })
-      .then((data) => {
-        // Handle your data from the response here
-        console.log("Success:", data);
-      })
-      .catch((error) => {
-        // Catch and log any errors from the request
-        console.error("Error:", error);
-      });
-  };
+  //   // Make a POST request with your specified options
+  //   fetch(apiUrl, requestOptions)
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         // If the response status code is not OK, throw an error to catch later
+  //         throw new Error(`HTTP error! status: ${response.status}`);
+  //       }
+  //       return response.json(); // Parse and return the JSON response body
+  //     })
+  //     .then((data) => {
+  //       // Handle your data from the response here
+  //       console.log("Success:", data);
+  //     })
+  //     .catch((error) => {
+  //       // Catch and log any errors from the request
+  //       console.error("Error:", error);
+  //     });
+  // };
 
   return (
     <div className="h-header flex py-6 px-6">
@@ -81,15 +111,9 @@ const Header = () => {
       <div className="flex justify-center ml-6">
         <Image src={Logo} alt="SorobanLearn" />
       </div>
-      <div className="ml-auto flex gap-2 w-fit">
-        Need help?{" "}
-        <div
-          className="underline cursor-pointer"
-          onClick={() => handleForumLogin()}
-        >
-          Join our Forum
-        </div>
-      </div>
+
+      <FormLink />
+
       <div className="flex justify-end items-center pr-5 ml-6">
         <Avatar className="mr-4" />
         <Dropdown
