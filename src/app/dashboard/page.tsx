@@ -109,7 +109,7 @@ function Dashboard() {
               <div className="text-zinc-500 text-xl font-normal leading-7">
                 <div>
                   <span className="text-white text-xl font-bold leading-7">
-                    {data?.completed_lessons}
+                    {data?.completed_lessons ?? 0}
                   </span>{" "}
                   / {data?.lessons.length}
                 </div>
@@ -118,7 +118,7 @@ function Dashboard() {
               <div className="text-zinc-500 text-xl font-normal leading-7">
                 <div>
                   <span className="text-white text-xl font-bold leading-7">
-                    {data?.progress}%
+                    {data?.progress ?? 0}%
                   </span>
                 </div>
                 <div>Completed</div>
@@ -137,23 +137,27 @@ function Dashboard() {
         </div>
 
         <div className="mt-6">
-          {data && data.lessons.map((lesson: LessonItem, index: number) => {
-            // If lesson.exercises is a string, parse it into an array of Exercise objects
-            const exercises = typeof lesson.exercises === 'string' ? JSON.parse(lesson.exercises) : lesson.exercises;
+          {data &&
+            data.lessons.map((lesson: LessonItem, index: number) => {
+              // If lesson.exercises is a string, parse it into an array of Exercise objects
+              const exercises =
+                typeof lesson.exercises === "string"
+                  ? JSON.parse(lesson.exercises)
+                  : lesson.exercises;
 
-            return (
-              <LessonItem
-                id={lesson.id}
-                title={lesson.title}
-                index={index}
-                totalExercises={exercises.length}
-                exercises={exercises}
-                completed_exercises={lesson.completed_exercises}
-                key={lesson.id}
-                isCompleted={lesson.isCompleted}
-              />
-            );
-          })}
+              return (
+                <LessonItem
+                  id={lesson.id}
+                  title={lesson.title}
+                  index={index}
+                  totalExercises={exercises.length}
+                  exercises={exercises}
+                  completed_exercises={lesson.completed_exercises ?? 0}
+                  key={lesson.id}
+                  isCompleted={lesson.isCompleted}
+                />
+              );
+            })}
         </div>
       </div>
     </div>
