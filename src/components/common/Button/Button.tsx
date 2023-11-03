@@ -1,7 +1,5 @@
 import type { ComponentPropsWithoutRef, FC, PropsWithChildren } from "react"
 import cx from "classnames";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSpinnerThird } from "@fortawesome/pro-regular-svg-icons";
 
 interface ButtonProps extends ComponentPropsWithoutRef<'button'> {
   label?: string;
@@ -20,20 +18,15 @@ const Button: FC<PropsWithChildren<ButtonProps>> = ({
     className={cx(
       "bg-primary flex justify-center items-center px-10 py-3",
       {
-        'opacity-70': disabled || loading,
+        "opacity-70": disabled || loading,
       },
-      className,
+      className
     )}
     disabled={disabled || loading}
     {...otherProps}
   >
     {!loading && (children || label)}
-    {loading && (
-      <FontAwesomeIcon
-        className="animate-spin text-2xl"
-        icon={faSpinnerThird}
-      />
-    )}
+    {loading && <i className="animate-spin text-2xl fa fa-spinner-third" />}
   </button>
 );
 
