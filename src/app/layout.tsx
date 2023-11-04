@@ -31,6 +31,10 @@ export default function RootLayout({
         />
       </head>
       <body className={imbplexsans.className}>
+        <div className="w-full text-center py-3 bg-primary">
+          This currently serves as a testing ground. Things may break and the
+          database resets often.
+        </div>
         <LayoutProviders>{children}</LayoutProviders>
       </body>
     </html>
