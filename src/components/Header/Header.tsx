@@ -55,30 +55,32 @@ const Header = () => {
   const { mutate, error, isError, isLoading } = useUserLogout();
 
   return (
-    <div className="h-header flex py-6 px-6">
+    <div className="h-auto md:h-header flex flex-col justify-between md:flex-row items-center gap-4 md:gap-0 py-6 px-6">
       <div className="flex justify-center ml-6">
         <Image src={Logo} alt="SorobanLearn" />
       </div>
 
-      <FormLink />
+      <div className="flex items-center">
+        <FormLink />
 
-      <div className="flex justify-end items-center pr-5 ml-6">
-        <Avatar className="mr-4" />
-        <Dropdown
-          options={[
-            {
-              icon: <i className="fa fa-arrow-right-from-bracket" />,
-              label: "Sign out",
-              onClick: () => mutate(),
-            },
-          ]}
-          className="flex justify-end items-center"
-        >
-          <span className="mr-3.5 hidden sm:block">
-            Hi, {user?.username ? user?.username : "User"}!
-          </span>
-          <i className="fa fa-angle-down" />
-        </Dropdown>
+        <div className="flex justify-end items-center pr-5 ml-6">
+          <Avatar className="mr-4" />
+          <Dropdown
+            options={[
+              {
+                icon: <i className="fa fa-arrow-right-from-bracket" />,
+                label: "Sign out",
+                onClick: () => mutate(),
+              },
+            ]}
+            className="flex justify-end items-center"
+          >
+            <span className="mr-3.5 hidden sm:block">
+              Hi, {user?.username ? user?.username : "User"}!
+            </span>
+            <i className="fa fa-angle-down" />
+          </Dropdown>
+        </div>
       </div>
     </div>
   );

@@ -74,7 +74,7 @@ export default function Home() {
   return (
     <div className="flex flex-col h-screen">
       <Header />
-      <div className="flex gap-4 h-main">
+      <div className="flex gap-4 h-main flex-wrap md:flex-nowrap">
         <Sidebar exerciseData={data} />
         <div className="w-full flex flex-col gap-4">
           <IDE

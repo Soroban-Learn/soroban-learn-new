@@ -160,7 +160,7 @@ function Dashboard() {
 
             <div className="w-full flex justify-end">
               <button
-                className="bg-neutral-900 rounded-full text-center text-white text-base font-bold w-full h-11 min-w-0 max-w-sm"
+                className="bg-neutral-900 rounded-full text-center text-white text-base font-bold w-full h-11 min-w-0 max-w-full md:max-w-sm"
                 onClick={redirectToLesson}
               >
                 {data?.completed_lessons === 0 ? "Start" : "Continue"} Course
