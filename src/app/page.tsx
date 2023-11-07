@@ -65,13 +65,9 @@ export default function Home() {
                 className="absolute -z-10 -top-10 -left-14 moving-image"
               />
               <p className="text-xl leading-7 text-white mb-6 mt-6">
-                Soroban Learn is a tool that makes it easy for new developers to
-                get their feet wet into learning the basics of creating smart
-                contracts in Soroban.
-              </p>
-              <p className="text-lg leading-relaxed text-gray-400 mb-12">
-                It will walk you through creating your first “Hello World”
-                contract and finish up with a token swap contract.
+                Dive into smart contract development with ease. Soroban Learn is
+                your personal guide, designed for newcomers to seamlessly start
+                their journey in the world of Soroban smart contracts.
               </p>
               <Button
                 onClick={() =>
@@ -100,22 +96,22 @@ export default function Home() {
             <div className="flex flex-col justify-center items-center text-center gap-5">
               <Image src={Rocket} alt="Rocket" className="max-w-[250px]" />
               <h2 className="text-center text-white text-[24px] font-medium">
-                No Local Setup
+                No Installation Required
               </h2>
               <p className="text-center text-slate-400 text-[18px] font-normal">
-                Soroban Learn requires no local setup. No need to install any
-                packages or even open your code editor
+                Jump right in without any setup hassles. Directly dive into
+                learning using our online platform.
               </p>
             </div>
 
             <div className="flex flex-col justify-center items-center text-center gap-5">
               <Image src={Steps} alt="Steps" className="max-w-[250px]" />
               <h2 className="text-center text-white text-[24px] font-medium">
-                Step by step instructions
+                Guided Learning
               </h2>
               <p className="text-center text-slate-400 text-[18px] font-normal">
-                Soroban Learn requires no local setup. No need to install any
-                packages or even open your code editor
+                Follow intuitive, step-by-step instructions to build your
+                knowledge.
               </p>
             </div>
 
@@ -126,11 +122,11 @@ export default function Home() {
                 className="max-w-[250px]"
               />
               <h2 className="text-center text-white text-[24px] font-medium">
-                Post Resources
+                Extensive Resources
               </h2>
               <p className="text-center text-slate-400 text-[18px] font-normal">
-                Soroban Learn requires no local setup. No need to install any
-                packages or even open your code editor
+                Access a wealth of information to support your learning, all
+                with no extra setup needed.
               </p>
             </div>
           </div>
