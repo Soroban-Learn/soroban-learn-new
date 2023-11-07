@@ -21,3 +21,13 @@ export interface RegisterForCourseResponse {
   success: boolean;
   message: string;
 }
+
+export interface UserProfileUpdateParams {
+  name?: string;
+  email?: string;
+}
+export interface UserProfileResponse {
+  id: string;
+  name: string;
+  email: string;
+}

@@ -1,9 +1,9 @@
-import type {
+import {
   ComponentPropsWithRef,
   ForwardRefRenderFunction,
   ReactElement,
+  forwardRef,
 } from "react";
-import { forwardRef } from "react";
 import cx from "classnames";
 
 interface InputProps extends ComponentPropsWithRef<"input"> {
@@ -12,6 +12,8 @@ interface InputProps extends ComponentPropsWithRef<"input"> {
   icon?: ReactElement;
   error?: string;
   label: string;
+  defaultValue?: string;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 const ProfileInput: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
@@ -25,6 +27,8 @@ const ProfileInput: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
     icon,
     error,
     label,
+    defaultValue,
+    onChange,
     ...otherProps
   } = props;
 
@@ -40,6 +44,9 @@ const ProfileInput: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
         type="text"
         name="first-name"
         className="px-4 py-2 rounded-md border border-neutral-500 text-zinc-100 text-base font-normal leading-7 bg-transparent"
+        defaultValue={defaultValue}
+        onChange={onChange}
+        {...otherProps}
       />
     </div>
   );
