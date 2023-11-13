@@ -12,7 +12,8 @@ const imbplexsans = IBM_Plex_Sans({
 
 export const metadata = {
   title: "Soroban Learn",
-  description: "A better description will go here",
+  description:
+    "Become a smart contract developer on Soroban! Bite sized courses and a learn at your own pace approach.",
 };
 
 export default function RootLayout({
