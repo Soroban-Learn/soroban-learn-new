@@ -11,7 +11,7 @@ import AuthLogo from "./AuthLogo";
 import { type LoginSchema, loginSchema } from "@/utils/schemas";
 
 // Mutations
-import { useUserLogin } from "@/api/mutations";
+import { useUserLogin } from "@/api/mutations/useUserLogin";
 
 interface LoginHelperProps {
   goToRegister: () => void;

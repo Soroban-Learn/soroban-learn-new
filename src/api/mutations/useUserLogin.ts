@@ -25,7 +25,7 @@ export const userLogin = async (
 export const useUserLogin = () => {
   const { setupSession } = useAuth();
 
-  const userLoginMutation = useMutation<
+  return useMutation<
     UserLoginResponse,
     AxiosError<ErrorResponse>,
     UserLoginRequestParams
@@ -38,6 +38,4 @@ export const useUserLogin = () => {
       queryClient.invalidateQueries(USER_LOGIN_QUERY_KEY);
     },
   });
-
-  return { userLoginMutation };
 };
