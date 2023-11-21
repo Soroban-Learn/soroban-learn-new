@@ -36,7 +36,11 @@ function Dashboard() {
   }, [router, data, isAuth, registerForCourse]);
 
   const redirectToLesson = useCallback(() => {
-    router.push("/lesson/" + data?.current_lesson_id);
+    if (data?.current_lesson_id === "b1586142-2872-46ae-888c-c0933cfc364e") {
+      router.push("/lesson/" + data?.current_lesson_id);
+    } else {
+      alert("Future lessons are currently be rewritten are not available yet.");
+    }
   }, [router, data]);
 
   return (
