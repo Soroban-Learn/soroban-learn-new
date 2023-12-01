@@ -30,7 +30,7 @@ export default function Home() {
   return (
     <div id="top">
       <header className="py-[35px]">
-        <div className="container mx-auto flex justify-between">
+        <div className="container mx-auto flex justify-between mt-10">
           <Image src={Logo} className="SorobanLearn" alt="logo" />
           <div className="flex gap-[25px]">
             <Link

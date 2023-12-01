@@ -1,5 +1,5 @@
 'use client';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import Header from '@/components/Header';
 import LessonItem from '@/components/LessonItem';
@@ -43,8 +43,8 @@ function Dashboard() {
     }
   }, [router, data]);
 
-  const isCompleted = useCallback(() => {
-    data?.lessons.some((lesson) =>
+  const isCompleted = useMemo(() => {
+    return data?.lessons.some((lesson) =>
       lesson.exercises.some((exercise) => exercise.completed)
     );
   }, [data]);
