@@ -47,7 +47,7 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
         )}
         <input
           className={cx(
-            "outline-none text-lg leading-5",
+            "outline-none text-lg leading-3",
             {
               "text-error": !!error,
             },
