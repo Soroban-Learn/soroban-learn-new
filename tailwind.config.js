@@ -26,7 +26,7 @@ module.exports = {
       },
       height: {
         header: "80px",
-        main: "calc(100vh - 80px)",
+        main: "calc(100vh - 128px)",
       },
       gridTemplateColumns: {
         "input": "60px 1fr",

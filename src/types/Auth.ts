@@ -1,6 +1,7 @@
 import type { User } from "./User";
 
 export interface ErrorResponse {
+  error: any;
   message: string;
   success: boolean;
 }

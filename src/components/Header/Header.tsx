@@ -55,7 +55,7 @@ const Header = () => {
   const { mutate, error, isError, isLoading } = useUserLogout();
 
   return (
-    <div className="h-auto md:h-header flex flex-col justify-between md:flex-row items-center gap-4 md:gap-0 py-6 px-6">
+    <div className="h-auto md:h-header flex flex-col justify-between md:flex-row items-center gap-4 md:gap-0 py-6 px-6 mt-12">
       <div className="flex justify-center ml-6">
         <Image src={Logo} alt="SorobanLearn" />
       </div>
