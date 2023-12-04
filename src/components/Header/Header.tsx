@@ -13,6 +13,7 @@ import { useUserLogout, useForumLogin } from "@/api/mutations";
 // Hooks
 import { useAuth } from "@/hooks";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import Link from "next/link";
 
 type User = {
   username: string;
@@ -56,9 +57,9 @@ const Header = () => {
 
   return (
     <div className="h-auto md:h-header flex flex-col justify-between md:flex-row items-center gap-4 md:gap-0 py-6 px-6 mt-12">
-      <div className="flex justify-center ml-6">
-        <Image src={Logo} alt="SorobanLearn" />
-      </div>
+      <Link className='flex justify-center ml-6' href='/dashboard'>
+        <Image src={Logo} alt='SorobanLearn' />
+      </Link>
 
       <div className="flex items-center">
         <FormLink />
