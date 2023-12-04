@@ -3,11 +3,11 @@ import {
   ForwardRefRenderFunction,
   ReactElement,
   forwardRef,
-} from "react";
-import cx from "classnames";
+} from 'react';
+import cx from 'classnames';
 
-interface InputProps extends ComponentPropsWithRef<"input"> {
-  wrapperProps?: ComponentPropsWithRef<"div">;
+interface InputProps extends ComponentPropsWithRef<'input'> {
+  wrapperProps?: ComponentPropsWithRef<'div'>;
   wrapperClassName?: string;
   icon?: ReactElement;
   error?: string;
@@ -33,22 +33,25 @@ const ProfileInput: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
   } = props;
 
   return (
-    <div className="flex flex-col flex-1">
-      <label
-        htmlFor="first-name"
-        className="text-zinc-100 text-xs font-normal leading-none mb-2"
-      >
-        {label}
-      </label>
-      <input
-        type="text"
-        name="first-name"
-        className="px-4 py-2 rounded-md border border-neutral-500 text-zinc-100 text-base font-normal leading-7 bg-transparent"
-        defaultValue={defaultValue}
-        onChange={onChange}
-        {...otherProps}
-      />
-    </div>
+    <>
+      <div className='flex flex-col flex-1'>
+        <label
+          htmlFor='first-name'
+          className='text-zinc-100 text-xs font-normal leading-none mb-2'
+        >
+          {label}
+        </label>
+        <input
+          ref={ref}
+          autoComplete='off'
+          className='px-4 py-2 rounded-md border border-neutral-500 text-zinc-100 text-base font-normal leading-7 bg-transparent'
+          {...otherProps}
+        />
+        {error && (
+          <div className='text-error text-left pt-1 text-sm'>{error}</div>
+        )}
+      </div>
+    </>
   );
 };
 

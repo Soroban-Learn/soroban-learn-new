@@ -1,26 +1,29 @@
-import { type FC, useCallback } from "react";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { type FC, useCallback } from 'react';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 // Components
-import Button from "@/components/common/Button";
-import Input from "@/components/common/Input";
-import AuthLogo from "./AuthLogo";
+import Button from '@/components/common/Button';
+import Input from '@/components/common/Input';
+import AuthLogo from './AuthLogo';
 
 // Schemas
-import { type LoginSchema, loginSchema } from "@/utils/schemas";
+import { type LoginSchema, loginSchema } from '@/utils/schemas';
 
 // Mutations
-import { useUserLogin } from "@/api/mutations/useUserLogin";
+import { useUserLogin } from '@/api/mutations/useUserLogin';
+import toast, { Themes } from 'react-simple-toasts';
+
+import 'react-simple-toasts/dist/theme/failure.css';
 
 interface LoginHelperProps {
   goToRegister: () => void;
 }
 
 export const LoginHelper: FC<LoginHelperProps> = ({ goToRegister }) => (
-  <div className="text-lg">
+  <div className='text-lg'>
     Don’t have an account?{` `}
-    <span className="underline font-bold cursor-pointer" onClick={goToRegister}>
+    <span className='underline font-bold cursor-pointer' onClick={goToRegister}>
       Create one
     </span>
   </div>
@@ -35,18 +38,29 @@ export const Login = () => {
     resolver: yupResolver(loginSchema),
   });
 
-  const { mutate, error, isError, isLoading } = useUserLogin();
+  const { mutateAsync, error, isError, isLoading } = useUserLogin();
 
   const onSubmit = useCallback(
-    (data: LoginSchema) => {
-      mutate(data);
+    async (data: LoginSchema) => {
+      try {
+        await mutateAsync(data);
+      } catch (error: any) {
+        const errorMessage = error?.response?.data?.error?.message;
+
+        if (errorMessage) {
+          toast(errorMessage, {
+            theme: Themes.FAILURE,
+            duration: 2000,
+          });
+        }
+      }
     },
-    [mutate]
+    [mutateAsync]
   );
 
   return (
     <form
-      className="w-full bg-white rounded-[10px] pt-12 pb-9 relative text-center px-12"
+      className='w-full bg-white rounded-[10px] pt-12 pb-9 relative text-center px-12'
       onSubmit={handleSubmit(onSubmit)}
     >
       <AuthLogo />
@@ -62,28 +76,28 @@ export const Login = () => {
           OR
         </div>
       </div> */}
-      <div className="mb-9 text-[32px] text-gray">Welcome!</div>
+      <div className='mb-9 text-[32px] text-gray'>Welcome!</div>
       {isError && (
-        <div className="text-error mb-2">{error?.response?.data.message}</div>
+        <div className='text-error mb-2'>{error?.response?.data.message}</div>
       )}
       <Input
-        placeholder="E-mail"
-        icon={<i className="fa fa-envelope" />}
+        placeholder='E-mail'
+        icon={<i className='fa fa-envelope' />}
         error={errors.email?.message}
-        {...register("email")}
+        {...register('email')}
       />
       <Input
-        placeholder="Password"
-        wrapperClassName="mt-7"
-        type="password"
-        icon={<i className="fa fa-lock" />}
+        placeholder='Password'
+        wrapperClassName='mt-7'
+        type='password'
+        icon={<i className='fa fa-lock' />}
         error={errors.password?.message}
-        {...register("password")}
+        {...register('password')}
       />
-      <div className="my-7 text-primary cursor-pointer">Forgot Password?</div>
+      <div className='my-7 text-primary cursor-pointer'>Forgot Password?</div>
       <Button
-        className="w-full rounded-[50px] text-lg py-0 h-[70px] leading-5 !bg-black"
-        type="submit"
+        className='w-full rounded-[50px] text-lg py-0 h-[70px] leading-5 !bg-black'
+        type='submit'
         loading={isLoading}
       >
         Log in with account

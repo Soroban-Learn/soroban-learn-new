@@ -1,20 +1,21 @@
-import type { AxiosResponse, AxiosError } from "axios";
+import type { AxiosResponse, AxiosError } from 'axios';
 import type {
   ErrorResponse,
   UserProfileUpdateParams,
   UserProfileResponse,
-} from "@/types";
-import { useMutation } from "@tanstack/react-query";
+} from '@/types';
+import { useMutation } from '@tanstack/react-query';
 
-import { apiClient } from "../apiClient";
-import { queryClient } from "../queryClient";
-const USER_PROFILE_UPDATE_QUERY_KEY = ["userProfileUpdate"];
+import { apiClient } from '../apiClient';
+import { queryClient } from '../queryClient';
+
+const USER_PROFILE_UPDATE_QUERY_KEY = ['userProfileUpdate'];
 
 export const updateUserProfile = async (
   profileData: UserProfileUpdateParams
 ): Promise<UserProfileResponse> => {
   const { data }: AxiosResponse<UserProfileResponse> = await apiClient.put(
-    "/user/profile",
+    '/user/profile',
     profileData
   );
   return data;
