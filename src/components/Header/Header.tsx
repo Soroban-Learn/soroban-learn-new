@@ -14,6 +14,8 @@ import { useUserLogout, useForumLogin } from "@/api/mutations";
 import { useAuth } from "@/hooks";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+
 
 type User = {
   username: string;
@@ -52,8 +54,13 @@ const FormLink = () => {
 const Header = () => {
   const { getUser } = useAuth();
   const user = getUser();
+  const router = useRouter();
 
   const { mutate, error, isError, isLoading } = useUserLogout();
+
+  const handleNavigate = () => {
+    router.push('/edit-account');
+  };
 
   return (
     <div className="h-auto md:h-header flex flex-col justify-between md:flex-row items-center gap-4 md:gap-0 py-6 px-6 mt-12">
@@ -69,8 +76,13 @@ const Header = () => {
           <Dropdown
             options={[
               {
-                icon: <i className="fa fa-arrow-right-from-bracket" />,
-                label: "Sign out",
+                icon: <i className='fa fa-user' />,
+                label: 'Profile',
+                onClick: handleNavigate,
+              },
+              {
+                icon: <i className='fa fa-sign-out' />,
+                label: 'Sign out',
                 onClick: () => mutate(),
               },
             ]}
