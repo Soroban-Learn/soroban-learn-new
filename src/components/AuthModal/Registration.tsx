@@ -78,13 +78,13 @@ export const Registration = () => {
         case registerErrors.emailExist:
           setError('email', {
             type: 'custom',
-            message: errorMessage,
+            message: errorMessage.slice(0, -1),
           });
           break;
         case registerErrors.userExist:
           setError('username', {
             type: 'custom',
-            message: errorMessage,
+            message: errorMessage.slice(0,-1),
           });
       }
     };
