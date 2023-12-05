@@ -7,17 +7,22 @@ import Header from '@/components/Header';
 import Button from '@/components/common/Button';
 import ProfileInput from '@/components/common/ProfileInput';
 
-import defaultuser from '@/assets/images/defaultuser.png';
+import defaultUser from '@/assets/images/defaultuser.png';
 
 import { useUserProfile } from '@/api/mutations';
 import cn from 'classnames';
 import { UserProfileUpdateParams } from '@/types';
-import 'react-simple-toasts/dist/theme/moonlight.css';
+import 'react-simple-toasts/dist/theme/success.css';
 import 'react-simple-toasts/dist/theme/failure.css';
 import { Resolver, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { EditFieldNames } from '@/types/RegisterFields';
-import { updationSchema } from '@/utils/schemas/updateSchema';
+import { updateSchema } from '@/utils/schemas/updateSchema';
+import { fileUploading } from '@/utils/fileUpload';
+import { alertMessages } from '@/constants/alertMessages';
+import { ALLOW_AVATAR_EXTENSIONS } from '@/constants/fileExtensions';
+import { userDataParser } from '@/utils/userDataParser';
+import { localStorageKeys } from '@/constants/localStorageKeys';
 
 function EditAccount() {
   const {
@@ -25,11 +30,11 @@ function EditAccount() {
     handleSubmit,
     setValue,
     reset,
-    getValues,
     watch,
     clearErrors,
+    trigger,
 
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<UserProfileUpdateParams>({
     defaultValues: {
       username: '',
@@ -38,10 +43,8 @@ function EditAccount() {
       password: '',
       passwordConfirm: '',
     },
-    resolver: yupResolver(
-      updationSchema
-    ) as Resolver<UserProfileUpdateParams>,
-    mode: 'onBlur',
+    resolver: yupResolver(updateSchema) as Resolver<UserProfileUpdateParams>,
+    mode: 'all',
   });
   const [displayedUserName, setDisplayedUserName] = useState('');
 
@@ -50,7 +53,7 @@ function EditAccount() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const userData = localStorage.getItem('user');
+    const userData = localStorage.getItem(localStorageKeys.user);
     if (userData) {
       const parsedUser = JSON.parse(userData);
 
@@ -62,20 +65,31 @@ function EditAccount() {
   const handleFormSubmit = async (formData: UserProfileUpdateParams) => {
     const newUserObj = {
       email: formData.email,
-      avatar: formData.avatar,
       username: formData.username,
+      ...(formData.avatar ? { avatar: formData.avatar } : {}),
     };
+
+    if (formData.avatar) {
+      newUserObj.avatar = formData.avatar;
+    }
 
     try {
       const userData = await userProfileUpdateMutation.mutateAsync({
         ...newUserObj,
       });
 
-      console.log(userData);
+      setDisplayedUserName(formData.username as string);
 
-      toast('Profile Updated', { theme: 'dark' });
+      const parsedUserData = userDataParser(userData.user_info);
+
+      localStorage.setItem(
+        localStorageKeys.user,
+        JSON.stringify(parsedUserData)
+      );
+
+      toast(alertMessages.profileUpdated, { theme: Themes.SUCCESS });
     } catch (error: any) {
-      toast(error.response?.data.error.message, {
+      toast(error?.response?.data?.error?.message, {
         theme: Themes.FAILURE,
         duration: 2000,
       });
@@ -88,24 +102,7 @@ function EditAccount() {
     const file = event.target.files?.[0];
 
     if (file) {
-      if (file.size > 5e6) {
-        toast('Please unpload a file smaller than 5MB', {
-          theme: Themes.FAILURE,
-          duration: 2000,
-        });
-      } else {
-        const reader = new FileReader();
-
-        reader.onload = (e) => {
-          const result = e.target?.result;
-
-          if (result && typeof result === 'string') {
-            setValue('avatar', result);
-          }
-        };
-
-        reader.readAsDataURL(file);
-      }
+      fileUploading({ file, setValue });
     }
   };
 
@@ -113,24 +110,23 @@ function EditAccount() {
     inputRef.current?.click();
   };
 
-  const handleClearErros = (event: React.ChangeEvent<HTMLInputElement>) => {
-    clearErrors(event.target.name as EditFieldNames);
-  };
-
-  console.log(getValues());
-  console.log(errors);
-
-  console.log(isValid);
+  const handleInputChanges =
+    (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { onChange, name } = register(field as EditFieldNames);
+      onChange(e);
+      clearErrors(name);
+      trigger(name);
+    };
 
   return (
     <div className='flex flex-col h-screen'>
       <Header />
       <div className='container'>
-        <div className='w-full flex items-center gap-10 mt-12'>
+        <div className='w-full flex items-center gap-10 mt-12 flex-col md:flex-row'>
           <div className='relative'>
             <div className='w-36 h-36 rounded-full shadow overflow-hidden relative'>
               <Image
-                src={watch('avatar') || defaultuser}
+                src={watch('avatar') || defaultUser}
                 alt='defaultuser'
                 className={cn({
                   'object-fill bg-center bg-current': watch('avatar'),
@@ -144,7 +140,7 @@ function EditAccount() {
               className='flex items-center justify-center rounded-full absolute bottom-0 right-0 bg-white h-10 w-10 cursor-pointer'
             >
               <i
-                className='fa fa-upload text-primary h-4 w-4'
+                className='far fa-upload text-primary h-4 w-4'
                 aria-hidden='true'
               ></i>
             </div>
@@ -156,6 +152,15 @@ function EditAccount() {
             </h1>
             {/* <p>Member since Jan. 23, 2023</p> */}
           </div>
+
+          <Button
+            className='ml-auto mt-8 w-full md:w-fit rounded-2xl hidden md:block'
+            type='submit'
+            form='hook-form'
+            icon={<i className='fal fa-save' />}
+          >
+            Save Changes
+          </Button>
         </div>
 
         <div className='bg-neutral-800 rounded-lg p-12 my-12'>
@@ -164,23 +169,30 @@ function EditAccount() {
             Here you can edit public information about yourself
           </p>
 
-          <form onSubmit={handleSubmit(handleFormSubmit)}>
+          <form id='hook-form' onSubmit={handleSubmit(handleFormSubmit)}>
             <div className='flex flex-col gap-6'>
               <div className='flex flex-col md:flex-row gap-6'>
                 <ProfileInput
                   label='Username'
-                  icon={<i className='fa fa-user' />}
+                  placeholder='Andrew'
+                  icon={<i className='far fa-user-alt text-xs' />}
                   error={errors.username?.message}
-                  onFocus={handleClearErros}
                   {...register('username')}
+                  onChange={handleInputChanges('username')}
                 />
 
                 <ProfileInput
                   label='Email'
-                  icon={<i className='fa fa-envelope' />}
+                  placeholder='smith@mail.io'
+                  icon={
+                    <i
+                      className='far fa-envelope text-xs'
+                      aria-hidden='true'
+                    ></i>
+                  }
                   error={errors.email?.message}
-                  onFocus={handleClearErros}
                   {...register('email')}
+                  onChange={handleInputChanges('email')}
                 />
               </div>
 
@@ -188,38 +200,39 @@ function EditAccount() {
                 <ProfileInput
                   label='New Password'
                   type='password'
-                  icon={<i className='fa fa-lock' />}
+                  icon={<i className='far fa-lock text-xs' />}
                   error={errors.password?.message}
-                  onFocus={handleClearErros}
                   {...register('password')}
+                  onChange={handleInputChanges('password')}
                 />
                 <ProfileInput
                   label='Confirm New Password'
                   type='password'
-                  icon={<i className='fa fa-lock' />}
+                  icon={<i className='far fa-lock text-xs' />}
                   error={errors.passwordConfirm?.message}
-                  onFocus={handleClearErros}
                   {...register('passwordConfirm')}
+                  onChange={handleInputChanges('passwordConfirm')}
                 />
               </div>
             </div>
+
+            <Button
+              className='ml-auto mt-8 w-full md:w-fit rounded-2xl md:hidden'
+              type='submit'
+              form='hook-form'
+              icon={<i className='fal fa-save' />}
+            >
+              Save Changes
+            </Button>
 
             <input
               type='file'
               ref={inputRef}
               name='avatar'
               hidden
-              accept='image/png, image/jpeg'
+              accept={ALLOW_AVATAR_EXTENSIONS}
               onChange={handleChangeInputFile}
             />
-
-            <Button
-              className='ml-auto mt-8 w-full md:w-fit'
-              // disabled={true}
-              type='submit'
-            >
-              Save Changes
-            </Button>
           </form>
         </div>
       </div>

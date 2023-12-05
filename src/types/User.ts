@@ -8,6 +8,7 @@ export interface UserRoleInfo {
 export interface User {
   id: string;
   first_name: string;
+  last_name?: string;
   email: string;
   username: string;
   avatar?: string;
@@ -34,3 +35,9 @@ export interface UserProfileUpdateParams {
   passwordConfirm?: string;
 }
 export interface UserProfileResponse extends Omit<User, 'role_info'> {}
+
+export interface IUserProfileResponse {
+  message: string;
+  success: boolean;
+  user_info: UserProfileResponse;
+}
