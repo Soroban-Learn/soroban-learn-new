@@ -176,7 +176,6 @@ function EditAccount() {
               <div className='flex flex-col md:flex-row gap-6'>
                 <ProfileInput
                   label='Username'
-                  placeholder='Andrew'
                   icon={<i className='far fa-user-alt text-xs' />}
                   error={errors.username?.message}
                   {...register('username')}
@@ -185,7 +184,6 @@ function EditAccount() {
 
                 <ProfileInput
                   label='Email'
-                  placeholder='smith@mail.io'
                   icon={
                     <i
                       className='far fa-envelope text-xs'
