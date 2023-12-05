@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
 import toast, { Themes } from 'react-simple-toasts';
+import 'react-simple-toasts/dist/theme/moonlight.css';
 
 import Image from 'next/image';
 import Header from '@/components/Header';
@@ -104,6 +105,7 @@ function EditAccount() {
     if (file) {
       fileUploading({ file, setValue });
     }
+    toast('Profile Updated', { theme: 'dark' });
   };
 
   const onChooseFile = () => {
