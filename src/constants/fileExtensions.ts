@@ -1,0 +1,1 @@
+export const ALLOW_AVATAR_EXTENSIONS = 'image/png, image/jpeg';

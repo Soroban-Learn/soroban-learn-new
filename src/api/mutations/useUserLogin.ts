@@ -1,22 +1,23 @@
-import type { AxiosResponse, AxiosError } from "axios";
+import type { AxiosResponse, AxiosError } from 'axios';
 import type {
   ErrorResponse,
   UserLoginRequestParams,
   UserLoginResponse,
-} from "@/types";
-import { useMutation } from "@tanstack/react-query";
+} from '@/types';
+import { useMutation } from '@tanstack/react-query';
 
-import { apiClient } from "../apiClient";
-import { queryClient } from "../queryClient";
-import { useAuth } from "@/hooks";
+import { apiClient } from '../apiClient';
+import { queryClient } from '../queryClient';
+import { useAuth } from '@/hooks';
 
-const USER_LOGIN_QUERY_KEY = ["userLogin"];
+
+const USER_LOGIN_QUERY_KEY = ['userLogin'];
 
 export const userLogin = async (
   loginData: UserLoginRequestParams
 ): Promise<UserLoginResponse> => {
   const { data }: AxiosResponse<UserLoginResponse> = await apiClient.post(
-    "/auth/login",
+    '/auth/login',
     loginData
   );
   return data;

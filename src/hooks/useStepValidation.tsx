@@ -1,7 +1,6 @@
 import type { LessonContent } from "@/types";
 import { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import toast from "react-simple-toasts";
 
 // Store
 import { currentLessonState, ideCodeState } from "@/store";

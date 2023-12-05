@@ -1,4 +1,4 @@
-export type UserRole = "student" | "admin";
+export type UserRole = 'student' | 'admin';
 
 export interface UserRoleInfo {
   id: string;
@@ -8,8 +8,10 @@ export interface UserRoleInfo {
 export interface User {
   id: string;
   first_name: string;
+  last_name?: string;
   email: string;
   username: string;
+  avatar?: string;
   role_info: UserRoleInfo[];
 }
 
@@ -24,10 +26,18 @@ export interface RegisterForCourseResponse {
 
 export interface UserProfileUpdateParams {
   name?: string;
+  username?: string;
+  first_name?: string;
+  last_name?: string;
+  avatar?: string;
   email?: string;
+  password?: string;
+  passwordConfirm?: string;
 }
-export interface UserProfileResponse {
-  id: string;
-  name: string;
-  email: string;
+export interface UserProfileResponse extends Omit<User, 'role_info'> {}
+
+export interface IUserProfileResponse {
+  message: string;
+  success: boolean;
+  user_info: UserProfileResponse;
 }

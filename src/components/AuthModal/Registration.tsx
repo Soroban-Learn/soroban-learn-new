@@ -16,6 +16,7 @@ import {
 // Mutations
 import { useUserRegistration } from '@/api/mutations/useUserRegistration';
 import { registerErrors } from '@/constants/registerErrors';
+import { RegisterFieldName } from '@/types/RegisterFields';
 
 interface RegistrationProps {
   goToLogin: () => void;
@@ -58,20 +59,12 @@ export const Registration = () => {
     [mutate]
   );
 
-  const handleEmailInputChange = () => {
-    clearErrors('email');
-  };
-
-  const handlePasswordInputChange = () => {
-    clearErrors('password');
-  };
-
-  const handleNameChange = () => {
-    clearErrors('username');
+  const handleClearErros = (event: React.ChangeEvent<HTMLInputElement>) => {
+    clearErrors(event.target.name as RegisterFieldName);
   };
 
   useEffect(() => {
-    const errorMessage = apiError?.response?.data.error?.message;
+    const errorMessage = apiError?.response?.data.error?.message as string;
 
     const validateInputs = () => {
       switch (errorMessage) {
@@ -106,7 +99,7 @@ export const Registration = () => {
         placeholder='E-mail'
         wrapperClassName='mt-2.5'
         error={errors.email?.message}
-        onFocus={handleEmailInputChange}
+        onFocus={handleClearErros}
         {...register('email')}
       />
       <Input
@@ -114,7 +107,7 @@ export const Registration = () => {
         placeholder='Username'
         wrapperClassName='mt-2.5'
         error={errors.username?.message}
-        onFocus={handleNameChange}
+        onFocus={handleClearErros}
         {...register('username')}
       />
       <Input
@@ -123,7 +116,7 @@ export const Registration = () => {
         type='password'
         wrapperClassName='mt-2.5'
         error={errors.password?.message}
-        onFocus={handlePasswordInputChange}
+        onFocus={handleClearErros}
         {...register('password')}
       />
       <Input
