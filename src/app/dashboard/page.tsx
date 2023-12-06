@@ -44,9 +44,7 @@ function Dashboard() {
   }, [router, data]);
 
   const isCompleted = useMemo(() => {
-    return data?.lessons.some((lesson) =>
-      lesson.exercises.some((exercise) => exercise.completed)
-    );
+    return data?.lessons.some(lesson=>lesson.completed_exercises > 0);
   }, [data]);
 
   return (
@@ -173,7 +171,7 @@ function Dashboard() {
                 className='bg-neutral-900 rounded-full text-center text-white text-base font-bold w-full h-11 min-w-0 max-w-full md:max-w-sm'
                 onClick={redirectToLesson}
               >
-                {isCompleted ? 'Start' : 'Continue'} Course
+                {isCompleted ? 'Continue' : 'Start'} Course
               </button>
             </div>
           </div>
