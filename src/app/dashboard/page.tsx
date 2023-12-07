@@ -8,9 +8,13 @@ import { LessonItem as ILessonItem } from '@/types/Lesson';
 // Queries
 import { useGetCourseProgress } from '@/api/queries';
 import { useAuth } from '@/hooks';
+import { useGetProfile } from '@/api/queries/useCheckProfile';
+import { useRegisterForCourse } from '@/api/mutations';
 
 function Dashboard() {
-  const { getUser } = useAuth();
+  const { getUser,isAuth } = useAuth();
+  const { data: profileData } = useGetProfile();
+
   const router = useRouter();
 
   const { data } = useGetCourseProgress({
