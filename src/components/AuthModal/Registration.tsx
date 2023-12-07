@@ -103,7 +103,7 @@ export const Registration = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <AuthLogo />
-      <div className='text-2xl text-light-gray mb-12'>Let's get started!</div>
+      <div className='text-2xl text-light-gray mb-12'>Let`s get started</div>
       <Input
         icon={<i className='fa fa-envelope' />}
         placeholder='E-mail'
