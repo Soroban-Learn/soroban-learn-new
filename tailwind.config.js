@@ -17,11 +17,14 @@ module.exports = {
       colors: {
         primary: "#5546FF",
         "gray": "#282828",
+        "gray-primary":"#7D7D81",
         "dark-gray": "#232323",
         "dark-gray/50": "#23232380",
         "light-gray": "#5F5F5F",
         "light-gray2": "#D9D9D9",
+        "light-gray3":"#474747",
         black2: "#0A0A0A",
+        black3:'#0F0F0F',
         error: "#c94545",
       },
       height: {
