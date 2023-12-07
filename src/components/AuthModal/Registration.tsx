@@ -16,7 +16,11 @@ import {
 // Mutations
 import { useUserRegistration } from '@/api/mutations/useUserRegistration';
 import { RegisterFieldName } from '@/types/RegisterFields';
+
+import { useRegisterForCourse } from '@/api/mutations';
+
 import { authErrors } from '@/constants/authErrors';
+
 
 interface RegistrationProps {
   goToLogin: () => void;
@@ -46,20 +50,29 @@ export const Registration = () => {
     mode: 'onBlur',
   });
 
-  const { mutate, isLoading, error: apiError } = useUserRegistration();
+  const {
+    mutateAsync: registerUser,
+    isLoading,
+    error: apiError,
+  } = useUserRegistration();
+  const { mutateAsync: registerForCourse } = useRegisterForCourse();
 
   const onSubmit = useCallback(
-    (data: RegistrationSchema) => {
-      mutate({
+    async (data: RegistrationSchema) => {
+      await registerUser({
         email: data.email,
         username: data.username,
         password: data.password,
       });
+
+      await registerForCourse({
+        courseId: 'db0759d7-3dc0-48fc-9e10-0239fadad978',
+      });
     },
-    [mutate]
+    [registerUser, registerForCourse]
   );
 
-  const handleClearErros = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleClearErrors = (event: React.ChangeEvent<HTMLInputElement>) => {
     clearErrors(event.target.name as RegisterFieldName);
   };
 
@@ -77,7 +90,7 @@ export const Registration = () => {
         case authErrors.userExist:
           setError('username', {
             type: 'custom',
-            message: errorMessage.slice(0,-1),
+            message: errorMessage.slice(0, -1),
           });
       }
     };
@@ -93,13 +106,13 @@ export const Registration = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <AuthLogo />
-      <div className='text-2xl text-light-gray mb-12'>Let’s get started!</div>
+      <div className='text-2xl text-light-gray mb-12'>Let`s get started</div>
       <Input
         icon={<i className='fa fa-envelope' />}
         placeholder='E-mail'
         wrapperClassName='mt-2.5'
         error={errors.email?.message}
-        onFocus={handleClearErros}
+        onFocus={handleClearErrors}
         {...register('email')}
       />
       <Input
@@ -107,7 +120,7 @@ export const Registration = () => {
         placeholder='Username'
         wrapperClassName='mt-2.5'
         error={errors.username?.message}
-        onFocus={handleClearErros}
+        onFocus={handleClearErrors}
         {...register('username')}
       />
       <Input
@@ -116,7 +129,7 @@ export const Registration = () => {
         type='password'
         wrapperClassName='mt-2.5'
         error={errors.password?.message}
-        onFocus={handleClearErros}
+        onFocus={handleClearErrors}
         {...register('password')}
       />
       <Input
