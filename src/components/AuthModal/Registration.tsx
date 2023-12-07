@@ -15,8 +15,8 @@ import {
 
 // Mutations
 import { useUserRegistration } from '@/api/mutations/useUserRegistration';
-import { registerErrors } from '@/constants/registerErrors';
 import { RegisterFieldName } from '@/types/RegisterFields';
+import { authErrors } from '@/constants/authErrors';
 
 interface RegistrationProps {
   goToLogin: () => void;
@@ -68,13 +68,13 @@ export const Registration = () => {
 
     const validateInputs = () => {
       switch (errorMessage) {
-        case registerErrors.emailExist:
+        case authErrors.emailExist:
           setError('email', {
             type: 'custom',
             message: errorMessage.slice(0, -1),
           });
           break;
-        case registerErrors.userExist:
+        case authErrors.userExist:
           setError('username', {
             type: 'custom',
             message: errorMessage.slice(0,-1),
