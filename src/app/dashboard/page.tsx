@@ -7,14 +7,16 @@ import { LessonItem as ILessonItem } from '@/types/Lesson';
 
 // Queries
 import { useGetCourseProgress } from '@/api/queries';
-import { useRegisterForCourse } from '@/api/mutations';
 import { useAuth } from '@/hooks';
+import { useGetProfile } from '@/api/queries/useCheckProfile';
+import { useRegisterForCourse } from '@/api/mutations';
 
 function Dashboard() {
-  const { getUser, isAuth } = useAuth();
+  const { getUser,isAuth } = useAuth();
+  const { data: profileData } = useGetProfile();
   const router = useRouter();
 
-  const { data, error, isError, isLoading } = useGetCourseProgress({
+  const { data } = useGetCourseProgress({
     courseId: 'db0759d7-3dc0-48fc-9e10-0239fadad978',
     userId: getUser().id,
   });
@@ -44,7 +46,7 @@ function Dashboard() {
   }, [router, data]);
 
   const isCompleted = useMemo(() => {
-    return data?.lessons.some(lesson=>lesson.completed_exercises > 0);
+    return data?.lessons.some((lesson) => lesson.completed_exercises > 0);
   }, [data]);
 
   return (
