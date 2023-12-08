@@ -1,11 +1,49 @@
 'use client';
 
 import Header from '@/components/Header';
-import Image from 'next/image';
 import React from 'react';
 
+import CourseCard from '@/components/CourseCard';
 import cardPoster from '@/assets/images/card-poster.png';
-import Logo from '@/assets/images/logo.svg';
+import { LEVELS } from '@/types/LevelEnum';
+
+const coursesData = [
+  {
+    title: 'Getting Started',
+    dependency: 'None',
+    image: cardPoster,
+    estimate: '50m',
+    level: LEVELS.BEGINNER,
+    progress: 25,
+    isActive: true,
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquet enim tortor at auctor urna nunc id cursus metus.',
+  },
+
+  {
+    title: 'The Second Course',
+    dependency: 'Getting Started',
+    image: cardPoster,
+    estimate: '50m',
+    level: LEVELS.ADVANCE,
+    progress: 50,
+    isActive: false,
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquet enim tortor at auctor urna nunc id cursus metus.',
+  },
+
+  {
+    title: 'Mastery of Beans',
+    dependency: 'Getting Started, The Second Course',
+    image: cardPoster,
+    estimate: '50m',
+    level: LEVELS.EXPERT,
+    progress: 100,
+    isActive: false,
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquet enim tortor at auctor urna nunc id cursus metus.',
+  },
+];
 
 function Courses() {
   return (
@@ -16,33 +54,17 @@ function Courses() {
           Course Collections
         </h2>
 
-        <div className='flex gap-[108px] items-center mb-[50px]'>
+        <div className='flex gap-[108px] items-center mb-[60px]'>
           <h3 className='text-white text-[40px]'>Mastering Soroban</h3>
           <h4 className='text-gray-primary text-[24px]'>3 Courses</h4>
         </div>
 
-        <div className='flex'>
-          <div className='flex flex-col w-[414px] rounded-[10px] bg-gradient-to-br from-light-gray3 to to-black3 relative'>
-            <div className='flex px-[33px]'>
-              <Image src={cardPoster} alt='poster' className='w-[127px] h-[127px]' />
-
-              <div className="">
-                <h4 className='text-xs mb-3.5'>Est time</h4>
-                <h4 className='text-sm'>50m</h4>
-              </div>
-
-              <div className="">
-              <h4 className='text-xs mb-3.5'>Difficulty</h4>
-              <div className="flex">
-                {/* <Image src={Logo} alt='logo'/> */}
-              </div>
-
-              </div>
-            </div>
-          </div>
+        <div className='flex flex-col items-center justify-center lg:flex-row gap-[47px] flex-wrap lg:items-start lg:flex-nowrap'>
+          {coursesData.map((course) => (
+            <CourseCard course={course} key={course.title} />
+          ))}
         </div>
       </div>
-
     </div>
   );
 }

@@ -10,6 +10,7 @@ interface ButtonProps extends ComponentPropsWithoutRef<'button'> {
   label?: string;
   loading?: boolean;
   icon?: ReactElement;
+  customBgColor?: string; // New prop for custom background color
 }
 
 const Button: FC<PropsWithChildren<ButtonProps>> = ({
@@ -19,14 +20,16 @@ const Button: FC<PropsWithChildren<ButtonProps>> = ({
   loading,
   disabled,
   icon,
+  customBgColor = 'bg-primary', 
   ...otherProps
 }) => (
   <button
     className={cx(
-      'bg-primary flex justify-center items-center px-10 py-3',
+      'flex justify-center items-center px-10 py-3',
       {
         'opacity-70': disabled || loading,
       },
+      customBgColor, 
       className
     )}
     disabled={disabled || loading}
