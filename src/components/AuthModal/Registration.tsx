@@ -17,18 +17,10 @@ import {
 import { useUserRegistration } from '@/api/mutations/useUserRegistration';
 import { RegisterFieldName } from '@/types/RegisterFields';
 
-
-
 import logo from '@/assets/images/logo-purple.png';
 
-import { useRegisterForCourse } from '@/api/mutations';
-
-
-import logo from '@/assets/images/logo-purple.png';
 import { useRegisterForCourse } from '@/api/mutations';
 import { authErrors } from '@/constants/authErrors';
-
-
 
 interface RegistrationProps {
   goToLogin: () => void;
@@ -113,8 +105,7 @@ export const Registration = () => {
       className='w-full bg-white rounded-[10px] pt-20 pb-12 relative text-center px-12'
       onSubmit={handleSubmit(onSubmit)}
     >
-
-      <ModalLogo photo={logo} height={72} width={72}/>
+      <ModalLogo photo={logo} height={72} width={72} />
       <div className='text-2xl text-light-gray mb-12'>Let’s get started!</div>
 
       <Input
