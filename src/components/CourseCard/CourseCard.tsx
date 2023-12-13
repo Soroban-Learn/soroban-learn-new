@@ -10,6 +10,8 @@ import { v4 as uuid4 } from 'uuid';
 
 type Props = {
   course: ICourse;
+  onHandleOpenModal: (course: ICourse) => void;
+  arePrerequisitesCompleted: (course: ICourse) => boolean;
 };
 
 const logoIconPropsMapping = {
@@ -18,9 +20,19 @@ const logoIconPropsMapping = {
   beginner: [null, { fill: '#757575' }, { fill: '#757575' }],
 };
 
-const CourseCard: FC<Props> = ({ course }) => {
+const CourseCard: FC<Props> = ({
+  course,
+  onHandleOpenModal,
+  arePrerequisitesCompleted,
+}) => {
   const logoIcons =
     (logoIconPropsMapping as Record<string, any>)[course.level] || [];
+
+  const onHandleOpenModalCourse = () => {
+    onHandleOpenModal(course);
+  };
+
+  const prerequisitesCompleted = arePrerequisitesCompleted(course);
 
   return (
     <div className='flex  flex-col px-[15px] sm:px-[33px] pt-[40px] pb-[60px] w-[290px] sm:w-[380px] lg:w-[414px] rounded-[10px] bg-gradient-linear  relative shadow-md'>
@@ -88,7 +100,7 @@ const CourseCard: FC<Props> = ({ course }) => {
         </div>
       ) : (
         <div>
-          {course.isActive  ? (
+          {course.isActive || prerequisitesCompleted ? (
             <Button
               label='Resume course'
               icon={<i className='far fa-play' />}
@@ -100,6 +112,7 @@ const CourseCard: FC<Props> = ({ course }) => {
               icon={<i className='far fa-lock' />}
               className='rounded-[100px]'
               customBgColor='bg-black-btn'
+              onClick={onHandleOpenModalCourse}
             />
           )}
         </div>
