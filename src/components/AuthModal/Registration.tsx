@@ -18,6 +18,12 @@ import { useUserRegistration } from '@/api/mutations/useUserRegistration';
 import { RegisterFieldName } from '@/types/RegisterFields';
 
 
+
+import logo from '@/assets/images/logo-purple.png';
+
+import { useRegisterForCourse } from '@/api/mutations';
+
+
 import logo from '@/assets/images/logo-purple.png';
 import { useRegisterForCourse } from '@/api/mutations';
 import { authErrors } from '@/constants/authErrors';
@@ -110,9 +116,6 @@ export const Registration = () => {
 
       <ModalLogo photo={logo} height={72} width={72}/>
       <div className='text-2xl text-light-gray mb-12'>Let’s get started!</div>
-
-
-      <div className='text-2xl text-light-gray mb-12'>Let`s get started</div>
 
       <Input
         icon={<i className='fa fa-envelope' />}

@@ -12,6 +12,7 @@ type Props = {
   course: ICourse;
   onHandleOpenModal: (course: ICourse) => void;
   arePrerequisitesCompleted: (course: ICourse) => boolean;
+
 };
 
 const logoIconPropsMapping = {
@@ -19,6 +20,7 @@ const logoIconPropsMapping = {
   advance: [null, null, { fill: '#757575' }],
   beginner: [null, { fill: '#757575' }, { fill: '#757575' }],
 };
+
 
 const CourseCard: FC<Props> = ({
   course,
@@ -101,6 +103,7 @@ const CourseCard: FC<Props> = ({
       ) : (
         <div>
           {course.isActive || prerequisitesCompleted ? (
+
             <Button
               label='Resume course'
               icon={<i className='far fa-play' />}

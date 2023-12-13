@@ -4,6 +4,9 @@ import Header from '@/components/Header';
 import React from 'react';
 
 import CourseCard from '@/components/CourseCard';
+import { LEVELS } from '@/types/LevelEnum';
+import cardPoster from '@/assets/images/card-poster.png';
+
 import CourseModal from '@/components/CourseModal';
 import { useCourseModal } from '@/hooks/useCourseModal';
 
@@ -51,5 +54,6 @@ function Courses() {
     </div>
   );
 }
+
 
 export default Courses;
