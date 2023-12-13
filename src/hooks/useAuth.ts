@@ -54,7 +54,7 @@ export const useAuth = () => {
     setToken("");
     setUser(null);
     router.push("/"); // Optional: Redirect to login or another relevant page after logout
-  }, [setToken, setUser, router]);
+  }, [removeCookie, setToken, setUser, router]);
 
   return {
     showModal,
