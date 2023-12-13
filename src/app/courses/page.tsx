@@ -4,18 +4,49 @@ import Header from '@/components/Header';
 import React from 'react';
 
 import CourseCard from '@/components/CourseCard';
-import CourseModal from '@/components/CourseModal';
-import { useCourseModal } from '@/hooks/useCourseModal';
+import cardPoster from '@/assets/images/card-poster.png';
+import { LEVELS } from '@/types/LevelEnum';
+
+const coursesData = [
+  {
+    title: 'Getting Started',
+    dependency: 'None',
+    image: cardPoster,
+    estimate: '50m',
+    level: LEVELS.BEGINNER,
+    progress: 25,
+    isActive: true,
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquet enim tortor at auctor urna nunc id cursus metus.',
+  },
+
+  {
+    title: 'The Second Course',
+    dependency: 'Getting Started',
+    image: cardPoster,
+    estimate: '50m',
+    level: LEVELS.ADVANCE,
+    progress: 50,
+    isActive: false,
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquet enim tortor at auctor urna nunc id cursus metus.',
+  },
+
+  {
+    title: 'Mastery of Beans',
+    dependency: 'Getting Started, The Second Course',
+    image: cardPoster,
+    estimate: '50m',
+    level: LEVELS.EXPERT,
+    progress: 100,
+    isActive: false,
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquet enim tortor at auctor urna nunc id cursus metus.',
+  },
+];
 
 function Courses() {
-  const {
-    courseModal,
-    onHandleCloseModal,
-    coursesData,
-    onHandleOpenModal,
-    arePrerequisitesCompleted,
-    incompletePrerequisites,
-  } = useCourseModal();
+
 
   return (
     <div className='flex flex-col h-screen'>
@@ -37,17 +68,10 @@ function Courses() {
             <CourseCard
               course={course}
               key={course.title}
-              onHandleOpenModal={onHandleOpenModal}
-              arePrerequisitesCompleted={arePrerequisitesCompleted}
             />
           ))}
         </div>
       </div>
-      <CourseModal
-        isOpenModal={courseModal}
-        onHandleCloseModal={onHandleCloseModal}
-        incompletePrerequisites={incompletePrerequisites}
-      />
     </div>
   );
 }
