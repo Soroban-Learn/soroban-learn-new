@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 // Components
 import Button from '@/components/common/Button';
 import Input from '@/components/common/Input';
-import AuthLogo from './AuthLogo';
+import ModalLogo from '../common/ModalLogo/ModalLogo';
 
 // Schemas
 import { type LoginSchema, loginSchema } from '@/utils/schemas';
@@ -15,6 +15,8 @@ import { useUserLogin } from '@/api/mutations/useUserLogin';
 import toast, { Themes } from 'react-simple-toasts';
 
 import 'react-simple-toasts/dist/theme/failure.css';
+
+import logo from '@/assets/images/logo-purple.png';
 
 interface LoginHelperProps {
   goToRegister: () => void;
@@ -63,7 +65,7 @@ export const Login = () => {
       className='w-full bg-white rounded-[10px] pt-12 pb-9 relative text-center px-12'
       onSubmit={handleSubmit(onSubmit)}
     >
-      <AuthLogo />
+      <ModalLogo photo={logo} height={72} width={72}/>
       {/* <Button className="w-full rounded-[50px] text-lg py-6 leading-5">
         <FontAwesomeIcon icon={faLink} />
         <span className="ml-3">Log in with Wallet</span>

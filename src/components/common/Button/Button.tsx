@@ -10,7 +10,8 @@ interface ButtonProps extends ComponentPropsWithoutRef<'button'> {
   label?: string;
   loading?: boolean;
   icon?: ReactElement;
-  customBgColor?: string; // New prop for custom background color
+  customBgColor?: string;
+  nextIcon?:ReactElement;
 }
 
 const Button: FC<PropsWithChildren<ButtonProps>> = ({
@@ -21,6 +22,7 @@ const Button: FC<PropsWithChildren<ButtonProps>> = ({
   disabled,
   icon,
   customBgColor = 'bg-primary', 
+  nextIcon,
   ...otherProps
 }) => (
   <button
@@ -38,6 +40,7 @@ const Button: FC<PropsWithChildren<ButtonProps>> = ({
     <div className='flex items-center gap-3'>
       {icon && <div className='flex items-center'>{icon}</div>}
       {!loading && (children || label)}
+      {nextIcon && <div className='flex items-center'>{nextIcon}</div>}
     </div>
     {loading && <i className='animate-spin text-2xl fa fa-spinner-third' />}
   </button>

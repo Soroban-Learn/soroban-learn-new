@@ -7,8 +7,7 @@ type Props = {
 const LogoIcon: FC<Props> = ({ fill }) => {
   return (
     <svg
-      width='20'
-      height='16'
+    className="w-[16px] h-[12px] sm:w-[20px] sm:h-[16px]" 
       viewBox='0 0 38 43'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'

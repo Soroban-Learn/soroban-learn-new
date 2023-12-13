@@ -32,6 +32,8 @@ module.exports = {
         black2: '#0A0A0A',
         black3: '#0F0F0F',
         black4: '#1B1B1B',
+        'modal-title': '#262626',
+        'border-btn':'#0D1022',
 
         error: '#c94545',
       },
