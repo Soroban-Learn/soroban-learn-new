@@ -25,7 +25,7 @@ const CourseModal: React.FC<Props> = ({
       className='!bg-transparent py-0'
     >
       <ModalLogo photo={logo} height={40} width={40} className='top-[-22px]' />
-      <div className='w-full bg-white rounded-[10px] px-[46px] pt-12 pb-[48px] text-center'>
+      <div className='w-full bg-white rounded-[10px] px-[30px] sm:px-[46px] pt-12 pb-[48px] text-center'>
         <h2 className='text-modal-title text-[30px] capitalize tracking-[-0.3px] mb-[26px]'>
           You have not completed the prerequisite courses.
         </h2>
@@ -48,14 +48,14 @@ const CourseModal: React.FC<Props> = ({
         <div className='flex flex-col items-center gap-4'>
           <Button
             label='Go back to courses'
-            className='rounded-[50px] w-full h-[70px]'
+            className='rounded-[50px] w-full h-[70px] text-[16px] sm:text-[18px]'
             icon={<i className='fas fa-arrow-left' />}
             onClick={onHandleCloseModal}
           />
 
           <Button
             label='Start course without prerequisites'
-            className='rounded-[50px] w-full h-[70px] text-gray-primary text-[18px] font-black border-2 border-border-btn'
+            className='rounded-[50px] w-full h-[70px] text-gray-primary text-[16px] sm:text-[18px] font-black border-2 border-border-btn'
             customBgColor='inherit'
             nextIcon={<i className='fas fa-arrow-right' />}
           />
