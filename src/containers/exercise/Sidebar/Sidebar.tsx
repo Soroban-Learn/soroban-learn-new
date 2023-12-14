@@ -23,6 +23,8 @@ import { useStepValidation } from "@/hooks";
 import { ExerciseListItem } from "@/types";
 import { useValidateExercise } from "@/api/mutations/useValidateExercise";
 import { useLessonContext } from "@/hooks/useLessonContext";
+import { PlayVideoLessonButton } from "@/components/PlayVideoLessonButton";
+import { VideoPlayerModal } from "@/components/VideoPlayerModal";
 
 const Sidebar = ({ exerciseData }: { exerciseData: ExerciseListItem[] }) => {
   const scrollerRef = useRef<HTMLDivElement | null>();
@@ -46,6 +48,8 @@ const Sidebar = ({ exerciseData }: { exerciseData: ExerciseListItem[] }) => {
   const [blockedRanges] = useRecoilState(BlockedRangesState);
   const [lineNumbers] = useRecoilState(LineNumbersState);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+
+  const [videoModalOpen, setVideoModalOpen] = useState(false);
 
   const showDescription = useMemo(() => {
     return exerciseData?.some((e) => !e.is_completed);
@@ -123,6 +127,10 @@ const Sidebar = ({ exerciseData }: { exerciseData: ExerciseListItem[] }) => {
     }
   }, [currentStep]);
 
+  function onPlayVideoButtonClick() {
+    setVideoModalOpen(true);
+  }
+
   return (
     <div className="z-40 fixed md:relative h-main md:w-1/2">
       <div
@@ -142,6 +150,21 @@ const Sidebar = ({ exerciseData }: { exerciseData: ExerciseListItem[] }) => {
             <div className="pr-8 pb-20">
               <h1 className="text-4xl font-semibold mb-6">Mastering Soroban</h1>
               <hr className="mb-4 mt-2 bg-gray-200 border border-slate-900" />
+
+              <div className="my-2">
+                <PlayVideoLessonButton
+                  onCLick={onPlayVideoButtonClick}
+                  time="5h 20m"
+                />
+              </div>
+
+              <VideoPlayerModal
+                isOpen={videoModalOpen}
+                onClose={() => {
+                  setVideoModalOpen(false);
+                }}
+              />
+
               {exerciseData?.length ? (
                 <>
                   {showDescription && (
