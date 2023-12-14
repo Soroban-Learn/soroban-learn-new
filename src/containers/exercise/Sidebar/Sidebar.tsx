@@ -64,9 +64,6 @@ const Sidebar = ({ exerciseData }: { exerciseData: ExerciseListItem[] }) => {
   }, []);
 
   const validateExerciseHandler = () => {
-    console.log("[[[blockedRanges]]]", blockedRanges);
-    console.log("[[[lineNumbers]]]", lineNumbers);
-
     if (!currentExercise) {
       return;
     }
