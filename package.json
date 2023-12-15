@@ -20,6 +20,7 @@
     "@types/react-dom": "^18.2.14",
     "@uiw/codemirror-theme-github": "^4.21.7",
     "@uiw/react-codemirror": "^4.21.7",
+    "@vimeo/player": "^2.20.1",
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
     "body-scroll-lock": "^4.0.0-beta.0",
@@ -52,6 +53,7 @@
   "devDependencies": {
     "@types/axios": "^0.14.0",
     "@types/body-scroll-lock": "^3.1.0",
-    "@types/uuid": "^9.0.7"
+    "@types/uuid": "^9.0.7",
+    "@types/vimeo__player": "^2.18.3"
   }
 }
