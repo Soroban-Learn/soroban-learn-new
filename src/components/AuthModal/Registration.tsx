@@ -2,6 +2,8 @@ import { type FC, useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
+import { useRouter } from "next/navigation";
+
 // Components
 import Input from "@/components/common/Input";
 import Button from "@/components/common/Button";
@@ -40,6 +42,8 @@ export const RegistrationHelper: FC<RegistrationProps> = ({ goToLogin }) => (
 );
 
 export const Registration = () => {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -56,15 +60,16 @@ export const Registration = () => {
     isLoading,
     error: apiError,
   } = useUserRegistration();
-  const { mutateAsync: registerForCourse } = useRegisterForCourse();
 
   const onSubmit = useCallback(
     async (data: RegistrationSchema) => {
-      await registerUser({
+      const res = await registerUser({
         email: data.email,
         username: data.username,
         password: data.password,
       });
+
+      res.success && router.push("/courses/");
     },
     [registerUser]
   );
