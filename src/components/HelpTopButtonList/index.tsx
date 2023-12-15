@@ -1,6 +1,10 @@
-import { IHelpPageTopBlockItem } from "@/types/HelpPage";
 import { FC } from "react";
+
+import { IHelpPageTopBlockItem } from "@/types/HelpPage";
+
 import { HelpTopButton } from "../HelpTopBlock";
+
+import styles from "./styles.module.scss";
 
 interface IProps {
   items: IHelpPageTopBlockItem[];
@@ -8,7 +12,7 @@ interface IProps {
 
 export const HelpTopButtonList: FC<IProps> = ({ items }) => {
   return (
-    <div className="flex flex-row space-x-4 items-start">
+    <div className={styles.listWrapper}>
       {items.map((item, idx) => (
         <HelpTopButton key={idx} item={item} />
       ))}

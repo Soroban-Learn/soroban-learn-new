@@ -16,7 +16,7 @@ export const HelpPageSidebar: FC<IProps> = ({ items }) => {
   }
 
   return (
-    <div className="w-2/5 h-full pl-[122px] pt-[74px] flex flex-col space-y-[40px]">
+    <div className="w-1/4 pt-[18px] h-full flex flex-col space-y-[40px]">
       {items.map((item, index) => (
         <HelpPageSidebarItem
           key={index}

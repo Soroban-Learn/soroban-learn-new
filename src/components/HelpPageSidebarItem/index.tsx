@@ -25,7 +25,7 @@ export const HelpPageSidebarItem: FC<IProps> = ({
 }) => {
   return (
     <div className={"max-w-[222px] flex flex-col w-max items-start"}>
-      <p
+      <div
         onClick={onClick}
         className={"flex flex-row items-center space-x-2 cursor-pointer"}
       >
@@ -34,7 +34,7 @@ export const HelpPageSidebarItem: FC<IProps> = ({
           <Image src={item.icon} alt={item.icon} />
           <span className={cx({ "font-bold": isSelected })}>{item.title}</span>
         </p>
-      </p>
+      </div>
 
       {isHR && <hr className={styles.hr} />}
     </div>
