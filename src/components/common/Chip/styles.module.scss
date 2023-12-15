@@ -1,0 +1,16 @@
+.wrapper {
+    display: flex;
+    width: 54px;
+    height: 17px;
+    flex-direction: column;
+    justify-content: center;
+
+    background: #232323;
+    border-radius: 10px;
+
+    .text {
+        text-align: center;
+        font-size: 10px;
+        font-weight: 700;
+    }
+}
