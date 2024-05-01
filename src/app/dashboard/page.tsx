@@ -12,8 +12,10 @@ import { useGetProfile } from '@/api/queries/useCheckProfile';
 import { useRegisterForCourse } from '@/api/mutations';
 
 function Dashboard() {
-  const { getUser,isAuth } = useAuth();
+  const { getUser, isAuth } = useAuth();
   const { data: profileData } = useGetProfile();
+
+  console.log('[[[profileData]]]', profileData)
 
   const router = useRouter();
 
@@ -22,6 +24,8 @@ function Dashboard() {
     userId: getUser().id,
   });
 
+  console.log('[[[data]]]', data)
+
   useEffect(() => {
     if (data?.current_lesson_id) {
       router.prefetch('/lesson/' + data.current_lesson_id);
@@ -29,11 +33,11 @@ function Dashboard() {
   }, [router, data]);
 
   const redirectToLesson = useCallback(() => {
-    if (data?.current_lesson_id === 'b1586142-2872-46ae-888c-c0933cfc364e') {
-      router.push('/lesson/' + data?.current_lesson_id);
-    } else {
-      alert('Future lessons are currently be rewritten are not available yet.');
-    }
+    // if (data?.current_lesson_id === 'b1586142-2872-46ae-888c-c0933cfc364e') {
+    router.push('/lesson/' + data?.current_lesson_id);
+    // } else {
+    //   alert('Future lessons are currently being rewritten are not available yet.');
+    // }
   }, [router, data]);
 
   const isCompleted = useMemo(() => {
@@ -148,9 +152,9 @@ function Dashboard() {
                       {data?.completed_lessons === 0
                         ? '0'
                         : Math.round(
-                            (data?.completed_lessons / data?.lessons.length) *
-                              100
-                          )}
+                          (data?.completed_lessons / data?.lessons.length) *
+                          100
+                        )}
                       %
                     </span>
                   </div>
